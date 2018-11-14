@@ -1,13 +1,32 @@
 #include "application.h"
 
+Application* Application::instance;
+
 Application::Application()
 {
-    // TODO
+	mViewingX = false;
+	mViewingY = false;
+	mViewingZ = false;
+	mViewingAxis = false;
+	mViewingAxisDistance = 20.0f;
+	mViewingAxisDistanceMin = 0.1f;
+	mViewingAxisDistanceMax = 100.0f;
+	mAnimationScale = 1.0f;
+	mViewingMode = WINDOWED;
+	mWindowTitle = "";
 }
 
 Application::~Application()
 {
     // TODO
+}
+
+void Application::bind()
+{
+	instance = this;
+	::glutDisplayFunc(Application::renderCallback);
+	::glutMouseFunc(Application::mouseCallback);
+	::glutKeyboardFunc(Application::keyboardCallback);
 }
 
 void Application::run(int viewingMode, std::string windowTitle, float animationScale)
@@ -17,16 +36,8 @@ void Application::run(int viewingMode, std::string windowTitle, float animationS
     mAnimationScale = animationScale;
 
     initialise();
-    glutDisplayFunc(Application::renderFrame);
+	bind();
     glutMainLoop();
-
-    /*while (mRunning)
-    {
-        checkInput();
-        updateCamera();
-        updateScene();
-        renderFrame();
-    }*/
 }
 
 const bool Application::isViewingX() const
@@ -86,7 +97,12 @@ void Application::setAnimationScale(float scale)
 
 void Application::setSceneCamera()
 {
-    // TODO
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(45.0f, mHWRatio, 0.1f, 100.0f);
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
 }
 
 void Application::drawAxisLines()
@@ -108,12 +124,12 @@ void Application::initialise()
 {
     createWindow();
     glClearColor(0.0, 0.0, 0.0, 0.0);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glOrtho(0.0, 1.0, 0.0, 1.0, -1.0, 1.0);
-    //glDepthFunc(GL_LEQUAL);
-    //glEnable(GL_DEPTH_TEST);
-    //glEnable(GL_CULL_FACE);
+    glDepthFunc(GL_LEQUAL);
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
+
+	if (funcInitScene != nullptr)
+		funcInitScene(this);
 }
 
 void Application::createWindow()
@@ -129,19 +145,62 @@ void Application::createWindow()
     glutCreateWindow(mWindowTitle.c_str());
 }
 
-void Application::checkInput()
+void Application::updateKeyboard(unsigned char key, int x, int y)
 {
-    // TODO
+	if (funcUpdateSceneKeyboard != nullptr)
+		funcUpdateSceneKeyboard(this, key, x, y);
+}
+
+void Application::updateMouse(int button, int state, int x, int y)
+{
+	if (funcUpdateSceneMouse != nullptr)
+		funcUpdateSceneMouse(this, button, state, x, y);
 }
 
 void Application::updateCamera()
 {
-    // TODO
+	if (mViewingAxis)
+	{
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		glOrtho(-mViewingAxisDistance * mHWRatio,
+				 mViewingAxisDistance * mHWRatio,
+				-mViewingAxisDistance,
+				 mViewingAxisDistance,
+				 0.1f,
+				 100.0f);
+
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
+
+		if (mViewingX)
+			gluLookAt(mViewingAxisDistance, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+		else if (mViewingY)
+			gluLookAt(0.0f, mViewingAxisDistance, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, -1.0f);
+		else if (mViewingZ)
+			gluLookAt(0.0f, 0.0f, mViewingAxisDistance, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+	}
+	else
+		setSceneCamera();
 }
 
-void Application::Application::renderFrame()
+void Application::renderFrame()
 {
-    glClear(GL_COLOR_BUFFER_BIT);
+	if (funcUpdateScene != nullptr)
+		funcUpdateScene(this);
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	if (mViewingAxis)
+		drawAxisLines();
+
+	glPushMatrix();
+	if (funcRenderScene != nullptr)
+		funcRenderScene(this);
+
+	glPopMatrix();
+	glutSwapBuffers();
+
+    /*glClear(GL_COLOR_BUFFER_BIT);
     glColor3f(1.0, 1.0, 1.0);
     glBegin(GL_POLYGON);
         glVertex3f(0.25, 0.25, 0.0);
@@ -149,5 +208,20 @@ void Application::Application::renderFrame()
         glVertex3f(0.75, 0.75, 0.0);
         glVertex3f(0.25, 0.75, 0.0);
     glEnd();
-    glFlush();
+    glFlush();*/
+}
+
+void Application::renderCallback()
+{
+	instance->renderFrame();
+}
+
+void Application::mouseCallback(int button, int state, int x, int y)
+{
+	instance->updateMouse(button, state, x, y);
+}
+
+void Application::keyboardCallback(unsigned char key, int x, int y)
+{
+	instance->updateKeyboard(key, x, y);
 }

@@ -4,8 +4,10 @@
 #include <string>
 #include <memory>
 #include <iostream>
+#include <functional>
 
-#include <GL/gl.h>
+#include <Windows.h>
+#include <GL/GL.h>
 #include <GL/freeglut.h>
 
 class Texture
@@ -17,10 +19,14 @@ public:
 
 class Application
 {
+private:
+	static Application* instance;
+
 public:
     Application();
     ~Application();
 
+	void bind();
     void run(int viewingMode, std::string windowTitle, float animationScale);
 
     const bool isViewingX() const;
@@ -37,11 +43,12 @@ public:
     void setViewingAxisDistance(float distance);
     void setAnimationScale(float scale);
 
-protected:
-    virtual void initScene() {};
-    virtual void checkSceneInput() {};
-    virtual void updateScene() {};
-    virtual void renderScene() {};
+public:
+	std::function<void(Application*)> funcInitScene;
+	std::function<void(Application*, unsigned char, int, int)> funcUpdateSceneKeyboard;
+	std::function<void(Application*, int, int, int, int)> funcUpdateSceneMouse;
+	std::function<void(Application*)> funcUpdateScene;
+	std::function<void(Application*)> funcRenderScene;
 
 protected:
     void setSceneCamera();
@@ -53,17 +60,20 @@ protected:
 private:
     void initialise();
     void createWindow();
-    void checkInput();
+	void updateMouse(int button, int state, int x, int y);
+    void updateKeyboard(unsigned char, int, int);
     void updateCamera();
-    
-    static void renderFrame();
+	void renderFrame();
+
+	static void renderCallback();
+	static void mouseCallback(int, int, int, int);
+	static void keyboardCallback(unsigned char, int, int);
 
 public:
     static const int FULLSCREEN = 0;
     static const int WINDOWED = 1;
 
 private:
-    bool        mRunning;
     bool        mViewingX;
     bool        mViewingY;
     bool        mViewingZ;
