@@ -4,7 +4,7 @@
     <Filter Include="source">
       <UniqueIdentifier>{d0368fd7-9542-4717-bd1d-2b56433a1b63}</UniqueIdentifier>
     </Filter>
-    <Filter Include="source\testing">
+    <Filter Include="source\scenes">
       <UniqueIdentifier>{0ab3295b-726f-4669-aad5-432da8467058}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -21,11 +21,14 @@
     <ClCompile Include="..\source\colour.cpp">
       <Filter>source</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\testing\scene.cpp">
-      <Filter>source\testing</Filter>
-    </ClCompile>
     <ClCompile Include="..\source\vector3.cpp">
       <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\texture.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\scenes\basic_scene.cpp">
+      <Filter>source\scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -38,11 +41,14 @@
     <ClInclude Include="..\source\colour.h">
       <Filter>source</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\testing\scene.h">
-      <Filter>source\testing</Filter>
-    </ClInclude>
     <ClInclude Include="..\source\vector3.h">
       <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\texture.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\scenes\basic_scene.h">
+      <Filter>source\scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

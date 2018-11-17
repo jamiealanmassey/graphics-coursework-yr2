@@ -10,26 +10,30 @@ Texture::~Texture()
 
 GLuint Texture::loadTexture(std::string texture)
 {
-	GLuint width, height;
-	GLuint error = lodepng::decode(m_textureData, width, height, texture);
-
+	glEnable(GL_TEXTURE_2D);
 	glGenTextures(1, &m_textureID);
 	glBindTexture(GL_TEXTURE_2D, m_textureID);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, 4, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, &m_textureData[0]);
-	glBindTexture(GL_TEXTURE_2D, 0);
+
+	m_textureData = SOIL_load_image(texture.c_str(), &m_width, &m_height, 0, SOIL_LOAD_RGBA);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_width, m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, m_textureData);
+	glDisable(GL_TEXTURE_2D);
+
+	SOIL_free_image_data(m_textureData);
 	return m_textureID;
 }
 
 void Texture::bind()
 {
+	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, m_textureID);
 }
 
 void Texture::unbind()
 {
 	glBindTexture(GL_TEXTURE_2D, 0);
+	glDisable(GL_TEXTURE_2D);
 }
 
 const GLint Texture::getWidth() const

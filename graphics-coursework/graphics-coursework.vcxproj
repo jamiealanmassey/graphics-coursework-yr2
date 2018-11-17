@@ -83,7 +83,7 @@
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>../lib/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glu32.lib;freeglut.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;freeglut.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -126,14 +126,16 @@
     <ClCompile Include="..\source\application.cpp" />
     <ClCompile Include="..\source\colour.cpp" />
     <ClCompile Include="..\source\main.cpp" />
-    <ClCompile Include="..\source\testing\scene.cpp" />
+    <ClCompile Include="..\source\scenes\basic_scene.cpp" />
+    <ClCompile Include="..\source\texture.cpp" />
     <ClCompile Include="..\source\vector3.cpp" />
     <ClCompile Include="..\source\vertex.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\application.h" />
     <ClInclude Include="..\source\colour.h" />
-    <ClInclude Include="..\source\testing\scene.h" />
+    <ClInclude Include="..\source\scenes\basic_scene.h" />
+    <ClInclude Include="..\source\texture.h" />
     <ClInclude Include="..\source\vector3.h" />
     <ClInclude Include="..\source\vertex.h" />
   </ItemGroup>
