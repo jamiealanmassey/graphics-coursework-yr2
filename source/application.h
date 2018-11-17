@@ -47,9 +47,6 @@ protected:
     void setSceneCamera();
     void drawAxisLines();
 
-    std::unique_ptr<GLint> loadTexture(std::string path);
-    std::unique_ptr<GLint> loadTexture(std::string path, std::string imageType);
-
 private:
     void initialise();
     void createWindow();

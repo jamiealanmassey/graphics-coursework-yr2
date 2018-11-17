@@ -1,5 +1,13 @@
 #include "scene.h"
 
+Scene::Scene()
+{
+}
+
+Scene::~Scene()
+{
+}
+
 void Scene::renderScene(Application* application)
 {
 	// White side - BACK

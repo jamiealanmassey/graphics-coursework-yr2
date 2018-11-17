@@ -5,14 +5,19 @@
 #include <GL/GL.h>
 
 #include "../application.h"
+#include "../texture.h"
 
 class Scene
 {
 public:
+	Scene();
+	~Scene();
+
+public:
 	static void renderScene(Application* application);
 
 private:
-	Scene() { }
+	std::unique_ptr<Texture> m_texture0;
 };
 
 #endif // _SCENE_H

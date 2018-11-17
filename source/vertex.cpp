@@ -27,7 +27,7 @@ const GLfloat Vertex::getCoordZ() const
 	return m_coordZ;
 }
 
-Vector3 Vertex::toVector3() const
+Vector3 Vertex::vector3() const
 {
 	return Vector3(*this);
 }

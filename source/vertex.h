@@ -15,7 +15,7 @@ public:
 	const GLfloat getCoordY() const;
 	const GLfloat getCoordZ() const;
 
-	Vector3 toVector3() const;
+	Vector3 vector3() const;
 
 	void drawVertex();
 

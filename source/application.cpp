@@ -157,16 +157,6 @@ void Application::drawAxisLines()
 	glPopAttrib();
 }
 
-std::unique_ptr<GLint> Application::loadTexture(std::string path)
-{
-    return std::make_unique<GLint>(0);
-}
-
-std::unique_ptr<GLint> Application::loadTexture(std::string path, std::string imageType)
-{
-    return std::make_unique<GLint>(0);
-}
-
 void Application::initialise()
 {
     createWindow();
@@ -174,6 +164,7 @@ void Application::initialise()
     glDepthFunc(GL_LEQUAL);
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
+	glEnable(GL_TEXTURE_2D);
 
 	if (fp_initScene != nullptr)
 		fp_initScene(this);
