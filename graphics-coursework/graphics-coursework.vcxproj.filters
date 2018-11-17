@@ -4,6 +4,9 @@
     <Filter Include="source">
       <UniqueIdentifier>{d0368fd7-9542-4717-bd1d-2b56433a1b63}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\testing">
+      <UniqueIdentifier>{0ab3295b-726f-4669-aad5-432da8467058}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\application.cpp">
@@ -18,6 +21,12 @@
     <ClCompile Include="..\source\colour.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\testing\scene.cpp">
+      <Filter>source\testing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\vector3.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\application.h">
@@ -27,6 +36,12 @@
       <Filter>source</Filter>
     </ClInclude>
     <ClInclude Include="..\source\colour.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\testing\scene.h">
+      <Filter>source\testing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\vector3.h">
       <Filter>source</Filter>
     </ClInclude>
   </ItemGroup>

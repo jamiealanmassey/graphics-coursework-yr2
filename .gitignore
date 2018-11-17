@@ -29,3 +29,6 @@
 graphics-coursework/Debug/
 graphics-coursework/.vs/
 graphics-coursework/.vcxproj.user
+*.log
+
+*.tlog

@@ -126,11 +126,15 @@
     <ClCompile Include="..\source\application.cpp" />
     <ClCompile Include="..\source\colour.cpp" />
     <ClCompile Include="..\source\main.cpp" />
+    <ClCompile Include="..\source\testing\scene.cpp" />
+    <ClCompile Include="..\source\vector3.cpp" />
     <ClCompile Include="..\source\vertex.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\application.h" />
     <ClInclude Include="..\source\colour.h" />
+    <ClInclude Include="..\source\testing\scene.h" />
+    <ClInclude Include="..\source\vector3.h" />
     <ClInclude Include="..\source\vertex.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
