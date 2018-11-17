@@ -1,4 +1,5 @@
 #include "vertex.h"
+#include "vector3.h"
 
 Vertex::Vertex(GLfloat x, GLfloat y, GLfloat z)
 {
@@ -24,6 +25,11 @@ const GLfloat Vertex::getCoordY() const
 const GLfloat Vertex::getCoordZ() const
 {
 	return m_coordZ;
+}
+
+Vector3 Vertex::toVector3() const
+{
+	return Vector3(*this);
 }
 
 void Vertex::drawVertex()

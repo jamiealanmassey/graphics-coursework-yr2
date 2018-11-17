@@ -10,6 +10,13 @@ Application::Application()
 	m_keyStates['w'] = false;
 	m_keyStates['s'] = false;
 
+	m_cameraLocX = 2.0f;
+	m_cameraLocY = 0.0f;
+	m_cameraLocZ = 0.0f;
+	m_cameraTargetX = -2.0f;
+	m_cameraTargetY = 0.0f;
+	m_cameraTargetZ = 10.0f;
+
 	m_viewingX = false;
 	m_viewingY = false;
 	m_viewingZ = false;
@@ -70,6 +77,15 @@ const GLboolean Application::isViewingAxis() const
     return m_viewingAxis;
 }
 
+/*const GLboolean Application::isKeyPressed(GLubyte key) const
+{
+	std::map<GLubyte, GLboolean>::const_iterator itr = m_keyStates.find(key);
+	if (itr != m_keyStates.end())
+		return itr->second;
+
+	return false;
+}*/
+
 const GLfloat Application::getViewingAxisDistance() const
 {
     return m_viewingAxisDistance;
@@ -112,8 +128,8 @@ void Application::setSceneCamera()
 	gluPerspective(45.0f, m_hwRatio, 0.1f, 100.0f);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	gluLookAt(0.0f, 0.0f, 10.0f,
-		0.0f, 0.0f, 0.0f,
+	gluLookAt(m_cameraTargetX, m_cameraTargetY, m_cameraTargetZ,
+		m_cameraLocX, m_cameraLocY, m_cameraLocZ,
 		0.0f, 1.0f, 0.0f);
 }
 
@@ -159,14 +175,14 @@ void Application::initialise()
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
 
-	if (funcInitScene != nullptr)
-		funcInitScene(this);
+	if (fp_initScene != nullptr)
+		fp_initScene(this);
 }
 
 void Application::createWindow()
 {
     GLint argc = 1;
-    char *argv[1] = {(char*)""};
+    char* argv[1] = {(char*)""};
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
     glutInitContextVersion(1, 1);
@@ -179,7 +195,7 @@ void Application::createWindow()
 		glutFullScreen();
 }
 
-void Application::updateKeyboard(unsigned char key, GLint x, GLint y)
+void Application::updateKeyboard(GLubyte key, GLint x, GLint y)
 {
 	if (key == 'x') m_keyStates['x'] = true;
 	if (key == 'y') m_keyStates['y'] = true;
@@ -187,11 +203,11 @@ void Application::updateKeyboard(unsigned char key, GLint x, GLint y)
 	if (key == 'w') m_keyStates['w'] = true;
 	if (key == 's') m_keyStates['s'] = true;
 
-	if (funcUpdateSceneKeyboard != nullptr)
-		funcUpdateSceneKeyboard(this, key, x, y);
+	if (fp_updateSceneKeyboard != nullptr)
+		fp_updateSceneKeyboard(this, key, x, y);
 }
 
-void Application::updateKeyboardUp(unsigned char key, GLint x, GLint y)
+void Application::updateKeyboardUp(GLubyte key, GLint x, GLint y)
 {
 	if (key == 'x') m_keyStates['x'] = false;
 	if (key == 'y') m_keyStates['y'] = false;
@@ -202,8 +218,8 @@ void Application::updateKeyboardUp(unsigned char key, GLint x, GLint y)
 
 void Application::updateMouse(GLint button, GLint state, GLint x, GLint y)
 {
-	if (funcUpdateSceneMouse != nullptr)
-		funcUpdateSceneMouse(this, button, state, x, y);
+	if (fp_updateSceneMouse != nullptr)
+		fp_updateSceneMouse(this, button, state, x, y);
 }
 
 void Application::update()
@@ -223,8 +239,8 @@ void Application::update()
 	m_viewingAxisDistance = max(m_viewingAxisDistance, m_viewingAxisDistanceMin);
 	m_viewingAxisDistance = min(m_viewingAxisDistance, m_viewingAxisDistanceMax);
 
-	if (funcUpdateScene != nullptr)
-		funcUpdateScene(this);
+	if (fp_updateScene != nullptr)
+		fp_updateScene(this);
 }
 
 void Application::updateCamera()
@@ -254,54 +270,6 @@ void Application::updateCamera()
 		setSceneCamera();
 }
 
-void drawCube()
-{
-	// White side - BACK
-	glBegin(GL_POLYGON);
-		glColor3f(1.0, 1.0, 1.0);
-		glVertex3f(0.5, -0.5, 0.5);
-		glVertex3f(0.5, 0.5, 0.5);
-		glVertex3f(-0.5, 0.5, 0.5);
-		glVertex3f(-0.5, -0.5, 0.5);
-	glEnd();
-
-	// Purple side - RIGHT
-	glBegin(GL_POLYGON);
-		glColor3f(1.0, 0.0, 1.0);
-		glVertex3f(0.5, -0.5, -0.5);
-		glVertex3f(0.5, 0.5, -0.5);
-		glVertex3f(0.5, 0.5, 0.5);
-		glVertex3f(0.5, -0.5, 0.5);
-	glEnd();
-
-	// Green side - LEFT
-	glBegin(GL_POLYGON);
-		glColor3f(0.0, 1.0, 0.0);
-		glVertex3f(-0.5, -0.5, 0.5);
-		glVertex3f(-0.5, 0.5, 0.5);
-		glVertex3f(-0.5, 0.5, -0.5);
-		glVertex3f(-0.5, -0.5, -0.5);
-	glEnd();
-
-	// Blue side - TOP
-	glBegin(GL_POLYGON);
-		glColor3f(0.0, 0.0, 1.0);
-		glVertex3f(0.5, 0.5, 0.5);
-		glVertex3f(0.5, 0.5, -0.5);
-		glVertex3f(-0.5, 0.5, -0.5);
-		glVertex3f(-0.5, 0.5, 0.5);
-	glEnd();
-
-	// Red side - BOTTOM
-	glBegin(GL_POLYGON);
-		glColor3f(1.0, 0.0, 0.0);
-		glVertex3f(0.5, -0.5, -0.5);
-		glVertex3f(0.5, -0.5, 0.5);
-		glVertex3f(-0.5, -0.5, 0.5);
-		glVertex3f(-0.5, -0.5, -0.5);
-	glEnd();
-}
-
 void Application::renderFrame()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -309,9 +277,9 @@ void Application::renderFrame()
 		drawAxisLines();
 
 	glPushMatrix();
-	if (funcRenderScene != nullptr)
-		funcRenderScene(this);
-	drawCube();
+	if (fp_renderScene != nullptr)
+		fp_renderScene(this);
+
 	glPopMatrix();
 	glutSwapBuffers();
 	glutPostRedisplay();
@@ -348,12 +316,12 @@ void Application::mouseCallback(GLint button, GLint state, GLint x, GLint y)
 	instance->updateMouse(button, state, x, y);
 }
 
-void Application::keyboardCallback(unsigned char key, GLint x, GLint y)
+void Application::keyboardCallback(GLubyte key, GLint x, GLint y)
 {
 	instance->updateKeyboard(key, x, y);
 }
 
-void Application::keyboardUpCallback(unsigned char key, GLint x, GLint y)
+void Application::keyboardUpCallback(GLubyte key, GLint x, GLint y)
 {
 	instance->updateKeyboardUp(key, x, y);
 }

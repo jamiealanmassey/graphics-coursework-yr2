@@ -32,6 +32,8 @@ public:
     const GLboolean isViewingZ() const;
     const GLboolean isViewingAxis() const;
 
+	//const GLboolean isKeyPressed(GLubyte key) const;
+
     const GLfloat getViewingAxisDistance() const;
     const GLfloat getViewingAxisDistanceMax() const;
     const GLfloat getViewingAxisDistanceMin() const;
@@ -40,13 +42,6 @@ public:
     void setViewingAxis(GLboolean state);
     void setViewingAxisDistance(GLfloat distance);
     void setAnimationScale(GLfloat scale);
-
-public:
-	std::function<void(Application*)> funcInitScene;
-	std::function<void(Application*, unsigned char, GLint, GLint)> funcUpdateSceneKeyboard;
-	std::function<void(Application*, GLint, GLint, GLint, GLint)> funcUpdateSceneMouse;
-	std::function<void(Application*)> funcUpdateScene;
-	std::function<void(Application*)> funcRenderScene;
 
 protected:
     void setSceneCamera();
@@ -59,8 +54,8 @@ private:
     void initialise();
     void createWindow();
 	void updateMouse(GLint button, GLint state, GLint x, GLint y);
-	void updateKeyboardUp(unsigned char key, GLint x, GLint y);
-    void updateKeyboard(unsigned char key, GLint x, GLint y);
+	void updateKeyboardUp(GLubyte key, GLint x, GLint y);
+    void updateKeyboard(GLubyte key, GLint x, GLint y);
 	void update();
     void updateCamera();
 	void renderFrame();
@@ -70,17 +65,30 @@ private:
 	static void reshapeCallback(GLint, GLint);
 	static void updateCallback();
 	static void mouseCallback(GLint, GLint, GLint, GLint);
-	static void keyboardCallback(unsigned char, GLint, GLint);
-	static void keyboardUpCallback(unsigned char, GLint, GLint);
+	static void keyboardCallback(GLubyte, GLint, GLint);
+	static void keyboardUpCallback(GLubyte, GLint, GLint);
 
 public:
     static const GLenum FULLSCREEN = 0;
     static const GLenum WINDOWED = 1;
 
+public:
+	std::function<void(Application*)>							  fp_initScene;
+	std::function<void(Application*)>							  fp_updateScene;
+	std::function<void(Application*)>							  fp_renderScene;
+	std::function<void(Application*, GLubyte, GLint, GLint)>	  fp_updateSceneKeyboard;
+	std::function<void(Application*, GLint, GLint, GLint, GLint)> fp_updateSceneMouse;
+
 private:
-	std::map<unsigned char, GLboolean> m_keyStates;
+	std::map<GLubyte, GLboolean> m_keyStates;
 
 protected:
+	GLfloat m_cameraLocX;
+	GLfloat m_cameraLocY;
+	GLfloat m_cameraLocZ;
+	GLfloat m_cameraTargetX;
+	GLfloat m_cameraTargetY;
+	GLfloat m_cameraTargetZ;
 
 private:
 	GLboolean   m_viewingX;

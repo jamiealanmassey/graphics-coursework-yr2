@@ -4,6 +4,7 @@
 #include <GL/freeglut.h>
 #include <GL/GL.h>
 
+class Vector3;
 class Vertex
 {
 public:
@@ -14,8 +15,7 @@ public:
 	const GLfloat getCoordY() const;
 	const GLfloat getCoordZ() const;
 
-	/*Vector2 toVector2() const*/
-	/*Vector3 toVector3() const*/
+	Vector3 toVector3() const;
 
 	void drawVertex();
 
