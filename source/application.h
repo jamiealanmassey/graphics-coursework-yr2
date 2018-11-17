@@ -25,26 +25,26 @@ public:
     ~Application();
 
 	void bind();
-    void run(int viewingMode, std::string windowTitle, float animationScale);
+    void run(GLint viewingMode, GLint width, GLint height, std::string windowTitle, GLfloat animationScale);
 
-    const bool isViewingX() const;
-    const bool isViewingY() const;
-    const bool isViewingZ() const;
-    const bool isViewingAxis() const;
+    const GLboolean isViewingX() const;
+    const GLboolean isViewingY() const;
+    const GLboolean isViewingZ() const;
+    const GLboolean isViewingAxis() const;
 
-    const float getViewingAxisDistance() const;
-    const float getViewingAxisDistanceMax() const;
-    const float getViewingAxisDistanceMin() const;
-    const float getAnimationScale() const;
+    const GLfloat getViewingAxisDistance() const;
+    const GLfloat getViewingAxisDistanceMax() const;
+    const GLfloat getViewingAxisDistanceMin() const;
+    const GLfloat getAnimationScale() const;
 
-    void setViewingAxis(bool state);
-    void setViewingAxisDistance(float distance);
-    void setAnimationScale(float scale);
+    void setViewingAxis(GLboolean state);
+    void setViewingAxisDistance(GLfloat distance);
+    void setAnimationScale(GLfloat scale);
 
 public:
 	std::function<void(Application*)> funcInitScene;
-	std::function<void(Application*, unsigned char, int, int)> funcUpdateSceneKeyboard;
-	std::function<void(Application*, int, int, int, int)> funcUpdateSceneMouse;
+	std::function<void(Application*, unsigned char, GLint, GLint)> funcUpdateSceneKeyboard;
+	std::function<void(Application*, GLint, GLint, GLint, GLint)> funcUpdateSceneMouse;
 	std::function<void(Application*)> funcUpdateScene;
 	std::function<void(Application*)> funcRenderScene;
 
@@ -52,43 +52,49 @@ protected:
     void setSceneCamera();
     void drawAxisLines();
 
-    std::unique_ptr<int> loadTexture(std::string path);
-    std::unique_ptr<int> loadTexture(std::string path, std::string imageType);
+    std::unique_ptr<GLint> loadTexture(std::string path);
+    std::unique_ptr<GLint> loadTexture(std::string path, std::string imageType);
 
 private:
     void initialise();
     void createWindow();
-	void updateMouse(int button, int state, int x, int y);
-	void updateKeyboardUp(unsigned char key, int x, int y);
-    void updateKeyboard(unsigned char key, int x, int y);
+	void updateMouse(GLint button, GLint state, GLint x, GLint y);
+	void updateKeyboardUp(unsigned char key, GLint x, GLint y);
+    void updateKeyboard(unsigned char key, GLint x, GLint y);
 	void update();
     void updateCamera();
 	void renderFrame();
+	void reshape(GLint width, GLint height);
 
 	static void renderCallback();
+	static void reshapeCallback(GLint, GLint);
 	static void updateCallback();
-	static void mouseCallback(int, int, int, int);
-	static void keyboardCallback(unsigned char, int, int);
-	static void keyboardUpCallback(unsigned char, int, int);
+	static void mouseCallback(GLint, GLint, GLint, GLint);
+	static void keyboardCallback(unsigned char, GLint, GLint);
+	static void keyboardUpCallback(unsigned char, GLint, GLint);
 
 public:
-    static const int FULLSCREEN = 0;
-    static const int WINDOWED = 1;
+    static const GLenum FULLSCREEN = 0;
+    static const GLenum WINDOWED = 1;
 
 private:
-	std::map<unsigned char, bool> m_keyStates;
+	std::map<unsigned char, GLboolean> m_keyStates;
+
+protected:
 
 private:
-    bool        m_viewingX;
-    bool        m_viewingY;
-    bool        m_viewingZ;
-    bool        m_viewingAxis;
-    float       m_viewingAxisDistance;
-    float       m_viewingAxisDistanceMin;
-    float       m_viewingAxisDistanceMax;
-    float       m_animationScale;
-    float       m_hwRatio;
-    int         m_viewingMode;
+	GLboolean   m_viewingX;
+	GLboolean   m_viewingY;
+	GLboolean   m_viewingZ;
+	GLboolean   m_viewingAxis;
+    GLfloat     m_viewingAxisDistance;
+	GLfloat     m_viewingAxisDistanceMin;
+	GLfloat     m_viewingAxisDistanceMax;
+	GLfloat     m_animationScale;
+	GLfloat     m_hwRatio;
+    GLint       m_viewingMode;
+	GLint		m_windowWidth;
+	GLint		m_windowHeight;
     std::string m_windowTitle;
 };
 

@@ -15,12 +15,18 @@
     <ClCompile Include="..\source\vertex.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\colour.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\application.h">
       <Filter>source</Filter>
     </ClInclude>
     <ClInclude Include="..\source\vertex.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\colour.h">
       <Filter>source</Filter>
     </ClInclude>
   </ItemGroup>
