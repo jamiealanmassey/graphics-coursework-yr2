@@ -1,9 +1,6 @@
 #ifndef _BASIC_SCENE_H
 #define _BASIC_SCENE_H
 
-#include <GL/freeglut.h>
-#include <GL/GL.h>
-
 #include "../application.h"
 #include "../texture.h"
 

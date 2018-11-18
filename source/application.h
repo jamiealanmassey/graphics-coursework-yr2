@@ -7,25 +7,25 @@
 #include <functional>
 #include <map>
 
-struct IUnknown;
-#include <Windows.h>
-#include <GL/GL.h>
-#include <GL/freeglut.h>
-
 #include "vertex.h"
 #include "colour.h"
 
 class Application
 {
-private:
-	static Application* instance;
+public:
+	static Application& instance();
 
 public:
+	Application(Application const&) = delete;
+	void operator=(Application const&) = delete;
+
+private:
     Application();
     ~Application();
 
-	void bind();
+public:
     void run(GLint viewingMode, GLint width, GLint height, std::string windowTitle, GLfloat animationScale);
+	void bindFuncs();
 
     const GLboolean isViewingX() const;
     const GLboolean isViewingY() const;
@@ -52,19 +52,12 @@ private:
     void initialise();
     void createWindow();
 	void updateMouse(GLint button, GLint state, GLint x, GLint y);
-	void updateKeyboardUp(GLubyte key, GLint x, GLint y);
-    void updateKeyboard(GLubyte key, GLint x, GLint y);
-	void update();
+	void updateScene();
     void updateCamera();
 	void renderFrame();
-	void reshape(GLint width, GLint height);
-
-	static void renderCallback();
-	static void reshapeCallback(GLint, GLint);
-	static void updateCallback();
-	static void mouseCallback(GLint, GLint, GLint, GLint);
-	static void keyboardCallback(GLubyte, GLint, GLint);
-	static void keyboardUpCallback(GLubyte, GLint, GLint);
+	
+	static void keyboard(GLFWwindow* window, GLint key, GLint scancode, GLint action, GLint mods);
+	static void reshape(GLFWwindow* window, int width, int height);
 
 public:
     static const GLenum FULLSCREEN = 0;
@@ -74,7 +67,7 @@ public:
 	std::function<void(Application*)>							  fp_initScene;
 	std::function<void(Application*)>							  fp_updateScene;
 	std::function<void(Application*)>							  fp_renderScene;
-	std::function<void(Application*, GLubyte, GLint, GLint)>	  fp_updateSceneKeyboard;
+	std::function<void(Application*, GLint, GLint, GLint, GLint)> fp_updateSceneKeyboard;
 	std::function<void(Application*, GLint, GLint, GLint, GLint)> fp_updateSceneMouse;
 
 protected:
@@ -89,6 +82,7 @@ protected:
 	GLfloat m_cameraTargetZ;
 
 private:
+	GLboolean   m_running;
 	GLboolean   m_viewingX;
 	GLboolean   m_viewingY;
 	GLboolean   m_viewingZ;
@@ -103,6 +97,7 @@ private:
 	GLint		m_windowWidthMin;
 	GLint		m_windowHeight;
 	GLint		m_windowHeightMin;
+	GLFWwindow* m_window;
     std::string m_windowTitle;
 };
 

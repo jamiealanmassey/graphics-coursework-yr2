@@ -16,11 +16,15 @@ void BasicScene::initScene(Application* application)
 
 void BasicScene::renderScene(Application* application)
 {
+	/*glBegin(GL_TRIANGLES);
+		glVertex2f(-0.5f, -0.5f);
+		glVertex2f(0.5f, -0.5f);
+		glVertex2f(0, 0.5f);
+	glEnd();*/
+
 	m_texture0.get()->bind();
-
-	// White side - BACK
 	glBegin(GL_POLYGON);
-		//glColor3f(1.0, 1.0, 1.0);
+		glColor3f(1.0, 1.0, 1.0);
 		glTexCoord2f(0.0f, 0.0f);
 		glVertex3f(0.5, -0.5, 0.5);
 		glTexCoord2f(1.0f, 0.0f);
@@ -30,10 +34,8 @@ void BasicScene::renderScene(Application* application)
 		glTexCoord2f(0.0f, 1.0f);
 		glVertex3f(-0.5, -0.5, 0.5);
 	glEnd();
-
-	// Purple side - RIGHT
 	glBegin(GL_POLYGON);
-		//glColor3f(1.0, 0.0, 1.0);
+		glColor3f(1.0, 0.0, 1.0);
 		glTexCoord2f(0.0f, 0.0f);
 		glVertex3f(0.5, -0.5, -0.5);
 		glTexCoord2f(1.0f, 0.0f);
@@ -43,10 +45,8 @@ void BasicScene::renderScene(Application* application)
 		glTexCoord2f(0.0f, 1.0f);
 		glVertex3f(0.5, -0.5, 0.5);
 	glEnd();
-
-	// Green side - LEFT
 	glBegin(GL_POLYGON);
-		//glColor3f(0.0, 1.0, 0.0);
+		glColor3f(0.0, 1.0, 0.0);
 		glTexCoord2f(0.0f, 0.0f);
 		glVertex3f(-0.5, -0.5, 0.5);
 		glTexCoord2f(1.0f, 0.0f);
@@ -56,10 +56,8 @@ void BasicScene::renderScene(Application* application)
 		glTexCoord2f(0.0f, 1.0f);
 		glVertex3f(-0.5, -0.5, -0.5);
 	glEnd();
-
-	// Blue side - TOP
 	glBegin(GL_POLYGON);
-		//glColor3f(0.0, 0.0, 1.0);
+		glColor3f(0.0, 0.0, 1.0);
 		glTexCoord2f(0.0f, 0.0f);
 		glVertex3f(0.5, 0.5, 0.5);
 		glTexCoord2f(1.0f, 0.0f);
@@ -69,10 +67,8 @@ void BasicScene::renderScene(Application* application)
 		glTexCoord2f(0.0f, 1.0f);
 		glVertex3f(-0.5, 0.5, 0.5);
 	glEnd();
-
-	// Red side - BOTTOM
 	glBegin(GL_POLYGON);
-		//glColor3f(1.0, 0.0, 0.0);
+		glColor3f(1.0, 0.0, 0.0);
 		glTexCoord2f(0.0f, 0.0f);
 		glVertex3f(0.5, -0.5, -0.5);
 		glTexCoord2f(1.0f, 0.0f);
@@ -82,6 +78,5 @@ void BasicScene::renderScene(Application* application)
 		glTexCoord2f(0.0f, 1.0f);
 		glVertex3f(-0.5, -0.5, -0.5);
 	glEnd();
-
 	m_texture0.get()->unbind();
 }

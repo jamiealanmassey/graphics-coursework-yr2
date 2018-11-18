@@ -1,6 +1,10 @@
 #include "application.h"
 
-Application* Application::instance;
+Application& Application::instance()
+{
+	static Application instance;
+	return instance;
+}
 
 Application::Application()
 {
@@ -9,14 +13,13 @@ Application::Application()
 	m_keyStates['z'] = false;
 	m_keyStates['w'] = false;
 	m_keyStates['s'] = false;
-
-	m_cameraLocX = 2.0f;
+	m_cameraLocX = 0.0f;
 	m_cameraLocY = 0.0f;
 	m_cameraLocZ = 0.0f;
-	m_cameraTargetX = -2.0f;
+	m_cameraTargetX = 0.0f;
 	m_cameraTargetY = 0.0f;
 	m_cameraTargetZ = 10.0f;
-
+	m_running = true;
 	m_viewingX = false;
 	m_viewingY = false;
 	m_viewingZ = false;
@@ -35,17 +38,8 @@ Application::Application()
 
 Application::~Application()
 {
-}
-
-void Application::bind()
-{
-	instance = this;
-	::glutIdleFunc(Application::updateCallback);
-	::glutDisplayFunc(Application::renderCallback);
-	::glutReshapeFunc(Application::reshapeCallback);
-	::glutMouseFunc(Application::mouseCallback);
-	::glutKeyboardFunc(Application::keyboardCallback);
-	::glutKeyboardUpFunc(Application::keyboardUpCallback);
+	glfwDestroyWindow(m_window);
+	glfwTerminate();
 }
 
 void Application::run(GLint viewingMode, GLint width, GLint height, std::string windowTitle, GLfloat animationScale)
@@ -55,10 +49,22 @@ void Application::run(GLint viewingMode, GLint width, GLint height, std::string 
 	m_windowHeight = height;
     m_windowTitle = windowTitle;
     m_animationScale = animationScale;
-
     initialise();
-	bind();
-    glutMainLoop();
+
+	while (m_running)
+	{
+		updateCamera();
+		updateScene();
+		renderFrame();
+		glfwSwapBuffers(m_window);
+		glfwPollEvents();
+	}
+}
+
+void Application::bindFuncs()
+{
+	glfwSetWindowSizeCallback(m_window, Application::instance().reshape);
+	glfwSetKeyCallback(m_window, Application::instance().keyboard);
 }
 
 const GLboolean Application::isViewingX() const
@@ -104,13 +110,13 @@ const GLfloat Application::getAnimationScale() const
 void Application::setWindowMinWidth(GLint minWidth)
 {
 	m_windowWidthMin = minWidth;
-	glutReshapeWindow(m_windowWidth, m_windowHeight);
+	glfwSetWindowSize(m_window, m_windowWidth, m_windowHeight);
 }
 
 void Application::setWindowMinHeight(GLint minHeight)
 {
 	m_windowHeightMin = minHeight;
-	glutReshapeWindow(m_windowWidth, m_windowHeight);
+	glfwSetWindowSize(m_window, m_windowWidth, m_windowHeight);
 }
 
 void Application::setViewingAxis(GLboolean state)
@@ -166,20 +172,45 @@ void Application::drawAxisLines()
 
 void Application::initialise()
 {
+	if (!glfwInit())
+		m_running = false;
+
     createWindow();
+	bindFuncs();
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glDepthFunc(GL_LEQUAL);
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
 	glEnable(GL_TEXTURE_2D);
-
 	if (fp_initScene != nullptr)
 		fp_initScene(this);
 }
 
 void Application::createWindow()
 {
-    GLint argc = 1;
+	glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 1);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+	m_hwRatio = (GLfloat)m_windowWidth / (GLfloat)m_windowHeight;
+	m_window =
+		glfwCreateWindow(m_windowWidth,
+			m_windowHeight,
+			m_windowTitle.c_str(),
+			m_viewingMode == FULLSCREEN ? glfwGetPrimaryMonitor() : nullptr,
+			nullptr);
+
+	if (m_window != nullptr)
+	{
+		glfwMakeContextCurrent(m_window);
+		glfwSwapInterval(1);
+	}
+	else
+	{
+		glfwTerminate();
+		m_running = false;
+	}
+
+    /*GLint argc = 1;
     char* argv[1] = {(char*)""};
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
@@ -190,28 +221,7 @@ void Application::createWindow()
     glutCreateWindow(m_windowTitle.c_str());
 	m_hwRatio = (GLfloat)m_windowWidth / (GLfloat)m_windowHeight;
 	if (m_viewingMode == FULLSCREEN)
-		glutFullScreen();
-}
-
-void Application::updateKeyboard(GLubyte key, GLint x, GLint y)
-{
-	if (key == 'x') m_keyStates['x'] = true;
-	if (key == 'y') m_keyStates['y'] = true;
-	if (key == 'z') m_keyStates['z'] = true;
-	if (key == 'w') m_keyStates['w'] = true;
-	if (key == 's') m_keyStates['s'] = true;
-
-	if (fp_updateSceneKeyboard != nullptr)
-		fp_updateSceneKeyboard(this, key, x, y);
-}
-
-void Application::updateKeyboardUp(GLubyte key, GLint x, GLint y)
-{
-	if (key == 'x') m_keyStates['x'] = false;
-	if (key == 'y') m_keyStates['y'] = false;
-	if (key == 'z') m_keyStates['z'] = false;
-	if (key == 'w') m_keyStates['w'] = false;
-	if (key == 's') m_keyStates['s'] = false;
+		glutFullScreen();*/
 }
 
 void Application::updateMouse(GLint button, GLint state, GLint x, GLint y)
@@ -220,14 +230,12 @@ void Application::updateMouse(GLint button, GLint state, GLint x, GLint y)
 		fp_updateSceneMouse(this, button, state, x, y);
 }
 
-void Application::update()
+void Application::updateScene()
 {
-	updateCamera();
 	m_viewingX = m_keyStates['x'];
 	m_viewingY = m_keyStates['y'];
 	m_viewingZ = m_keyStates['z'];
 	m_viewingAxis = m_viewingX || m_viewingY || m_viewingZ;
-
 	if (m_keyStates['w'])
 		m_viewingAxisDistance += 1.0f * m_animationScale;
 
@@ -236,7 +244,6 @@ void Application::update()
 
 	m_viewingAxisDistance = max(m_viewingAxisDistance, m_viewingAxisDistanceMin);
 	m_viewingAxisDistance = min(m_viewingAxisDistance, m_viewingAxisDistanceMax);
-
 	if (fp_updateScene != nullptr)
 		fp_updateScene(this);
 }
@@ -256,7 +263,6 @@ void Application::updateCamera()
 
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
-
 		if (m_viewingX)
 			gluLookAt(m_viewingAxisDistance, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 		else if (m_viewingY)
@@ -279,51 +285,37 @@ void Application::renderFrame()
 		fp_renderScene(this);
 
 	glPopMatrix();
-	glutSwapBuffers();
-	glutPostRedisplay();
 }
 
-void Application::reshape(GLint width, GLint height)
+void Application::keyboard(GLFWwindow* window, GLint key, GLint scancode, GLint action, GLint mods)
 {
-	if (width < m_windowWidthMin)
-		glutReshapeWindow(m_windowWidthMin, height);
-	else if (height < m_windowHeightMin)
-		glutReshapeWindow(width, m_windowHeightMin);
+	Application& application = Application::instance();
+	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+		application.m_running = false;
 	else
 	{
-		m_windowWidth = width;
-		m_windowHeight = height;
-		m_hwRatio = (GLfloat)m_windowWidth / (GLfloat)m_windowHeight;
-		updateCamera();
+		if (key == GLFW_KEY_X) application.m_keyStates['x'] = (action == GLFW_PRESS);
+		if (key == GLFW_KEY_Y) application.m_keyStates['y'] = (action == GLFW_PRESS);
+		if (key == GLFW_KEY_Z) application.m_keyStates['z'] = (action == GLFW_PRESS);
+		if (key == GLFW_KEY_W) application.m_keyStates['w'] = (action == GLFW_PRESS);
+		if (key == GLFW_KEY_S) application.m_keyStates['s'] = (action == GLFW_PRESS);
+		if (application.fp_updateSceneKeyboard != nullptr)
+			application.fp_updateSceneKeyboard(&application, key, scancode, action, mods);
 	}
 }
 
-void Application::renderCallback()
+void Application::reshape(GLFWwindow* window, int width, int height)
 {
-	instance->renderFrame();
-}
-
-void Application::reshapeCallback(GLint width, GLint height)
-{
-	instance->reshape(width, height);
-}
-
-void Application::updateCallback()
-{
-	instance->update();
-}
-
-void Application::mouseCallback(GLint button, GLint state, GLint x, GLint y)
-{
-	instance->updateMouse(button, state, x, y);
-}
-
-void Application::keyboardCallback(GLubyte key, GLint x, GLint y)
-{
-	instance->updateKeyboard(key, x, y);
-}
-
-void Application::keyboardUpCallback(GLubyte key, GLint x, GLint y)
-{
-	instance->updateKeyboardUp(key, x, y);
+	Application& application = Application::instance();
+	if (width < application.m_windowWidthMin)
+		glfwSetWindowSize(window, application.m_windowWidthMin, height);
+	else if (height < application.m_windowHeightMin)
+		glfwSetWindowSize(window, width, application.m_windowHeightMin);
+	else
+	{
+		application.m_windowWidth = width;
+		application.m_windowHeight = height;
+		application.m_hwRatio = (GLfloat)application.m_windowWidth / (GLfloat)application.m_windowHeight;
+		application.updateCamera();
+	}
 }

@@ -50,5 +50,8 @@
     <ClInclude Include="..\source\scenes\basic_scene.h">
       <Filter>source\scenes</Filter>
     </ClInclude>
+    <ClInclude Include="..\source\ogl_include.h">
+      <Filter>source</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

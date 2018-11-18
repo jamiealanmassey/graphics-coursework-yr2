@@ -1,8 +1,7 @@
 #ifndef _COLOUR_H
 #define _COLOUR_H
 
-#include <GL/freeglut.h>
-#include <GL/GL.h>
+#include "ogl_include.h"
 
 class Colour
 {

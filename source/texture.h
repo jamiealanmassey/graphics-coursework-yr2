@@ -1,13 +1,12 @@
 #ifndef _TEXTURE_H
 #define _TEXTURE_H
 
-#include <GL/freeglut.h>
-#include <GL/GL.h>
-
 #include <iostream>
 #include <string>
 #include <vector>
 #include <SOIL.h>
+
+#include "ogl_include.h"
 
 class Texture
 {

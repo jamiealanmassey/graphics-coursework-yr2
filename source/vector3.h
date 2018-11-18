@@ -1,9 +1,9 @@
 #ifndef _VECTOR3_H
 #define _VECTOR3_H
 
-#include <GL/freeglut.h>
-#include <GL/GL.h>
 #include <math.h>
+
+#include "ogl_include.h"
 
 class Vertex;
 class Vector3
