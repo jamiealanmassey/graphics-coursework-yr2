@@ -4,6 +4,7 @@
 #include <string>
 #include <memory>
 #include <iostream>
+#include <iomanip>
 #include <functional>
 #include <map>
 
@@ -56,6 +57,7 @@ private:
     void updateCamera();
 	void renderFrame();
 	
+	static void windowClose(GLFWwindow* window);
 	static void keyboard(GLFWwindow* window, GLint key, GLint scancode, GLint action, GLint mods);
 	static void reshape(GLFWwindow* window, int width, int height);
 

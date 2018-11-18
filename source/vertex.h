@@ -16,7 +16,7 @@ public:
 
 	Vector3 vector3() const;
 
-	void drawVertex();
+	void assign();
 
 private:
 	GLfloat m_coordX;

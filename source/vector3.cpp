@@ -46,12 +46,12 @@ const GLboolean Vector3::isZero() const
 	return *this == Vector3();
 }
 
-const Vector3 & Vector3::normalise()
+const Vector3 Vector3::normalise()
 {
 	return *this /= length();
 }
 
-const Vector3 & Vector3::crossProduct(const Vector3 & other) const
+const Vector3 Vector3::crossProduct(const Vector3 & other)
 {
 	return Vector3((m_valueY * other.getZ() - m_valueZ * other.getY()),
 				   (m_valueZ * other.getX() - m_valueX * other.getZ()),

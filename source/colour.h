@@ -10,7 +10,7 @@ public:
 	Colour(GLint r, GLint g, GLint b);
 	~Colour();
 
-	void drawColour();
+	void assign();
 
 private:
 	GLfloat m_channelR;

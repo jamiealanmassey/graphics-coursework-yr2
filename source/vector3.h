@@ -19,8 +19,8 @@ public:
 	const GLfloat getZ() const;
 	const GLboolean isZero() const;
 
-	const Vector3& normalise();
-	const Vector3& crossProduct(const Vector3& other) const;
+	const Vector3 normalise();
+	const Vector3 crossProduct(const Vector3& other);
 
 	GLfloat dotProduct(const Vector3& other) const;
 	GLfloat length() const;

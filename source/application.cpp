@@ -63,6 +63,7 @@ void Application::run(GLint viewingMode, GLint width, GLint height, std::string 
 
 void Application::bindFuncs()
 {
+	glfwSetWindowCloseCallback(m_window, Application::instance().windowClose);
 	glfwSetWindowSizeCallback(m_window, Application::instance().reshape);
 	glfwSetKeyCallback(m_window, Application::instance().keyboard);
 }
@@ -157,15 +158,15 @@ void Application::drawAxisLines()
 	glDisable(GL_LIGHTING);
 	glDisable(GL_TEXTURE_2D);
 	glBegin(GL_LINES);
-		COLOUR_RED.drawColour();
-		origin.drawVertex();
-		xAxisLimit.drawVertex();
-		COLOUR_GREEN.drawColour();
-		origin.drawVertex();
-		yAxisLimit.drawVertex();
-		COLOUR_BLUE.drawColour();
-		origin.drawVertex();
-		zAxisLimit.drawVertex();
+		COLOUR_RED.assign();
+		origin.assign();
+		xAxisLimit.assign();
+		COLOUR_GREEN.assign();
+		origin.assign();
+		yAxisLimit.assign();
+		COLOUR_BLUE.assign();
+		origin.assign();
+		zAxisLimit.assign();
 	glEnd();
 	glPopAttrib();
 }
@@ -188,6 +189,23 @@ void Application::initialise()
 
 void Application::createWindow()
 {
+	GLint modesCount = 0;
+	GLFWvidmode mode;
+	const GLFWvidmode* modes = glfwGetVideoModes(glfwGetPrimaryMonitor(), &modesCount);
+
+	for (int i = 0; i < modesCount; ++i)
+		std::cout << "[" << std::setprecision(4) << std::fixed << glfwGetTime() << "] mode(" << i << ") - width: " << modes[i].width << ", height: " << modes[i].height << std::endl;
+
+	for (int i = 0; i < modesCount; i++)
+	{
+		mode = modes[i];
+		if (modes[i].width == m_windowWidth && modes[i].height == m_windowHeight)
+			break;
+	}
+
+	std::cout << "[" << std::setprecision(4) << std::fixed << glfwGetTime() << "] mode - width: " << mode.width << ", height: " << mode.height << " is selected." << std::endl;
+	m_windowWidth = mode.width;
+	m_windowHeight = mode.height;
 	glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 1);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
@@ -285,6 +303,11 @@ void Application::renderFrame()
 		fp_renderScene(this);
 
 	glPopMatrix();
+}
+
+void Application::windowClose(GLFWwindow* window)
+{
+	Application::instance().m_running = false;
 }
 
 void Application::keyboard(GLFWwindow* window, GLint key, GLint scancode, GLint action, GLint mods)

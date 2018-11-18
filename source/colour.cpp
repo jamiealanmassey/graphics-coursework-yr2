@@ -19,7 +19,7 @@ Colour::~Colour()
 	// TODO
 }
 
-void Colour::drawColour()
+void Colour::assign()
 {
 	glColor3f(m_channelR, m_channelG, m_channelB);
 }

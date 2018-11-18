@@ -16,11 +16,11 @@ void BasicScene::initScene(Application* application)
 
 void BasicScene::renderScene(Application* application)
 {
-	/*glBegin(GL_TRIANGLES);
-		glVertex2f(-0.5f, -0.5f);
-		glVertex2f(0.5f, -0.5f);
-		glVertex2f(0, 0.5f);
-	glEnd();*/
+	glBegin(GL_TRIANGLES);
+		glVertex3f(-0.5f, -0.5f, 2.0f);
+		glVertex3f(0.5f, -0.5f, 2.0f);
+		glVertex3f(0, 0.5f, 2.0f);
+	glEnd();
 
 	m_texture0.get()->bind();
 	glBegin(GL_POLYGON);

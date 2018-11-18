@@ -32,7 +32,7 @@ Vector3 Vertex::vector3() const
 	return Vector3(*this);
 }
 
-void Vertex::drawVertex()
+void Vertex::assign()
 {
 	glVertex3f(m_coordX, m_coordY, m_coordZ);
 }
