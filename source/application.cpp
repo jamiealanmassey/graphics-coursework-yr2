@@ -24,6 +24,10 @@ Application::Application()
 	m_viewingAxisDistance = 20.0f;
 	m_viewingAxisDistanceMin = 0.1f;
 	m_viewingAxisDistanceMax = 100.0f;
+	m_windowWidth = 800;
+	m_windowWidthMin = 400;
+	m_windowHeight = 600;
+	m_windowHeightMin = 300;
 	m_animationScale = 1.0f;
 	m_viewingMode = WINDOWED;
 	m_windowTitle = "";
@@ -77,15 +81,6 @@ const GLboolean Application::isViewingAxis() const
     return m_viewingAxis;
 }
 
-/*const GLboolean Application::isKeyPressed(GLubyte key) const
-{
-	std::map<GLubyte, GLboolean>::const_iterator itr = m_keyStates.find(key);
-	if (itr != m_keyStates.end())
-		return itr->second;
-
-	return false;
-}*/
-
 const GLfloat Application::getViewingAxisDistance() const
 {
     return m_viewingAxisDistance;
@@ -104,6 +99,18 @@ const GLfloat Application::getViewingAxisDistanceMin() const
 const GLfloat Application::getAnimationScale() const
 {
     return m_animationScale;
+}
+
+void Application::setWindowMinWidth(GLint minWidth)
+{
+	m_windowWidthMin = minWidth;
+	glutReshapeWindow(m_windowWidth, m_windowHeight);
+}
+
+void Application::setWindowMinHeight(GLint minHeight)
+{
+	m_windowHeightMin = minHeight;
+	glutReshapeWindow(m_windowWidth, m_windowHeight);
 }
 
 void Application::setViewingAxis(GLboolean state)
@@ -129,8 +136,8 @@ void Application::setSceneCamera()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	gluLookAt(m_cameraTargetX, m_cameraTargetY, m_cameraTargetZ,
-		m_cameraLocX, m_cameraLocY, m_cameraLocZ,
-		0.0f, 1.0f, 0.0f);
+			  m_cameraLocX, m_cameraLocY, m_cameraLocZ,
+			  0.0f, 1.0f, 0.0f);
 }
 
 void Application::drawAxisLines()
@@ -278,13 +285,17 @@ void Application::renderFrame()
 
 void Application::reshape(GLint width, GLint height)
 {
-	/*width = width == 0 ? 100 : width;
-	height = height == 0 ? 100 : height;
-
-	m_windowWidth = width;
-	m_windowHeight = height;
-	m_hwRatio = (GLfloat)m_windowHeight / (GLfloat)m_windowWidth;
-	updateCamera();*/
+	if (width < m_windowWidthMin)
+		glutReshapeWindow(m_windowWidthMin, height);
+	else if (height < m_windowHeightMin)
+		glutReshapeWindow(width, m_windowHeightMin);
+	else
+	{
+		m_windowWidth = width;
+		m_windowHeight = height;
+		m_hwRatio = (GLfloat)m_windowWidth / (GLfloat)m_windowHeight;
+		updateCamera();
+	}
 }
 
 void Application::renderCallback()

@@ -32,13 +32,14 @@ public:
     const GLboolean isViewingZ() const;
     const GLboolean isViewingAxis() const;
 
-	//const GLboolean isKeyPressed(GLubyte key) const;
-
     const GLfloat getViewingAxisDistance() const;
     const GLfloat getViewingAxisDistanceMax() const;
     const GLfloat getViewingAxisDistanceMin() const;
     const GLfloat getAnimationScale() const;
 
+	void setWindowMinWidth(GLint minWidth);
+	void setWindowMinHeight(GLint minHeight);
+	
     void setViewingAxis(GLboolean state);
     void setViewingAxisDistance(GLfloat distance);
     void setAnimationScale(GLfloat scale);
@@ -76,7 +77,7 @@ public:
 	std::function<void(Application*, GLubyte, GLint, GLint)>	  fp_updateSceneKeyboard;
 	std::function<void(Application*, GLint, GLint, GLint, GLint)> fp_updateSceneMouse;
 
-private:
+protected:
 	std::map<GLubyte, GLboolean> m_keyStates;
 
 protected:
@@ -99,7 +100,9 @@ private:
 	GLfloat     m_hwRatio;
     GLint       m_viewingMode;
 	GLint		m_windowWidth;
+	GLint		m_windowWidthMin;
 	GLint		m_windowHeight;
+	GLint		m_windowHeightMin;
     std::string m_windowTitle;
 };
 
