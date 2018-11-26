@@ -8,6 +8,7 @@
 #include <functional>
 #include <map>
 
+#include "vector3.h"
 #include "vertex.h"
 #include "colour.h"
 
@@ -44,6 +45,11 @@ public:
     void setViewingAxis(GLboolean state);
     void setViewingAxisDistance(GLfloat distance);
     void setAnimationScale(GLfloat scale);
+
+	void setCameraLocation(GLfloat x, GLfloat y, GLfloat z);
+	void setCameraLocation(Vector3 location);
+	void setCameraTarget(GLfloat x, GLfloat y, GLfloat z);
+	void setCameraTarget(Vector3 target);
 
 protected:
     void setSceneCamera();

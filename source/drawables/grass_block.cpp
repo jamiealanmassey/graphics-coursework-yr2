@@ -37,6 +37,7 @@ void GrassBlock::initialise(Application* application)
 void GrassBlock::draw(Application* application)
 {
 	// Call down to Drawable::transform() to apply any pre-transformations on the object
+	glPushMatrix();
 	this->transform();
 
 	// Draw Front Face using the "side texture"
@@ -118,6 +119,7 @@ void GrassBlock::draw(Application* application)
 
 	// Unbind remaining texture
 	m_textures[2].get()->unbind();
+	glPopMatrix();
 }
 
 void GrassBlock::update(Application* application)

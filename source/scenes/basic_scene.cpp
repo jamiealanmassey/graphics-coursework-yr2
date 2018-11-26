@@ -10,6 +10,9 @@ BasicScene::~BasicScene()
 
 void BasicScene::initScene(Application* application)
 {
+	application->setCameraLocation(-5.0f, 8.0f, -10.0f);
+	application->setCameraTarget(8.0f, 0.0f, 8.0f);
+
 	m_grassBlock = std::make_unique<GrassBlock>();
 	m_grassBlock->initialise(application);
 
@@ -19,8 +22,23 @@ void BasicScene::initScene(Application* application)
 
 void BasicScene::renderScene(Application* application)
 {
-	m_grassBlock.get()->setTranslation(Vector3());
-	m_grassBlock.get()->draw(application);
+	for (int x = 0; x < 16; x++)
+	{
+		for (int z = 0; z < 16; z++)
+		{
+			m_grassBlock.get()->setTranslation(Vector3(x, 0.0f, z));
+			m_grassBlock.get()->draw(application);
+		}
+	}
+
+	for (int x = 0; x < 4; x++)
+	{
+		for (int z = 0; z < 4; z++)
+		{
+			m_grassBlock.get()->setTranslation(Vector3(x + 11.0f, 1.0f, z + 11.0f));
+			m_grassBlock.get()->draw(application);
+		}
+	}
 
 	/*m_texture0.get()->bind();
 	glBegin(GL_POLYGON);

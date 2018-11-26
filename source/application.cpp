@@ -135,6 +135,30 @@ void Application::setAnimationScale(GLfloat scale)
     m_animationScale = scale;
 }
 
+void Application::setCameraLocation(GLfloat x, GLfloat y, GLfloat z)
+{
+	setCameraLocation(Vector3(x, y, z));
+}
+
+void Application::setCameraLocation(Vector3 location)
+{
+	m_cameraLocX = location.getX();
+	m_cameraLocY = location.getY();
+	m_cameraLocZ = location.getZ();
+}
+
+void Application::setCameraTarget(GLfloat x, GLfloat y, GLfloat z)
+{
+	setCameraTarget(Vector3(x, y, z));
+}
+
+void Application::setCameraTarget(Vector3 target)
+{
+	m_cameraTargetX = target.getX();
+	m_cameraTargetY = target.getY();
+	m_cameraTargetZ = target.getZ();
+}
+
 void Application::setSceneCamera()
 {
 	glMatrixMode(GL_PROJECTION);
