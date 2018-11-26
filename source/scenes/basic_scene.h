@@ -2,7 +2,7 @@
 #define _BASIC_SCENE_H
 
 #include "../application.h"
-#include "../texture.h"
+#include "../drawables/grass_block.h"
 
 class BasicScene
 {
@@ -13,8 +13,10 @@ public:
 public:
 	void initScene(Application* application);
 	void renderScene(Application* application);
+	void updateScene(Application* application);
 
 private:
+	std::unique_ptr<GrassBlock> m_grassBlock;
 	std::unique_ptr<Texture> m_texture0;
 };
 

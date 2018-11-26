@@ -18,7 +18,7 @@ Application::Application()
 	m_cameraLocZ = 0.0f;
 	m_cameraTargetX = 0.0f;
 	m_cameraTargetY = 0.0f;
-	m_cameraTargetZ = 10.0f;
+	m_cameraTargetZ = 0.0f;
 	m_running = true;
 	m_viewingX = false;
 	m_viewingY = false;
@@ -139,11 +139,11 @@ void Application::setSceneCamera()
 {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(45.0f, m_hwRatio, 0.1f, 100.0f);
+	gluPerspective(30.0f, m_hwRatio, 0.1f, 100.0f);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	gluLookAt(m_cameraTargetX, m_cameraTargetY, m_cameraTargetZ,
-			  m_cameraLocX, m_cameraLocY, m_cameraLocZ,
+	gluLookAt(m_cameraLocX, m_cameraLocY, m_cameraLocZ,
+			  m_cameraTargetX, m_cameraTargetY, m_cameraTargetZ,
 			  0.0f, 1.0f, 0.0f);
 }
 
@@ -227,19 +227,6 @@ void Application::createWindow()
 		glfwTerminate();
 		m_running = false;
 	}
-
-    /*GLint argc = 1;
-    char* argv[1] = {(char*)""};
-    glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
-    glutInitContextVersion(1, 1);
-    glutInitContextFlags(GLUT_CORE_PROFILE | GLUT_DEBUG);
-    glutInitWindowSize(m_windowWidth, m_windowHeight);
-    glutInitWindowPosition(100, 100);
-    glutCreateWindow(m_windowTitle.c_str());
-	m_hwRatio = (GLfloat)m_windowWidth / (GLfloat)m_windowHeight;
-	if (m_viewingMode == FULLSCREEN)
-		glutFullScreen();*/
 }
 
 void Application::updateMouse(GLint button, GLint state, GLint x, GLint y)

@@ -6,6 +6,7 @@
 class Colour
 {
 public:
+	Colour();
 	Colour(GLfloat r, GLfloat g, GLfloat b);
 	Colour(GLint r, GLint g, GLint b);
 	~Colour();

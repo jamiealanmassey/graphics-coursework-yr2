@@ -1,5 +1,10 @@
 #include "colour.h"
 
+Colour::Colour()
+{
+	Colour(0.0f, 0.0f, 0.0f);
+}
+
 Colour::Colour(GLfloat r, GLfloat g, GLfloat b)
 {
 	m_channelR = r;
@@ -16,7 +21,6 @@ Colour::Colour(GLint r, GLint g, GLint b)
 
 Colour::~Colour()
 {
-	// TODO
 }
 
 void Colour::assign()

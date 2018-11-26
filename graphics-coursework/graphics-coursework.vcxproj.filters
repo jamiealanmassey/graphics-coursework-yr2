@@ -7,6 +7,9 @@
     <Filter Include="source\scenes">
       <UniqueIdentifier>{0ab3295b-726f-4669-aad5-432da8467058}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\drawables">
+      <UniqueIdentifier>{6edb5624-a7e0-4be4-994b-6cb2034bd26c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\application.cpp">
@@ -30,6 +33,12 @@
     <ClCompile Include="..\source\scenes\basic_scene.cpp">
       <Filter>source\scenes</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\drawables\grass_block.cpp">
+      <Filter>source\drawables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\drawables\drawable.cpp">
+      <Filter>source\drawables</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\application.h">
@@ -52,6 +61,12 @@
     </ClInclude>
     <ClInclude Include="..\source\ogl_include.h">
       <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\drawables\drawable.h">
+      <Filter>source\drawables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\drawables\grass_block.h">
+      <Filter>source\drawables</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
