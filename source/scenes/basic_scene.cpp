@@ -16,87 +16,27 @@ void BasicScene::initScene(Application* application)
 	m_grassBlock = std::make_unique<GrassBlock>();
 	m_grassBlock->initialise(application);
 
-	m_texture0 = std::make_unique<Texture>();
-	m_texture0.get()->loadTexture("../textures/floor.png");
+	m_worldParser = std::make_unique<WorldParser>("../data/", "world.chunk.dat");
+	m_worldParser.get()->parse();
 }
 
-void BasicScene::renderScene(Application* application)
+void BasicScene::renderScene(Application* application) 
 {
-	for (int x = 0; x < 16; x++)
+	auto chunk = m_worldParser.get()->getWorldChunk();
+	for (auto y = 0; y < chunk.size(); y++) 
 	{
-		for (int z = 0; z < 16; z++)
+		for (auto x = 0; x < chunk[y].size(); x++) 
 		{
-			m_grassBlock.get()->setTranslation(Vector3(x, 0.0f, z));
-			m_grassBlock.get()->draw(application);
+			for (auto z = 0; z < chunk[y][x].size(); z++) 
+			{
+				if (chunk[y][x][z] == BLOCK_GRASS)
+				{
+					m_grassBlock.get()->setTranslation(Vector3(x, y, z));
+					m_grassBlock.get()->draw(application);
+				}
+			}
 		}
 	}
-
-	for (int x = 0; x < 4; x++)
-	{
-		for (int z = 0; z < 4; z++)
-		{
-			m_grassBlock.get()->setTranslation(Vector3(x + 11.0f, 1.0f, z + 11.0f));
-			m_grassBlock.get()->draw(application);
-		}
-	}
-
-	/*m_texture0.get()->bind();
-	glBegin(GL_POLYGON);
-		glColor3f(1.0, 1.0, 1.0);
-		glTexCoord2f(0.0f, 0.0f);
-		glVertex3f(0.5, -0.5, 0.5); // v[3]
-		glTexCoord2f(1.0f, 0.0f);
-		glVertex3f(0.5, 0.5, 0.5); // v[2]
-		glTexCoord2f(1.0f, 1.0f);
-		glVertex3f(-0.5, 0.5, 0.5); // v[1]
-		glTexCoord2f(0.0f, 1.0f);
-		glVertex3f(-0.5, -0.5, 0.5); // v[0]
-	glEnd();
-	glBegin(GL_POLYGON);
-		glColor3f(1.0, 0.0, 1.0);
-		glTexCoord2f(0.0f, 0.0f);
-		glVertex3f(0.5, -0.5, -0.5); // v[7]
-		glTexCoord2f(1.0f, 0.0f);
-		glVertex3f(0.5, 0.5, -0.5); // v[6]
-		glTexCoord2f(1.0f, 1.0f);
-		glVertex3f(0.5, 0.5, 0.5); // v[2]
-		glTexCoord2f(0.0f, 1.0f);
-		glVertex3f(0.5, -0.5, 0.5); // v[3]
-	glEnd();
-	glBegin(GL_POLYGON);
-		glColor3f(0.0, 1.0, 0.0);
-		glTexCoord2f(0.0f, 0.0f);
-		glVertex3f(-0.5, -0.5, 0.5); // v[0]
-		glTexCoord2f(1.0f, 0.0f);
-		glVertex3f(-0.5, 0.5, 0.5); // v[1]
-		glTexCoord2f(1.0f, 1.0f);
-		glVertex3f(-0.5, 0.5, -0.5); // v[5]
-		glTexCoord2f(0.0f, 1.0f);
-		glVertex3f(-0.5, -0.5, -0.5); // v[4]
-	glEnd();
-	glBegin(GL_POLYGON);
-		glColor3f(0.0, 0.0, 1.0);
-		glTexCoord2f(0.0f, 0.0f);
-		glVertex3f(0.5, 0.5, 0.5); // v[2]
-		glTexCoord2f(1.0f, 0.0f);
-		glVertex3f(0.5, 0.5, -0.5); // v[6]
-		glTexCoord2f(1.0f, 1.0f);
-		glVertex3f(-0.5, 0.5, -0.5); // v[5]
-		glTexCoord2f(0.0f, 1.0f);
-		glVertex3f(-0.5, 0.5, 0.5); // v[1]
-	glEnd();
-	glBegin(GL_POLYGON);
-		glColor3f(1.0, 0.0, 0.0);
-		glTexCoord2f(0.0f, 0.0f);
-		glVertex3f(0.5, -0.5, -0.5);
-		glTexCoord2f(1.0f, 0.0f);
-		glVertex3f(0.5, -0.5, 0.5);
-		glTexCoord2f(1.0f, 1.0f);
-		glVertex3f(-0.5, -0.5, 0.5);
-		glTexCoord2f(0.0f, 1.0f);
-		glVertex3f(-0.5, -0.5, -0.5);
-	glEnd();
-	m_texture0.get()->unbind();*/
 }
 
 void BasicScene::updateScene(Application * application)
