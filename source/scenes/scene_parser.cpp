@@ -1,6 +1,6 @@
-#include "world_parser.h"
+#include "scene_parser.h"
 
-WorldParser::WorldParser(std::string directory, std::string file)
+SceneParser::SceneParser(std::string directory, std::string file)
 {
 	m_chunkSizeX = 0;
 	m_chunkSizeY = 0;
@@ -9,12 +9,13 @@ WorldParser::WorldParser(std::string directory, std::string file)
 	m_file = file;
 }
 
-WorldParser::~WorldParser()
+SceneParser::~SceneParser()
 {
+	m_drawables.clear();
 	m_worldChunk.clear();
 }
 
-void WorldParser::parse()
+void SceneParser::parse()
 {
 	std::string line;
 	std::ifstream worldFile(m_directory + m_file);
@@ -33,32 +34,37 @@ void WorldParser::parse()
 	}
 }
 
-const WorldChunk WorldParser::getWorldChunk() const
+const WorldChunk SceneParser::getWorldChunk() const
 {
 	return m_worldChunk;
 }
 
-const int WorldParser::getChunkSizeX() const
+const std::vector<std::shared_ptr<Drawable>> SceneParser::getDrawables() const
+{
+	return m_drawables;
+}
+
+const int SceneParser::getChunkSizeX() const
 {
 	return m_chunkSizeX;
 }
 
-const int WorldParser::getChunkSizeY() const
+const int SceneParser::getChunkSizeY() const
 {
 	return m_chunkSizeY;
 }
 
-const int WorldParser::getChunkSizeZ() const
+const int SceneParser::getChunkSizeZ() const
 {
 	return m_chunkSizeZ;
 }
 
-const Vector3 & WorldParser::getDimensions()
+const Vector3& SceneParser::getDimensions()
 {
 	return Vector3(m_chunkSizeX, m_chunkSizeY, m_chunkSizeZ);
 }
 
-void WorldParser::parsePlane(std::string planeFile)
+void SceneParser::parsePlane(std::string planeFile)
 {
 	std::string line;
 	std::ifstream file(m_directory + planeFile);
@@ -70,9 +76,19 @@ void WorldParser::parsePlane(std::string planeFile)
 			auto blocks = split(line);
 			for (auto& block : blocks)
 			{
+				std::shared_ptr<Drawable> drawable;
 				auto& plane = m_worldChunk.back();
 				auto& segment = plane.back();
-				segment.push_back(std::stoi(block));
+				auto type = std::stoi(block);
+				
+				if (type == BLOCK_GRASS)
+					drawable = std::make_shared<GrassBlock>();
+				else if (type == BLOCK_EMPTY)
+					drawable = std::make_shared<EmptyBlock>();
+
+				m_drawables.emplace_back(drawable);
+				segment.emplace_back(drawable);
+				drawable->setTranslation(Vector3(segment.size(), m_worldChunk.size(), plane.size()));
 			}
 		}
 
@@ -80,7 +96,7 @@ void WorldParser::parsePlane(std::string planeFile)
 	}
 }
 
-std::vector<std::string> WorldParser::split(const std::string & string)
+std::vector<std::string> SceneParser::split(const std::string & string)
 {
 	std::string token;
 	std::vector<std::string> results;

@@ -128,8 +128,8 @@
     <ClCompile Include="..\source\drawables\drawable.cpp" />
     <ClCompile Include="..\source\drawables\grass_block.cpp" />
     <ClCompile Include="..\source\main.cpp" />
-    <ClCompile Include="..\source\processing\world_parser.cpp" />
     <ClCompile Include="..\source\scenes\basic_scene.cpp" />
+    <ClCompile Include="..\source\scenes\scene_parser.cpp" />
     <ClCompile Include="..\source\texture.cpp" />
     <ClCompile Include="..\source\vector3.cpp" />
     <ClCompile Include="..\source\vertex.cpp" />
@@ -138,10 +138,11 @@
     <ClInclude Include="..\source\application.h" />
     <ClInclude Include="..\source\colour.h" />
     <ClInclude Include="..\source\drawables\drawable.h" />
+    <ClInclude Include="..\source\drawables\empty_block.h" />
     <ClInclude Include="..\source\drawables\grass_block.h" />
     <ClInclude Include="..\source\ogl_include.h" />
-    <ClInclude Include="..\source\processing\world_parser.h" />
     <ClInclude Include="..\source\scenes\basic_scene.h" />
+    <ClInclude Include="..\source\scenes\scene_parser.h" />
     <ClInclude Include="..\source\texture.h" />
     <ClInclude Include="..\source\vector3.h" />
     <ClInclude Include="..\source\vertex.h" />

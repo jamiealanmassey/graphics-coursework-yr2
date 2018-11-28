@@ -10,9 +10,6 @@
     <Filter Include="source\drawables">
       <UniqueIdentifier>{6edb5624-a7e0-4be4-994b-6cb2034bd26c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="source\processing">
-      <UniqueIdentifier>{97a3c7b4-00fb-4b44-855b-aca276d7a5b2}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\application.cpp">
@@ -42,8 +39,8 @@
     <ClCompile Include="..\source\drawables\drawable.cpp">
       <Filter>source\drawables</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\processing\world_parser.cpp">
-      <Filter>source\processing</Filter>
+    <ClCompile Include="..\source\scenes\scene_parser.cpp">
+      <Filter>source\scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -74,8 +71,11 @@
     <ClInclude Include="..\source\drawables\grass_block.h">
       <Filter>source\drawables</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\processing\world_parser.h">
-      <Filter>source\processing</Filter>
+    <ClInclude Include="..\source\scenes\scene_parser.h">
+      <Filter>source\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\drawables\empty_block.h">
+      <Filter>source\drawables</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

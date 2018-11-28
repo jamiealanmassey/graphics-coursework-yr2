@@ -3,10 +3,7 @@
 
 #include "../application.h"
 #include "../drawables/grass_block.h"
-#include "../processing/world_parser.h"
-
-#define BLOCK_EMPTY 0
-#define BLOCK_GRASS 1
+#include "scene_parser.h"
 
 class BasicScene
 {
@@ -20,8 +17,7 @@ public:
 	void updateScene(Application* application);
 
 private:
-	std::unique_ptr<GrassBlock>  m_grassBlock;
-	std::unique_ptr<WorldParser> m_worldParser;
+	std::unique_ptr<SceneParser> m_sceneParser;
 };
 
 #endif // _BASIC_SCENE_H
