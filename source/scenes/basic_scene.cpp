@@ -10,7 +10,7 @@ BasicScene::~BasicScene()
 
 void BasicScene::initScene(Application* application)
 {
-	application->setCameraLocation(-5.0f, 2.0f, -10.0f);
+	application->setCameraLocation(-5.0f, 8.0f, -10.0f);
 	application->setCameraTarget(8.0f, 0.0f, 8.0f);
 
 	m_sceneParser = std::make_unique<SceneParser>("../data/", "world.chunk.dat");

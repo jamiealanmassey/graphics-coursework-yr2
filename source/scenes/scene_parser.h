@@ -9,10 +9,12 @@
 
 #include "../drawables/drawable.h"
 #include "../drawables/grass_block.h"
+#include "../drawables/dirt_block.h"
 #include "../drawables/empty_block.h"
 
 #define BLOCK_EMPTY 0
-#define BLOCK_GRASS 1
+#define BLOCK_DIRT  1
+#define BLOCK_GRASS 2
 
 typedef std::vector<std::shared_ptr<Drawable>> WorldSegment;
 typedef std::vector<WorldSegment>			   WorldPlane;

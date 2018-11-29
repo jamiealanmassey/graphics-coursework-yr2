@@ -17,6 +17,10 @@ SceneParser::~SceneParser()
 
 void SceneParser::parse()
 {
+	const size_t size = 512 * 1024 * 1024;
+	const int numiter = 20;
+	const size_t bufferSize = 1024 * 1024;
+
 	std::string line;
 	std::ifstream worldFile(m_directory + m_file);
 	if (worldFile.is_open())
@@ -81,7 +85,9 @@ void SceneParser::parsePlane(std::string planeFile)
 				auto& segment = plane.back();
 				auto type = std::stoi(block);
 				
-				if (type == BLOCK_GRASS)
+				if (type == BLOCK_DIRT)
+					drawable = std::make_shared<DirtBlock>();
+				else if (type == BLOCK_GRASS)
 					drawable = std::make_shared<GrassBlock>();
 				else if (type == BLOCK_EMPTY)
 					drawable = std::make_shared<EmptyBlock>();

@@ -42,6 +42,12 @@
     <ClCompile Include="..\source\scenes\scene_parser.cpp">
       <Filter>source\scenes</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\drawables\water_block.cpp">
+      <Filter>source\drawables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\drawables\dirt_block.cpp">
+      <Filter>source\drawables</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\application.h">
@@ -75,6 +81,12 @@
       <Filter>source\scenes</Filter>
     </ClInclude>
     <ClInclude Include="..\source\drawables\empty_block.h">
+      <Filter>source\drawables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\drawables\water_block.h">
+      <Filter>source\drawables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\drawables\dirt_block.h">
       <Filter>source\drawables</Filter>
     </ClInclude>
   </ItemGroup>

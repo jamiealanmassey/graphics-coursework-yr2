@@ -1,3 +1,4 @@
 dirt texture: https://www.planetminecraft.com/texture_pack/dirtcraft-16x/
 grass top texture: https://www.filterforge.com/filters/11635-v7.html
 grass side texture: https://www.filterforge.com/filters/11635.html
+water texture: http://www.lostrealism.com/texture-portfolio/
