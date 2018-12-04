@@ -28,4 +28,6 @@ void BasicScene::renderScene(Application* application)
 
 void BasicScene::updateScene(Application * application)
 {
+	for (auto drawable : m_sceneParser.get()->getDrawables())
+		drawable->update(application);
 }

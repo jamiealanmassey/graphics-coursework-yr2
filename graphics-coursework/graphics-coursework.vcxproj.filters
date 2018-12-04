@@ -48,6 +48,9 @@
     <ClCompile Include="..\source\drawables\dirt_block.cpp">
       <Filter>source\drawables</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\vector2.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\application.h">
@@ -88,6 +91,9 @@
     </ClInclude>
     <ClInclude Include="..\source\drawables\dirt_block.h">
       <Filter>source\drawables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\vector2.h">
+      <Filter>source</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

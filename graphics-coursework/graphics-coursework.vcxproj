@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{F94AC122-10A5-49D6-AE33-3E24CECD8DB8}</ProjectGuid>
     <RootNamespace>graphicscoursework</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -139,6 +139,7 @@
     <ClCompile Include="..\source\scenes\basic_scene.cpp" />
     <ClCompile Include="..\source\scenes\scene_parser.cpp" />
     <ClCompile Include="..\source\texture.cpp" />
+    <ClCompile Include="..\source\vector2.cpp" />
     <ClCompile Include="..\source\vector3.cpp" />
     <ClCompile Include="..\source\vertex.cpp" />
   </ItemGroup>
@@ -154,6 +155,7 @@
     <ClInclude Include="..\source\scenes\basic_scene.h" />
     <ClInclude Include="..\source\scenes\scene_parser.h" />
     <ClInclude Include="..\source\texture.h" />
+    <ClInclude Include="..\source\vector2.h" />
     <ClInclude Include="..\source\vector3.h" />
     <ClInclude Include="..\source\vertex.h" />
   </ItemGroup>

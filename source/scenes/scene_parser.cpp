@@ -89,6 +89,8 @@ void SceneParser::parsePlane(std::string planeFile)
 					drawable = std::make_shared<DirtBlock>();
 				else if (type == BLOCK_GRASS)
 					drawable = std::make_shared<GrassBlock>();
+				else if (type == BLOCK_WATER)
+					drawable = std::make_shared<WaterBlock>();
 				else if (type == BLOCK_EMPTY)
 					drawable = std::make_shared<EmptyBlock>();
 
