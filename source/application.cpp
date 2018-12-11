@@ -256,10 +256,10 @@ void Application::updateScene()
 	m_viewingZ = m_keyStates['z'];
 	m_viewingAxis = m_viewingX || m_viewingY || m_viewingZ;
 	if (m_keyStates['w'])
-		m_viewingAxisDistance += 1.0f * DELTA_TIME;
+		m_viewingAxisDistance += 1.0f * DELTA_TIME_SECONDS;
 
 	if (m_keyStates['s'])
-		m_viewingAxisDistance -= 1.0f * DELTA_TIME;
+		m_viewingAxisDistance -= 1.0f * DELTA_TIME_SECONDS;
 
 	m_viewingAxisDistance = max(m_viewingAxisDistance, m_viewingAxisDistanceMin);
 	m_viewingAxisDistance = min(m_viewingAxisDistance, m_viewingAxisDistanceMax);

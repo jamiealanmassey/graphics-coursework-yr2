@@ -29,7 +29,7 @@ protected:
 	std::chrono::high_resolution_clock::time_point m_timeStart;
 };
 
-#define DELTA_TIME DeltaTime::instance().getDelta()
-#define TOTAL_TIME DeltaTime::instance().getTimeFromStart()
+#define DELTA_TIME_SECONDS DeltaTime::instance().getDelta() / 1000.0f
+#define TOTAL_TIME_SECONDS DeltaTime::instance().getTimeFromStart() / 1000.0f
 
 #endif // _DELTA_TIME_H

@@ -58,7 +58,7 @@ void WaterBlock::draw(Application * application)
 
 void WaterBlock::update(Application* application)
 {
-	m_offset += Vector2(0.0001f, 0.00015f) * DELTA_TIME;
+	m_offset += Vector2(0.1f, 0.15f) * DELTA_TIME_SECONDS;
 	if (m_offset.getX() > 0.5f)
 		m_offset = Vector2(0.0f, m_offset.getY());
 
