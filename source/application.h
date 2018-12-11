@@ -11,6 +11,7 @@
 #include "vector3.h"
 #include "vertex.h"
 #include "colour.h"
+#include "delta_time.h"
 
 class Application
 {
@@ -37,14 +38,12 @@ public:
     const GLfloat getViewingAxisDistance() const;
     const GLfloat getViewingAxisDistanceMax() const;
     const GLfloat getViewingAxisDistanceMin() const;
-    const GLfloat getAnimationScale() const;
 
 	void setWindowMinWidth(GLint minWidth);
 	void setWindowMinHeight(GLint minHeight);
 	
     void setViewingAxis(GLboolean state);
     void setViewingAxisDistance(GLfloat distance);
-    void setAnimationScale(GLfloat scale);
 
 	void setCameraLocation(GLfloat x, GLfloat y, GLfloat z);
 	void setCameraLocation(Vector3 location);
@@ -98,7 +97,6 @@ private:
     GLfloat     m_viewingAxisDistance;
 	GLfloat     m_viewingAxisDistanceMin;
 	GLfloat     m_viewingAxisDistanceMax;
-	GLfloat     m_animationScale;
 	GLfloat     m_hwRatio;
     GLint       m_viewingMode;
 	GLint		m_windowWidth;

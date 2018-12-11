@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{F94AC122-10A5-49D6-AE33-3E24CECD8DB8}</ProjectGuid>
     <RootNamespace>graphicscoursework</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -131,6 +131,7 @@
   <ItemGroup>
     <ClCompile Include="..\source\application.cpp" />
     <ClCompile Include="..\source\colour.cpp" />
+    <ClCompile Include="..\source\delta_time.cpp" />
     <ClCompile Include="..\source\drawables\dirt_block.cpp" />
     <ClCompile Include="..\source\drawables\drawable.cpp" />
     <ClCompile Include="..\source\drawables\grass_block.cpp" />
@@ -146,6 +147,7 @@
   <ItemGroup>
     <ClInclude Include="..\source\application.h" />
     <ClInclude Include="..\source\colour.h" />
+    <ClInclude Include="..\source\delta_time.h" />
     <ClInclude Include="..\source\drawables\dirt_block.h" />
     <ClInclude Include="..\source\drawables\drawable.h" />
     <ClInclude Include="..\source\drawables\empty_block.h" />

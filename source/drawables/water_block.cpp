@@ -1,4 +1,5 @@
 #include "water_block.h"
+#include "../delta_time.h"
 
 WaterBlock::WaterBlock()
 {
@@ -57,7 +58,7 @@ void WaterBlock::draw(Application * application)
 
 void WaterBlock::update(Application* application)
 {
-	m_offset += Vector2(0.001f, 0.0015f);
+	m_offset += Vector2(0.0001f, 0.00015f) * DELTA_TIME;
 	if (m_offset.getX() > 0.5f)
 		m_offset = Vector2(0.0f, m_offset.getY());
 

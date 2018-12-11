@@ -31,7 +31,6 @@ Application::Application()
 	m_windowWidthMin = 400;
 	m_windowHeight = 600;
 	m_windowHeightMin = 300;
-	m_animationScale = 1.0f;
 	m_viewingMode = WINDOWED;
 	m_windowTitle = "";
 }
@@ -44,15 +43,16 @@ Application::~Application()
 
 void Application::run(GLint viewingMode, GLint width, GLint height, std::string windowTitle, GLfloat animationScale)
 {
+	DeltaTime::instance().start();
     m_viewingMode = viewingMode;
 	m_windowWidth = width;
 	m_windowHeight = height;
     m_windowTitle = windowTitle;
-    m_animationScale = animationScale;
     initialise();
 
 	while (m_running)
 	{
+		DeltaTime::instance().tick();
 		updateCamera();
 		updateScene();
 		renderFrame();
@@ -103,11 +103,6 @@ const GLfloat Application::getViewingAxisDistanceMin() const
     return m_viewingAxisDistanceMin;
 }
 
-const GLfloat Application::getAnimationScale() const
-{
-    return m_animationScale;
-}
-
 void Application::setWindowMinWidth(GLint minWidth)
 {
 	m_windowWidthMin = minWidth;
@@ -128,11 +123,6 @@ void Application::setViewingAxis(GLboolean state)
 void Application::setViewingAxisDistance(GLfloat distance)
 {
     m_viewingAxisDistance = distance;
-}
-
-void Application::setAnimationScale(GLfloat scale)
-{
-    m_animationScale = scale;
 }
 
 void Application::setCameraLocation(GLfloat x, GLfloat y, GLfloat z)
@@ -266,10 +256,10 @@ void Application::updateScene()
 	m_viewingZ = m_keyStates['z'];
 	m_viewingAxis = m_viewingX || m_viewingY || m_viewingZ;
 	if (m_keyStates['w'])
-		m_viewingAxisDistance += 1.0f * m_animationScale;
+		m_viewingAxisDistance += 1.0f * DELTA_TIME;
 
 	if (m_keyStates['s'])
-		m_viewingAxisDistance -= 1.0f * m_animationScale;
+		m_viewingAxisDistance -= 1.0f * DELTA_TIME;
 
 	m_viewingAxisDistance = max(m_viewingAxisDistance, m_viewingAxisDistanceMin);
 	m_viewingAxisDistance = min(m_viewingAxisDistance, m_viewingAxisDistanceMax);

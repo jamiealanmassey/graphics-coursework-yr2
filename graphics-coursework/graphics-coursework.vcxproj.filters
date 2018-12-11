@@ -10,6 +10,12 @@
     <Filter Include="source\drawables">
       <UniqueIdentifier>{6edb5624-a7e0-4be4-994b-6cb2034bd26c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\drawables\player">
+      <UniqueIdentifier>{0bd06882-f919-43cf-a138-a5d96e993d6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\drawables\bee">
+      <UniqueIdentifier>{ca25a246-724b-4494-833a-9908566c0cc7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\application.cpp">
@@ -49,6 +55,9 @@
       <Filter>source\drawables</Filter>
     </ClCompile>
     <ClCompile Include="..\source\vector2.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\delta_time.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>
@@ -93,6 +102,9 @@
       <Filter>source\drawables</Filter>
     </ClInclude>
     <ClInclude Include="..\source\vector2.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\delta_time.h">
       <Filter>source</Filter>
     </ClInclude>
   </ItemGroup>
