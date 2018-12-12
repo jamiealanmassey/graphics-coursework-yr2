@@ -130,7 +130,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\source\application.cpp" />
-    <ClCompile Include="..\source\colour.cpp" />
     <ClCompile Include="..\source\delta_time.cpp" />
     <ClCompile Include="..\source\drawables\dirt_block.cpp" />
     <ClCompile Include="..\source\drawables\drawable.cpp" />
@@ -139,16 +138,16 @@
     <ClCompile Include="..\source\drawables\human\limb.cpp" />
     <ClCompile Include="..\source\drawables\water_block.cpp" />
     <ClCompile Include="..\source\main.cpp" />
+    <ClCompile Include="..\source\maths\colour.cpp" />
+    <ClCompile Include="..\source\maths\vector2.cpp" />
+    <ClCompile Include="..\source\maths\vector3.cpp" />
+    <ClCompile Include="..\source\maths\vertex.cpp" />
     <ClCompile Include="..\source\scenes\basic_scene.cpp" />
     <ClCompile Include="..\source\scenes\scene_parser.cpp" />
     <ClCompile Include="..\source\texture.cpp" />
-    <ClCompile Include="..\source\vector2.cpp" />
-    <ClCompile Include="..\source\vector3.cpp" />
-    <ClCompile Include="..\source\vertex.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\application.h" />
-    <ClInclude Include="..\source\colour.h" />
     <ClInclude Include="..\source\delta_time.h" />
     <ClInclude Include="..\source\drawables\dirt_block.h" />
     <ClInclude Include="..\source\drawables\drawable.h" />
@@ -157,13 +156,14 @@
     <ClInclude Include="..\source\drawables\human\human.h" />
     <ClInclude Include="..\source\drawables\human\limb.h" />
     <ClInclude Include="..\source\drawables\water_block.h" />
+    <ClInclude Include="..\source\maths\colour.h" />
+    <ClInclude Include="..\source\maths\vector2.h" />
+    <ClInclude Include="..\source\maths\vector3.h" />
+    <ClInclude Include="..\source\maths\vertex.h" />
     <ClInclude Include="..\source\ogl_include.h" />
     <ClInclude Include="..\source\scenes\basic_scene.h" />
     <ClInclude Include="..\source\scenes\scene_parser.h" />
     <ClInclude Include="..\source\texture.h" />
-    <ClInclude Include="..\source\vector2.h" />
-    <ClInclude Include="..\source\vector3.h" />
-    <ClInclude Include="..\source\vertex.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -60,8 +60,8 @@ const Vector3 Vector3::crossProduct(const Vector3 & other)
 
 GLfloat Vector3::dotProduct(const Vector3 & other) const
 {
-	return ((m_valueX * other.getX()) && 
-			(m_valueY * other.getY()) && 
+	return ((m_valueX * other.getX()) + 
+			(m_valueY * other.getY()) + 
 			(m_valueZ * other.getZ()));
 }
 

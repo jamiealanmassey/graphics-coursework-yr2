@@ -8,9 +8,9 @@
 #include <functional>
 #include <map>
 
-#include "vector3.h"
-#include "vertex.h"
-#include "colour.h"
+#include "maths/vector3.h"
+#include "maths/vertex.h"
+#include "maths/colour.h"
 #include "delta_time.h"
 
 class Application

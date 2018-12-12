@@ -16,21 +16,15 @@
     <Filter Include="source\drawables\human">
       <UniqueIdentifier>{0bd06882-f919-43cf-a138-a5d96e993d6d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\maths">
+      <UniqueIdentifier>{d6db22f3-6f4e-43cd-88ab-9dd9f51e9f0f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\application.cpp">
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="..\source\main.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\vertex.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\colour.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\vector3.cpp">
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="..\source\texture.cpp">
@@ -54,9 +48,6 @@
     <ClCompile Include="..\source\drawables\dirt_block.cpp">
       <Filter>source\drawables</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\vector2.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
     <ClCompile Include="..\source\delta_time.cpp">
       <Filter>source</Filter>
     </ClCompile>
@@ -66,18 +57,21 @@
     <ClCompile Include="..\source\drawables\human\limb.cpp">
       <Filter>source\drawables\human</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\maths\colour.cpp">
+      <Filter>source\maths</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\maths\vector2.cpp">
+      <Filter>source\maths</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\maths\vector3.cpp">
+      <Filter>source\maths</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\maths\vertex.cpp">
+      <Filter>source\maths</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\application.h">
-      <Filter>source</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\vertex.h">
-      <Filter>source</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\colour.h">
-      <Filter>source</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\vector3.h">
       <Filter>source</Filter>
     </ClInclude>
     <ClInclude Include="..\source\texture.h">
@@ -107,9 +101,6 @@
     <ClInclude Include="..\source\drawables\dirt_block.h">
       <Filter>source\drawables</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\vector2.h">
-      <Filter>source</Filter>
-    </ClInclude>
     <ClInclude Include="..\source\delta_time.h">
       <Filter>source</Filter>
     </ClInclude>
@@ -118,6 +109,18 @@
     </ClInclude>
     <ClInclude Include="..\source\drawables\human\limb.h">
       <Filter>source\drawables\human</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\maths\colour.h">
+      <Filter>source\maths</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\maths\vector2.h">
+      <Filter>source\maths</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\maths\vector3.h">
+      <Filter>source\maths</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\maths\vertex.h">
+      <Filter>source\maths</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

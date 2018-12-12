@@ -2,7 +2,7 @@
 #define _WATER_BLOCK_H
 
 #include "drawable.h"
-#include "../vector2.h"
+#include "../maths/vector2.h"
 
 class WaterBlock : public Drawable
 {

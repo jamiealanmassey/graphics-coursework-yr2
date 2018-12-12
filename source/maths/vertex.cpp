@@ -12,17 +12,17 @@ Vertex::~Vertex()
 {
 }
 
-const GLfloat Vertex::getCoordX() const
+const GLfloat Vertex::getX() const
 {
 	return m_coordX;
 }
 
-const GLfloat Vertex::getCoordY() const
+const GLfloat Vertex::getY() const
 {
 	return m_coordY;
 }
 
-const GLfloat Vertex::getCoordZ() const
+const GLfloat Vertex::getZ() const
 {
 	return m_coordZ;
 }
