@@ -17,9 +17,9 @@ Vector3::Vector3(GLfloat x, GLfloat y, GLfloat z)
 
 Vector3::Vector3(Vertex vertex)
 {
-	m_valueX = vertex.getCoordX();
-	m_valueY = vertex.getCoordY();
-	m_valueZ = vertex.getCoordZ();
+	m_valueX = vertex.getX();
+	m_valueY = vertex.getY();
+	m_valueZ = vertex.getZ();
 }
 
 Vector3::~Vector3()

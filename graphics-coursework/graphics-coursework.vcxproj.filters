@@ -69,6 +69,9 @@
     <ClCompile Include="..\source\maths\vertex.cpp">
       <Filter>source\maths</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\maths\normal.cpp">
+      <Filter>source\maths</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\application.h">
@@ -120,6 +123,9 @@
       <Filter>source\maths</Filter>
     </ClInclude>
     <ClInclude Include="..\source\maths\vertex.h">
+      <Filter>source\maths</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\maths\normal.h">
       <Filter>source\maths</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,11 +1,5 @@
 #include "application.h"
 
-Application& Application::instance()
-{
-	static Application instance;
-	return instance;
-}
-
 Application::Application()
 {
 	m_keyStates['x'] = false;
@@ -41,7 +35,7 @@ Application::~Application()
 	glfwTerminate();
 }
 
-void Application::run(GLint viewingMode, GLint width, GLint height, std::string windowTitle, GLfloat animationScale)
+void Application::run(GLint viewingMode, GLint width, GLint height, std::string windowTitle)
 {
 	DeltaTime::instance().start();
     m_viewingMode = viewingMode;
@@ -152,6 +146,12 @@ void Application::setCameraTarget(Vector3 target)
 std::map<GLubyte, GLboolean> Application::getKeyStates() const
 {
 	return m_keyStates;
+}
+
+Application& Application::instance()
+{
+	static Application instance;
+	return instance;
 }
 
 void Application::setSceneCamera()

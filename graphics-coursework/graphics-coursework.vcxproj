@@ -139,6 +139,7 @@
     <ClCompile Include="..\source\drawables\water_block.cpp" />
     <ClCompile Include="..\source\main.cpp" />
     <ClCompile Include="..\source\maths\colour.cpp" />
+    <ClCompile Include="..\source\maths\normal.cpp" />
     <ClCompile Include="..\source\maths\vector2.cpp" />
     <ClCompile Include="..\source\maths\vector3.cpp" />
     <ClCompile Include="..\source\maths\vertex.cpp" />
@@ -157,6 +158,7 @@
     <ClInclude Include="..\source\drawables\human\limb.h" />
     <ClInclude Include="..\source\drawables\water_block.h" />
     <ClInclude Include="..\source\maths\colour.h" />
+    <ClInclude Include="..\source\maths\normal.h" />
     <ClInclude Include="..\source\maths\vector2.h" />
     <ClInclude Include="..\source\maths\vector3.h" />
     <ClInclude Include="..\source\maths\vertex.h" />
