@@ -2,6 +2,20 @@
 
 Human::Human()
 {
+	m_state = eHumanState::IDLE;
+	m_stateLast = eHumanState::IDLE;
+	m_currentRot = 0.0f;
+	m_armSwayRot = 0.0f;
+	m_armSwayRotMax = 10.0f;
+	m_armSwaySpeed = 10.0f;
+	m_runningRot = 0.0f;
+	m_runningRotMax = 15.0f;
+	m_runningSpeed = 80.0f;
+	m_armSwayDir = false;
+	m_runningDir = false;
+	m_offsetDir = true;
+	m_offset = Vector3();
+	m_offsetLimit = Vector3();
 }
 
 Human::~Human()
@@ -26,8 +40,6 @@ void Human::initialise(Application* application)
 	m_legs[1].get()->initialise(application);
 	m_legs[0]->setTranslation(Vector3(-0.225f, -1.3f, 0.0f));
 	m_legs[1]->setTranslation(Vector3( 0.225f, -1.3f, 0.0f));
-
-	m_currentRot = 0.0f;
 
 	m_vertices.push_back(Vertex( 0.45f,  0.65f,  0.2f)); // m_vertices[0]
 	m_vertices.push_back(Vertex(-0.45f,  0.65f,  0.2f)); // m_vertices[1]
@@ -84,20 +96,126 @@ void Human::update(Application* application)
 			m_currentRot = 360.0f;
 	}
 
+	Vector3 acceleration;
 	if (application->getKeyStates()[GLFW_KEY_D])
-		setTranslation(getTranslation() + Vector3(4.0f * DELTA_TIME_SECONDS, 0.0f, 0.0f));
+		acceleration = Vector3(4.0f * DELTA_TIME_SECONDS, 0.0f, 0.0f);
 	else if (application->getKeyStates()[GLFW_KEY_A])
-		setTranslation(getTranslation() + Vector3(-4.0f * DELTA_TIME_SECONDS, 0.0f, 0.0f));
-	else if (application->getKeyStates()[GLFW_KEY_S])
-		setTranslation(getTranslation() + Vector3(0.0f, 0.0f, 4.0f * DELTA_TIME_SECONDS));
+		acceleration = Vector3(-4.0f * DELTA_TIME_SECONDS, 0.0f, 0.0f);
+	
+	if (application->getKeyStates()[GLFW_KEY_S])
+		acceleration = Vector3(0.0f, 0.0f, 4.0f * DELTA_TIME_SECONDS);
 	else if (application->getKeyStates()[GLFW_KEY_W])
-		setTranslation(getTranslation() + Vector3(0.0f, 0.0f, -4.0f * DELTA_TIME_SECONDS));
-	else if (application->getKeyStates()[GLFW_KEY_O])
-		setTranslation(getTranslation() + Vector3(0.0f, 4.0f * DELTA_TIME_SECONDS, 0.0f));
+		acceleration = Vector3(0.0f, 0.0f, -4.0f * DELTA_TIME_SECONDS);
+	
+	if (application->getKeyStates()[GLFW_KEY_O])
+		acceleration = Vector3(0.0f, 4.0f * DELTA_TIME_SECONDS, 0.0f);
 	else if (application->getKeyStates()[GLFW_KEY_L])
-		setTranslation(getTranslation() + Vector3(0.0f, -4.0f * DELTA_TIME_SECONDS, 0.0f));
+		acceleration = Vector3(0.0f, -4.0f * DELTA_TIME_SECONDS, 0.0f);
+	
+	/*if (application->getKeyStates()[GLFW_KEY_SPACE] && m_state != eHumanState::JUMPING)
+		jump();*/
 
+	if (!acceleration.isZero() && m_state != eHumanState::RUNNING && m_state != eHumanState::JUMPING)
+		setState(eHumanState::RUNNING);
+	else if (acceleration.isZero() && m_state != eHumanState::IDLE && m_state != eHumanState::JUMPING)
+		setState(eHumanState::IDLE);
+
+	setTranslation(getTranslation() + acceleration);
 	setRotation(m_currentRot, Vector3(0.0f, 1.0f, 0.0f));
+	application->setCameraTarget(getTranslation());
+	updateAnimation();
+}
+
+void Human::setState(eHumanState state)
+{
+	if (m_state == eHumanState::IDLE || m_state == eHumanState::RUNNING)
+	{
+		m_armSwayRot = 0.0f;
+		m_arms[0]->setRotation(0.0f, Vector3(1.0f, 0.0f, 0.0f));
+		m_arms[1]->setRotation(0.0f, Vector3(1.0f, 0.0f, 0.0f));
+	}
+	
+	if (m_state == eHumanState::RUNNING)
+	{
+		m_runningRot = 0.0f;
+		m_legs[0]->setRotation(0.0f, Vector3(1.0f, 0.0f, 0.0f));
+		m_legs[1]->setRotation(0.0f, Vector3(1.0f, 0.0f, 0.0f));
+	}
+	else if (m_state == eHumanState::JUMPING)
+	{
+		m_offsetDir = true;
+		m_legs[0]->setRotation(0.0f, Vector3(1.0f, 0.0f, 0.0f));
+		m_legs[1]->setRotation(0.0f, Vector3(1.0f, 0.0f, 0.0f));
+		m_arms[0]->setRotation(0.0f, Vector3(1.0f, 0.0f, 0.0f));
+		m_arms[1]->setRotation(0.0f, Vector3(1.0f, 0.0f, 0.0f));
+	}
+
+	m_stateLast = m_state;
+	m_state = state;
+}
+
+void Human::updateAnimation()
+{
+	GLboolean idle = m_state == eHumanState::IDLE;
+	GLboolean running = m_state == eHumanState::RUNNING;
+	GLboolean jumping = m_state == eHumanState::JUMPING;
+
+	if (idle || running)
+	{
+		if (m_armSwayDir)
+			m_armSwayRot += ((idle * m_armSwaySpeed) + (running * m_runningSpeed)) * DELTA_TIME_SECONDS;
+		else
+			m_armSwayRot -= ((idle * m_armSwaySpeed) + (running * m_runningSpeed)) * DELTA_TIME_SECONDS;
+
+		if (m_armSwayRot >= m_armSwayRotMax || m_armSwayRot <= -m_armSwayRotMax)
+			m_armSwayDir = !m_armSwayDir;
+
+		m_arms[0]->setRotation(-m_armSwayRot, Vector3(1.0f, 0.0f, 0.0f));
+		m_arms[1]->setRotation(m_armSwayRot, Vector3(1.0f, 0.0f, 0.0f));
+	}
+	
+	if (running)
+	{
+		if (m_runningDir)
+			m_runningRot += m_runningSpeed * DELTA_TIME_SECONDS;
+		else
+			m_runningRot -= m_runningSpeed * DELTA_TIME_SECONDS;
+
+		if (m_runningRot >= m_runningRotMax || m_runningRot <= -m_runningRotMax)
+			m_runningDir = !m_runningDir;
+
+		m_legs[0]->setRotation(-m_runningRot, Vector3(1.0f, 0.0f, 0.0f));
+		m_legs[1]->setRotation( m_runningRot, Vector3(1.0f, 0.0f, 0.0f));
+	}
+
+	if (jumping)
+	{
+		if (m_offsetDir)
+			m_offset += Vector3(0.0f, 0.1f * DELTA_TIME_SECONDS, 0.0f);
+		else
+			m_offset -= Vector3(0.0f, 0.1f * DELTA_TIME_SECONDS, 0.0f);
+
+		setTranslation(m_offsetInitial + m_offset);
+
+		if (m_offset.getY() >= m_offsetLimit.getY() && m_offsetDir)
+			m_offsetDir = false;
+
+		if (m_offset.getY() <= 0.0f)
+			setState(m_stateLast);
+	}
+}
+
+void Human::jump()
+{
+	m_offsetInitial = m_translation;
+	m_offsetLimit = m_translation + Vector3(0.0f, 0.5f, 0.0f);
+	m_offset += Vector3(0.0f, 0.1f * DELTA_TIME_SECONDS, 0.0f);
+	m_arms[0]->setRotation(90.0f, Vector3(1.0f, 0.0f, 0.0f));
+	m_arms[1]->setRotation(90.0f, Vector3(1.0f, 0.0f, 0.0f));
+	m_legs[0]->setRotation(-20.0f, Vector3(1.0f, 0.0f, 0.0f));
+	m_legs[1]->setRotation( 20.0f, Vector3(1.0f, 0.0f, 0.0f));
+	setTranslation(m_offsetInitial + m_offset);
+	setState(eHumanState::JUMPING);
 }
 
 void Human::drawTorso()
@@ -323,4 +441,3 @@ void Human::setupLegUVs()
 	m_legs[0].get()->setUVS(uvs);
 	m_legs[1].get()->setUVS(uvs);
 }
-

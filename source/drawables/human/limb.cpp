@@ -30,10 +30,12 @@ void Limb::initialise(Application* application)
 
 void Limb::draw(Application* application)
 {
-	// Call down to Drawable::transform() to apply any pre-transformations on the object
+	// Special transform
 	glPushMatrix();
-	this->transform();
-
+	glScalef(m_scale.getX(), m_scale.getY(), m_scale.getZ());
+	glRotatef(m_rotation, m_rotationAxis.getX(), m_rotationAxis.getY(), m_rotationAxis.getZ());
+	glTranslatef(m_translation.getX(), m_translation.getY(), m_translation.getZ());
+	
 	// Draw front face
 	glBegin(GL_POLYGON);
 	glTexCoord2f(m_uvs[4].getX(), m_uvs[4].getY());

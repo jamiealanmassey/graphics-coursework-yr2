@@ -32,7 +32,7 @@ public:
 protected:
 	void transform();
 
-private:
+protected:
 	GLfloat m_rotation;
 	Vector3 m_rotationAxis;
 	Vector3 m_translation;
