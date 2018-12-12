@@ -50,6 +50,8 @@ public:
 	void setCameraTarget(GLfloat x, GLfloat y, GLfloat z);
 	void setCameraTarget(Vector3 target);
 
+	std::map<GLubyte, GLboolean> getKeyStates() const;
+
 protected:
     void setSceneCamera();
     void drawAxisLines();

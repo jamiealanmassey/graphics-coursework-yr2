@@ -149,6 +149,11 @@ void Application::setCameraTarget(Vector3 target)
 	m_cameraTargetZ = target.getZ();
 }
 
+std::map<GLubyte, GLboolean> Application::getKeyStates() const
+{
+	return m_keyStates;
+}
+
 void Application::setSceneCamera()
 {
 	glMatrixMode(GL_PROJECTION);
@@ -323,6 +328,8 @@ void Application::keyboard(GLFWwindow* window, GLint key, GLint scancode, GLint 
 		if (key == GLFW_KEY_Z) application.m_keyStates['z'] = (action == GLFW_PRESS || action == GLFW_REPEAT);
 		if (key == GLFW_KEY_W) application.m_keyStates['w'] = (action == GLFW_PRESS || action == GLFW_REPEAT);
 		if (key == GLFW_KEY_S) application.m_keyStates['s'] = (action == GLFW_PRESS || action == GLFW_REPEAT);
+		if (key == GLFW_KEY_C) application.m_keyStates['c'] = (action == GLFW_PRESS || action == GLFW_REPEAT);
+		if (key == GLFW_KEY_V) application.m_keyStates['v'] = (action == GLFW_PRESS || action == GLFW_REPEAT);
 		if (application.fp_updateSceneKeyboard != nullptr)
 			application.fp_updateSceneKeyboard(&application, key, scancode, action, mods);
 	}

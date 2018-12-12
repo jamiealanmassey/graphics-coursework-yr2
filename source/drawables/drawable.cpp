@@ -32,8 +32,8 @@ void Drawable::setScale(Vector3 scale)
 void Drawable::transform()
 {
 	// Scale, Rotate and Transform object then set colour to white
-	glScalef(m_scale.getX(), m_scale.getY(), m_scale.getZ());
-	glRotatef(m_rotation, m_rotationAxis.getX(), m_rotationAxis.getY(), m_rotationAxis.getZ());
 	glTranslatef(m_translation.getX(), m_translation.getY(), m_translation.getZ());
+	glRotatef(m_rotation, m_rotationAxis.getX(), m_rotationAxis.getY(), m_rotationAxis.getZ());
+	glScalef(m_scale.getX(), m_scale.getY(), m_scale.getZ());
 	m_colour.assign();
 }

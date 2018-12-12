@@ -10,11 +10,11 @@
     <Filter Include="source\drawables">
       <UniqueIdentifier>{6edb5624-a7e0-4be4-994b-6cb2034bd26c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="source\drawables\player">
-      <UniqueIdentifier>{0bd06882-f919-43cf-a138-a5d96e993d6d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="source\drawables\bee">
       <UniqueIdentifier>{ca25a246-724b-4494-833a-9908566c0cc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\drawables\human">
+      <UniqueIdentifier>{0bd06882-f919-43cf-a138-a5d96e993d6d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -59,6 +59,15 @@
     </ClCompile>
     <ClCompile Include="..\source\delta_time.cpp">
       <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\drawables\human\arm.cpp">
+      <Filter>source\drawables\human</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\drawables\human\human.cpp">
+      <Filter>source\drawables\human</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\drawables\human\leg.cpp">
+      <Filter>source\drawables\human</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -106,6 +115,15 @@
     </ClInclude>
     <ClInclude Include="..\source\delta_time.h">
       <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\drawables\human\arm.h">
+      <Filter>source\drawables\human</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\drawables\human\human.h">
+      <Filter>source\drawables\human</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\drawables\human\leg.h">
+      <Filter>source\drawables\human</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
