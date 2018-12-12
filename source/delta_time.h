@@ -22,9 +22,9 @@ public:
 	static DeltaTime& instance();
 
 protected:
-	float m_delta;
-	std::vector<float> m_deltaCache;
-	std::chrono::high_resolution_clock m_clock;
+	float										   m_delta;
+	std::vector<float>							   m_deltaCache;
+	std::chrono::high_resolution_clock			   m_clock;
 	std::chrono::high_resolution_clock::time_point m_timeTick;
 	std::chrono::high_resolution_clock::time_point m_timeStart;
 };

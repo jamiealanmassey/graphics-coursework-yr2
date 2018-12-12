@@ -15,8 +15,8 @@ GLuint Texture::loadTexture(std::string texture)
 	glBindTexture(GL_TEXTURE_2D, m_textureID);
 
 	m_textureData = SOIL_load_image(texture.c_str(), &m_width, &m_height, 0, SOIL_LOAD_RGBA);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_width, m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, m_textureData);
 	glDisable(GL_TEXTURE_2D);
 

@@ -9,7 +9,7 @@ WaterBlock::~WaterBlock()
 {
 }
 
-void WaterBlock::initialise(Application * application)
+void WaterBlock::initialise(Application* application)
 {
 	// Instantiate all the textures we are going to need as unique_pointer's
 	m_textures.emplace_back(std::make_unique<Texture>());

@@ -135,9 +135,8 @@
     <ClCompile Include="..\source\drawables\dirt_block.cpp" />
     <ClCompile Include="..\source\drawables\drawable.cpp" />
     <ClCompile Include="..\source\drawables\grass_block.cpp" />
-    <ClCompile Include="..\source\drawables\human\arm.cpp" />
     <ClCompile Include="..\source\drawables\human\human.cpp" />
-    <ClCompile Include="..\source\drawables\human\leg.cpp" />
+    <ClCompile Include="..\source\drawables\human\limb.cpp" />
     <ClCompile Include="..\source\drawables\water_block.cpp" />
     <ClCompile Include="..\source\main.cpp" />
     <ClCompile Include="..\source\scenes\basic_scene.cpp" />
@@ -155,9 +154,8 @@
     <ClInclude Include="..\source\drawables\drawable.h" />
     <ClInclude Include="..\source\drawables\empty_block.h" />
     <ClInclude Include="..\source\drawables\grass_block.h" />
-    <ClInclude Include="..\source\drawables\human\arm.h" />
     <ClInclude Include="..\source\drawables\human\human.h" />
-    <ClInclude Include="..\source\drawables\human\leg.h" />
+    <ClInclude Include="..\source\drawables\human\limb.h" />
     <ClInclude Include="..\source\drawables\water_block.h" />
     <ClInclude Include="..\source\ogl_include.h" />
     <ClInclude Include="..\source\scenes\basic_scene.h" />

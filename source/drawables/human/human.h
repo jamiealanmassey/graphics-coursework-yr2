@@ -2,6 +2,7 @@
 #define _HUMAN_H
 
 #include "../drawable.h"
+#include "limb.h"
 
 class Human : public Drawable
 {
@@ -14,10 +15,15 @@ public:
 	virtual void update(Application* application) override;
 
 private:
-	GLfloat m_currentRot;
+	void drawTorso();
+	void drawHead();
+	void setupArmUVs();
+	void setupLegUVs();
 
-	//Arm m_arms[2];
-	//Leg m_legs[2];
+private:
+	GLfloat				  m_currentRot;
+	std::unique_ptr<Limb> m_arms[2];
+	std::unique_ptr<Limb> m_legs[2];
 	//Bee m_bee;
 };
 

@@ -323,13 +323,7 @@ void Application::keyboard(GLFWwindow* window, GLint key, GLint scancode, GLint 
 		application.m_running = false;
 	else
 	{
-		if (key == GLFW_KEY_X) application.m_keyStates['x'] = (action == GLFW_PRESS || action == GLFW_REPEAT);
-		if (key == GLFW_KEY_Y) application.m_keyStates['y'] = (action == GLFW_PRESS || action == GLFW_REPEAT);
-		if (key == GLFW_KEY_Z) application.m_keyStates['z'] = (action == GLFW_PRESS || action == GLFW_REPEAT);
-		if (key == GLFW_KEY_W) application.m_keyStates['w'] = (action == GLFW_PRESS || action == GLFW_REPEAT);
-		if (key == GLFW_KEY_S) application.m_keyStates['s'] = (action == GLFW_PRESS || action == GLFW_REPEAT);
-		if (key == GLFW_KEY_C) application.m_keyStates['c'] = (action == GLFW_PRESS || action == GLFW_REPEAT);
-		if (key == GLFW_KEY_V) application.m_keyStates['v'] = (action == GLFW_PRESS || action == GLFW_REPEAT);
+		application.m_keyStates[key] = (action == GLFW_PRESS || action == GLFW_REPEAT);
 		if (application.fp_updateSceneKeyboard != nullptr)
 			application.fp_updateSceneKeyboard(&application, key, scancode, action, mods);
 	}

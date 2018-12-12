@@ -11,6 +11,9 @@ Drawable::Drawable()
 
 Drawable::~Drawable()
 {
+	m_uvs.clear();
+	m_vertices.clear();
+	m_textures.clear();
 }
 
 void Drawable::setRotation(GLfloat angle, Vector3 axis)
@@ -27,6 +30,26 @@ void Drawable::setTranslation(Vector3 translation)
 void Drawable::setScale(Vector3 scale)
 {
 	m_scale = scale;
+}
+
+void Drawable::setColour(Colour colour)
+{
+	m_colour = colour;
+}
+
+void Drawable::setUVS(std::vector<Vector2> uvs)
+{
+	m_uvs = uvs;
+}
+
+Vector3 Drawable::getTranslation() const
+{
+	return m_translation;
+}
+
+Vector3 Drawable::getScale() const
+{
+	return m_scale;
 }
 
 void Drawable::transform()

@@ -60,13 +60,10 @@
     <ClCompile Include="..\source\delta_time.cpp">
       <Filter>source</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\drawables\human\arm.cpp">
-      <Filter>source\drawables\human</Filter>
-    </ClCompile>
     <ClCompile Include="..\source\drawables\human\human.cpp">
       <Filter>source\drawables\human</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\drawables\human\leg.cpp">
+    <ClCompile Include="..\source\drawables\human\limb.cpp">
       <Filter>source\drawables\human</Filter>
     </ClCompile>
   </ItemGroup>
@@ -116,13 +113,10 @@
     <ClInclude Include="..\source\delta_time.h">
       <Filter>source</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\drawables\human\arm.h">
-      <Filter>source\drawables\human</Filter>
-    </ClInclude>
     <ClInclude Include="..\source\drawables\human\human.h">
       <Filter>source\drawables\human</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\drawables\human\leg.h">
+    <ClInclude Include="..\source\drawables\human\limb.h">
       <Filter>source\drawables\human</Filter>
     </ClInclude>
   </ItemGroup>
