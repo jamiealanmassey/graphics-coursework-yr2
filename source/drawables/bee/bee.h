@@ -2,6 +2,7 @@
 #define _BEE_H
 
 #include "../drawable.h"
+#include "Leg.h"
 
 class Bee : public Drawable
 {
@@ -18,9 +19,10 @@ private:
 	void drawHead();
 
 private:
-	GLfloat m_bodyWidth;
-	GLfloat m_bodyHeight;
-	GLfloat m_bodyDepth;
+	GLfloat				 m_bodyWidth;
+	GLfloat				 m_bodyHeight;
+	GLfloat				 m_bodyDepth;
+	std::unique_ptr<Leg> m_legs[6];
 };
 
 #endif // _BEE_H

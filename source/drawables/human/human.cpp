@@ -24,7 +24,7 @@ Human::~Human()
 
 void Human::initialise()
 {
-	m_humanAmbient  = new GLfloat[4]{ 0.3f, 0.3f, 0.3f, 1.0f };
+	m_humanAmbient  = new GLfloat[4]{ 0.7f, 0.7f, 0.7f, 1.0f };
 	m_humanDiffuse  = new GLfloat[4]{ 0.6f, 0.6f, 0.6f, 1.0f };
 	m_humanSpecular = new GLfloat[4]{ 0.1f, 0.1f, 0.1f, 1.0f };
 
@@ -81,10 +81,10 @@ void Human::draw()
 
 	/*m_textures[0]->bind();
 	glColor3f(1.0f, 1.0f, 1.0f);
-	m_arms[0].get()->draw(application);
-	m_arms[1].get()->draw(application);
-	m_legs[0].get()->draw(application);
-	m_legs[1].get()->draw(application);
+	m_arms[0].get()->draw();
+	m_arms[1].get()->draw();
+	m_legs[0].get()->draw();
+	m_legs[1].get()->draw();
 	this->drawTorso();
 	glTranslatef(0.0f, 1.1f, 0.0f);
 	this->drawHead();
@@ -135,7 +135,7 @@ void Human::update()
 		setState(eHumanState::IDLE);
 
 	setTranslation(getTranslation() + acceleration);
-	setRotation(m_currentRot, Vector3(0.0f, 1.0f, 0.0f));
+	setRotation(m_currentRot, Vector3(1.0f, 0.0f, 0.0f));
 	application.setCameraTarget(getTranslation());
 	updateAnimation();
 }

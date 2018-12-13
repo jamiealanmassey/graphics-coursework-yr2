@@ -41,19 +41,19 @@ void BasicScene::initScene()
 	m_sceneParser.get()->parse();
 
 	for (const auto& drawable : m_sceneParser.get()->getDrawables())
-		drawable->initialise(application);*/
+		drawable->initialise();*/
 }
 
 void BasicScene::renderScene() 
 {
 	m_human.get()->draw();
 	/*for (auto drawable : m_sceneParser.get()->getDrawables())
-		drawable->draw(application);*/
+		drawable->draw();*/
 }
 
 void BasicScene::updateScene()
 {
 	m_human.get()->update();
 	/*for (auto drawable : m_sceneParser.get()->getDrawables())
-		drawable->update(application);*/
+		drawable->update();*/
 }

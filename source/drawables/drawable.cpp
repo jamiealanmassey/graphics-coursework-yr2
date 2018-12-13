@@ -32,6 +32,11 @@ void Drawable::setScale(Vector3 scale)
 	m_scale = scale;
 }
 
+void Drawable::setScale(GLfloat scalar)
+{
+	m_scale = Vector3(scalar, scalar, scalar);
+}
+
 void Drawable::setColour(Colour colour)
 {
 	m_colour = colour;

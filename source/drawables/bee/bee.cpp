@@ -32,6 +32,24 @@ void Bee::initialise()
 	m_vertices.push_back(Vertex( 0.4f,  0.4f, m_bodyDepth)); // m_vertices[13]
 	m_vertices.push_back(Vertex( 0.4f, -0.4f, m_bodyDepth)); // m_vertices[14]
 	m_vertices.push_back(Vertex(-0.4f, -0.4f, m_bodyDepth)); // m_vertices[15]
+
+	for (int i = 0; i < 6; i++)
+	{
+		m_legs[i] = std::make_unique<Leg>();
+		m_legs[i]->initialise();
+		m_legs[i]->setScale(0.2f);
+	}
+	
+	m_legs[0]->setTranslation(Vector3( 0.0f, -1.8f, -1.4f));
+	m_legs[1]->setTranslation(Vector3(-3.0f, -1.8f, -1.4f));
+	m_legs[2]->setTranslation(Vector3( 3.0f, -1.8f, -1.4f));
+	m_legs[3]->setTranslation(Vector3( 0.0f, -1.8f, -1.4f));
+	m_legs[4]->setTranslation(Vector3(-3.0f, -1.8f, -1.4f));
+	m_legs[5]->setTranslation(Vector3( 3.0f, -1.8f, -1.4f));
+
+	m_legs[3]->setFlipped(true);
+	m_legs[4]->setFlipped(true);
+	m_legs[5]->setFlipped(true);
 }
 
 void Bee::draw()
@@ -40,6 +58,10 @@ void Bee::draw()
 	this->transform();
 	this->drawBody();
 	this->drawHead();
+	
+	for (int i = 0; i < 6; i++)
+		m_legs[i]->draw();
+
 	glPopMatrix();
 }
 

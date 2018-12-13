@@ -57,6 +57,13 @@ public:
 	void setScale(Vector3 scale);
 
 	/**
+	 * Sets the current scale of this whole object
+	 *
+	 * \param scalar Uniform scalar to scale each component (x, y, z) by
+	 */
+	void setScale(GLfloat scalar);
+
+	/**
 	 * Sets the current colour of this whole object
 	 *
 	 * \param colour Desired Colour to be assigned before drawing
