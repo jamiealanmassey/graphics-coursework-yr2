@@ -2,6 +2,7 @@
 #define _HUMAN_H
 
 #include "../drawable.h"
+#include "../bee/bee.h"
 #include "limb.h"
 
 enum eHumanState
@@ -17,9 +18,9 @@ public:
 	Human();
 	~Human();
 
-	virtual void initialise(Application* application) override;
-	virtual void draw(Application* application) override;
-	virtual void update(Application* application) override;
+	virtual void initialise() override;
+	virtual void draw() override;
+	virtual void update() override;
 
 	void setState(eHumanState state);
 
@@ -47,9 +48,9 @@ private:
 	Vector3               m_offset;		   ///< Current translation offset that is being applied
 	Vector3				  m_offsetInitial; ///< Last known m_translation position before jumping
 	Vector3               m_offsetLimit;   ///< Offset to aim for when jumping
+	Bee				      m_bee;
 	std::unique_ptr<Limb> m_arms[2];	   ///< Both arms that are attached to this human stored uniquely in memory
 	std::unique_ptr<Limb> m_legs[2];	   ///< Both legs that are attacjed to this human stored uniquely in memory
-	//Bee m_bee;
 };
 
 #endif // _HUMAN_H

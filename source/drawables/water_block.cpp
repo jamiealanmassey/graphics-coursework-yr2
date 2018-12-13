@@ -9,7 +9,7 @@ WaterBlock::~WaterBlock()
 {
 }
 
-void WaterBlock::initialise(Application* application)
+void WaterBlock::initialise()
 {
 	// Instantiate all the textures we are going to need as unique_pointer's
 	m_textures.emplace_back(std::make_unique<Texture>());
@@ -32,7 +32,7 @@ void WaterBlock::initialise(Application* application)
 	m_offset = Vector2(0.0f, 0.0f);
 }
 
-void WaterBlock::draw(Application * application)
+void WaterBlock::draw()
 {
 	// Call down to Drawable::transform() to apply any pre-transformations on the object
 	glPushMatrix();
@@ -56,7 +56,7 @@ void WaterBlock::draw(Application * application)
 	glPopMatrix();
 }
 
-void WaterBlock::update(Application* application)
+void WaterBlock::update()
 {
 	m_offset += Vector2(0.1f, 0.15f) * DELTA_TIME_SECONDS;
 	if (m_offset.getX() > 0.5f)

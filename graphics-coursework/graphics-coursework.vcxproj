@@ -131,6 +131,11 @@
   <ItemGroup>
     <ClCompile Include="..\source\application.cpp" />
     <ClCompile Include="..\source\delta_time.cpp" />
+    <ClCompile Include="..\source\drawables\bee\antenna.cpp" />
+    <ClCompile Include="..\source\drawables\bee\bee.cpp" />
+    <ClCompile Include="..\source\drawables\bee\leg.cpp" />
+    <ClCompile Include="..\source\drawables\bee\stinger.cpp" />
+    <ClCompile Include="..\source\drawables\bee\wing.cpp" />
     <ClCompile Include="..\source\drawables\dirt_block.cpp" />
     <ClCompile Include="..\source\drawables\drawable.cpp" />
     <ClCompile Include="..\source\drawables\grass_block.cpp" />
@@ -150,6 +155,11 @@
   <ItemGroup>
     <ClInclude Include="..\source\application.h" />
     <ClInclude Include="..\source\delta_time.h" />
+    <ClInclude Include="..\source\drawables\bee\antenna.h" />
+    <ClInclude Include="..\source\drawables\bee\bee.h" />
+    <ClInclude Include="..\source\drawables\bee\leg.h" />
+    <ClInclude Include="..\source\drawables\bee\stinger.h" />
+    <ClInclude Include="..\source\drawables\bee\wing.h" />
     <ClInclude Include="..\source\drawables\dirt_block.h" />
     <ClInclude Include="..\source\drawables\drawable.h" />
     <ClInclude Include="..\source\drawables\empty_block.h" />

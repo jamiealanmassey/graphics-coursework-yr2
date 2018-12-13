@@ -8,9 +8,9 @@ public:
 	EmptyBlock() {};
 	~EmptyBlock() {};
 
-	void initialise(Application* application) {};
-	void draw(Application* application) {};
-	void update(Application* application) {};
+	void initialise() {};
+	void draw() {};
+	void update() {};
 };
 
 #endif // _EMPTY_BLOCK_H

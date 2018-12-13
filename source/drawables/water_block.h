@@ -10,9 +10,9 @@ public:
 	WaterBlock();
 	~WaterBlock();
 
-	virtual void initialise(Application* application) override;
-	virtual void draw(Application* application) override;
-	virtual void update(Application* application) override;
+	virtual void initialise() override;
+	virtual void draw() override;
+	virtual void update() override;
 
 private:
 	Vector2 m_uvs[4];

@@ -12,7 +12,7 @@ Limb::~Limb()
 {
 }
 
-void Limb::initialise(Application* application)
+void Limb::initialise()
 {
 	GLfloat halfWidth = m_limbWidth / 2.0f;
 	GLfloat halfHeight = m_limbHeight / 2.0f;
@@ -28,7 +28,7 @@ void Limb::initialise(Application* application)
 	m_vertices.push_back(Vertex(-halfWidth, -halfHeight, -halfDepth)); // m_vertices[7]
 }
 
-void Limb::draw(Application* application)
+void Limb::draw()
 {
 	// Special transform
 	glPushMatrix();
@@ -110,6 +110,6 @@ void Limb::draw(Application* application)
 	glPopMatrix();
 }
 
-void Limb::update(Application* application)
+void Limb::update()
 {
 }

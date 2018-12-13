@@ -11,7 +11,7 @@ GrassBlock::~GrassBlock()
 	m_textures.clear();
 }
 
-void GrassBlock::initialise(Application* application)
+void GrassBlock::initialise()
 {
 	// Instantiate all the textures we are going to need as unique_pointer's
 	m_textures.emplace_back(std::make_unique<Texture>());
@@ -34,7 +34,7 @@ void GrassBlock::initialise(Application* application)
 	m_vertices.push_back(Vertex( 0.5f, -0.5f, -0.5f)); // m_vertices[7]
 }
 
-void GrassBlock::draw(Application* application)
+void GrassBlock::draw()
 {
 	// Call down to Drawable::transform() to apply any pre-transformations on the object
 	glPushMatrix();
@@ -122,6 +122,6 @@ void GrassBlock::draw(Application* application)
 	glPopMatrix();
 }
 
-void GrassBlock::update(Application* application)
+void GrassBlock::update()
 {
 }

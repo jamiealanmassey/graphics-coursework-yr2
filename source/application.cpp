@@ -203,7 +203,7 @@ void Application::initialise()
     glEnable(GL_CULL_FACE);
 	glEnable(GL_TEXTURE_2D);
 	if (fp_initScene != nullptr)
-		fp_initScene(this);
+		fp_initScene();
 }
 
 void Application::createWindow()
@@ -251,7 +251,7 @@ void Application::createWindow()
 void Application::updateMouse(GLint button, GLint state, GLint x, GLint y)
 {
 	if (fp_updateSceneMouse != nullptr)
-		fp_updateSceneMouse(this, button, state, x, y);
+		fp_updateSceneMouse(button, state, x, y);
 }
 
 void Application::updateScene()
@@ -269,7 +269,7 @@ void Application::updateScene()
 	m_viewingAxisDistance = max(m_viewingAxisDistance, m_viewingAxisDistanceMin);
 	m_viewingAxisDistance = min(m_viewingAxisDistance, m_viewingAxisDistanceMax);
 	if (fp_updateScene != nullptr)
-		fp_updateScene(this);
+		fp_updateScene();
 }
 
 void Application::updateCamera()
@@ -306,7 +306,7 @@ void Application::renderFrame()
 
 	glPushMatrix();
 	if (fp_renderScene != nullptr)
-		fp_renderScene(this);
+		fp_renderScene();
 
 	glPopMatrix();
 }
@@ -325,7 +325,7 @@ void Application::keyboard(GLFWwindow* window, GLint key, GLint scancode, GLint 
 	{
 		application.m_keyStates[key] = (action == GLFW_PRESS || action == GLFW_REPEAT);
 		if (application.fp_updateSceneKeyboard != nullptr)
-			application.fp_updateSceneKeyboard(&application, key, scancode, action, mods);
+			application.fp_updateSceneKeyboard(key, scancode, action, mods);
 	}
 }
 

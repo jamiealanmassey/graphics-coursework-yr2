@@ -26,13 +26,13 @@ public:
 	~Drawable();
 
 	/** Purely virtual function to be called when drawable is created **/
-	virtual void initialise(Application* application) = 0;
+	virtual void initialise() = 0;
 
 	/** Purely virtual function to be called when drawable is drawn **/
-	virtual void draw(Application* application) = 0;
+	virtual void draw() = 0;
 
 	/** Purely virtual function to be called when drawable is updated **/
-	virtual void update(Application* application) = 0;
+	virtual void update() = 0;
 
 	/** Sets the current rotation of the drawable in relation to a defined axis
 	 *

@@ -208,11 +208,11 @@ public:
     static const GLenum WINDOWED = 1;   ///< WindowMode for Windowed
 
 public:
-	std::function<void(Application*)>							  fp_initScene;			  ///< Function pointer for initialisation
-	std::function<void(Application*)>							  fp_updateScene;	      ///< Function pointer for updating the scene
-	std::function<void(Application*)>							  fp_renderScene;		  ///< Function pointer for rendering the scene
-	std::function<void(Application*, GLint, GLint, GLint, GLint)> fp_updateSceneKeyboard; ///< Function pointer for keyboard input
-	std::function<void(Application*, GLint, GLint, GLint, GLint)> fp_updateSceneMouse;	  ///< Function pointer for mouse input
+	std::function<void()>							fp_initScene;			///< Function pointer for initialisation
+	std::function<void()>							fp_updateScene;	        ///< Function pointer for updating the scene
+	std::function<void()>							fp_renderScene;		    ///< Function pointer for rendering the scene
+	std::function<void(GLint, GLint, GLint, GLint)> fp_updateSceneKeyboard; ///< Function pointer for keyboard input
+	std::function<void(GLint, GLint, GLint, GLint)> fp_updateSceneMouse;	///< Function pointer for mouse input
 
 protected:
 	std::map<GLubyte, GLboolean> m_keyStates; ///< Stored Map of all current key states

@@ -8,7 +8,7 @@ DirtBlock::~DirtBlock()
 {
 }
 
-void DirtBlock::initialise(Application * application)
+void DirtBlock::initialise()
 {
 	// Instantiate all the textures we are going to need as unique_pointer's
 	m_textures.emplace_back(std::make_unique<Texture>());
@@ -27,7 +27,7 @@ void DirtBlock::initialise(Application * application)
 	m_vertices.push_back(Vertex( 0.5f, -0.5f, -0.5f)); // m_vertices[7]
 }
 
-void DirtBlock::draw(Application * application)
+void DirtBlock::draw()
 {
 	// Call down to Drawable::transform() to apply any pre-transformations on the object
 	glPushMatrix();
@@ -111,6 +111,6 @@ void DirtBlock::draw(Application * application)
 	glPopMatrix();
 }
 
-void DirtBlock::update(Application * application)
+void DirtBlock::update()
 {
 }

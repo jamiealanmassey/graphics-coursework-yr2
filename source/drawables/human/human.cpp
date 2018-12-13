@@ -22,22 +22,22 @@ Human::~Human()
 {
 }
 
-void Human::initialise(Application* application)
+void Human::initialise()
 {
 	m_textures.emplace_back(std::make_unique<Texture>());
 	m_textures[0].get()->loadTexture("../textures/steve-player.png");
 
 	m_arms[0] = std::make_unique<Limb>(0.4f, 1.3f, 0.4f);
 	m_arms[1] = std::make_unique<Limb>(0.4f, 1.3f, 0.4f);
-	m_arms[0].get()->initialise(application);
-	m_arms[1].get()->initialise(application);
+	m_arms[0].get()->initialise();
+	m_arms[1].get()->initialise();
 	m_arms[0]->setTranslation(Vector3(-0.65f, 0.0f, 0.0f));
 	m_arms[1]->setTranslation(Vector3( 0.65f, 0.0f, 0.0f));
 
 	m_legs[0] = std::make_unique<Limb>(0.45f, 1.3f, 0.45f);
 	m_legs[1] = std::make_unique<Limb>(0.45f, 1.3f, 0.45f);
-	m_legs[0].get()->initialise(application);
-	m_legs[1].get()->initialise(application);
+	m_legs[0].get()->initialise();
+	m_legs[1].get()->initialise();
 	m_legs[0]->setTranslation(Vector3(-0.225f, -1.3f, 0.0f));
 	m_legs[1]->setTranslation(Vector3( 0.225f, -1.3f, 0.0f));
 
@@ -59,16 +59,18 @@ void Human::initialise(Application* application)
 	m_vertices.push_back(Vertex( 0.45f, -0.45f, -0.45f)); // m_vertices[14]
 	m_vertices.push_back(Vertex(-0.45f, -0.45f, -0.45f)); // m_vertices[15]
 
+	m_bee.initialise();
+
 	setupArmUVs();
 	setupLegUVs();
 }
 
-void Human::draw(Application* application)
+void Human::draw()
 {
 	// Call down to Drawable::transform() to apply any pre-transformations on the object
 	glPushMatrix();
 	this->transform();
-	m_textures[0]->bind();
+	/*m_textures[0]->bind();
 	glColor3f(1.0f, 1.0f, 1.0f);
 	m_arms[0].get()->draw(application);
 	m_arms[1].get()->draw(application);
@@ -77,19 +79,22 @@ void Human::draw(Application* application)
 	this->drawTorso();
 	glTranslatef(0.0f, 1.1f, 0.0f);
 	this->drawHead();
-	m_textures[0]->unbind();
+	m_textures[0]->unbind();*/
+	m_bee.draw();
 	glPopMatrix();
 }
 
-void Human::update(Application* application)
+void Human::update()
 {
-	if (application->getKeyStates()[GLFW_KEY_UP]) 
+	Application& application = Application::instance();
+
+	if (application.getKeyStates()[GLFW_KEY_UP]) 
 	{
 		m_currentRot += 100.0f * DELTA_TIME_SECONDS;
 		if (m_currentRot >= 360.0f)
 			m_currentRot = 0.0f;
 	}
-	else if (application->getKeyStates()[GLFW_KEY_DOWN]) 
+	else if (application.getKeyStates()[GLFW_KEY_DOWN]) 
 	{
 		m_currentRot -= 100.0f * DELTA_TIME_SECONDS;
 		if (m_currentRot <= 0.0f)
@@ -97,19 +102,19 @@ void Human::update(Application* application)
 	}
 
 	Vector3 acceleration;
-	if (application->getKeyStates()[GLFW_KEY_D])
+	if (application.getKeyStates()[GLFW_KEY_D])
 		acceleration = Vector3(4.0f * DELTA_TIME_SECONDS, 0.0f, 0.0f);
-	else if (application->getKeyStates()[GLFW_KEY_A])
+	else if (application.getKeyStates()[GLFW_KEY_A])
 		acceleration = Vector3(-4.0f * DELTA_TIME_SECONDS, 0.0f, 0.0f);
 	
-	if (application->getKeyStates()[GLFW_KEY_S])
+	if (application.getKeyStates()[GLFW_KEY_S])
 		acceleration = Vector3(0.0f, 0.0f, 4.0f * DELTA_TIME_SECONDS);
-	else if (application->getKeyStates()[GLFW_KEY_W])
+	else if (application.getKeyStates()[GLFW_KEY_W])
 		acceleration = Vector3(0.0f, 0.0f, -4.0f * DELTA_TIME_SECONDS);
 	
-	if (application->getKeyStates()[GLFW_KEY_O])
+	if (application.getKeyStates()[GLFW_KEY_O])
 		acceleration = Vector3(0.0f, 4.0f * DELTA_TIME_SECONDS, 0.0f);
-	else if (application->getKeyStates()[GLFW_KEY_L])
+	else if (application.getKeyStates()[GLFW_KEY_L])
 		acceleration = Vector3(0.0f, -4.0f * DELTA_TIME_SECONDS, 0.0f);
 	
 	/*if (application->getKeyStates()[GLFW_KEY_SPACE] && m_state != eHumanState::JUMPING)
@@ -122,7 +127,7 @@ void Human::update(Application* application)
 
 	setTranslation(getTranslation() + acceleration);
 	setRotation(m_currentRot, Vector3(0.0f, 1.0f, 0.0f));
-	application->setCameraTarget(getTranslation());
+	application.setCameraTarget(getTranslation());
 	updateAnimation();
 }
 
@@ -171,7 +176,7 @@ void Human::updateAnimation()
 			m_armSwayDir = !m_armSwayDir;
 
 		m_arms[0]->setRotation(-m_armSwayRot, Vector3(1.0f, 0.0f, 0.0f));
-		m_arms[1]->setRotation(m_armSwayRot, Vector3(1.0f, 0.0f, 0.0f));
+		m_arms[1]->setRotation( m_armSwayRot, Vector3(1.0f, 0.0f, 0.0f));
 	}
 	
 	if (running)

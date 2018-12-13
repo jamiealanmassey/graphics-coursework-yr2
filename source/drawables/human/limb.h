@@ -9,9 +9,9 @@ public:
 	Limb(GLfloat width, GLfloat height, GLfloat depth);
 	~Limb();
 
-	virtual void initialise(Application* application) override;
-	virtual void draw(Application* application) override;
-	virtual void update(Application* application) override;
+	virtual void initialise() override;
+	virtual void draw() override;
+	virtual void update() override;
 
 private:
 	GLfloat m_limbWidth;

@@ -9,9 +9,9 @@ public:
 	DirtBlock();
 	~DirtBlock();
 
-	virtual void initialise(Application* application) override;
-	virtual void draw(Application* application) override;
-	virtual void update(Application* application) override;
+	virtual void initialise() override;
+	virtual void draw() override;
+	virtual void update() override;
 };
 
 #endif // _DIRT_BLOCK_H
