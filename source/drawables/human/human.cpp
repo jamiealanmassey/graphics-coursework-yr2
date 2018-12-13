@@ -24,6 +24,10 @@ Human::~Human()
 
 void Human::initialise()
 {
+	m_humanAmbient  = new GLfloat[4]{ 0.3f, 0.3f, 0.3f, 1.0f };
+	m_humanDiffuse  = new GLfloat[4]{ 0.6f, 0.6f, 0.6f, 1.0f };
+	m_humanSpecular = new GLfloat[4]{ 0.1f, 0.1f, 0.1f, 1.0f };
+
 	m_textures.emplace_back(std::make_unique<Texture>());
 	m_textures[0].get()->loadTexture("../textures/steve-player.png");
 
@@ -70,6 +74,11 @@ void Human::draw()
 	// Call down to Drawable::transform() to apply any pre-transformations on the object
 	glPushMatrix();
 	this->transform();
+
+	glMaterialfv(GL_FRONT, GL_AMBIENT, m_humanAmbient);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, m_humanDiffuse);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, m_humanSpecular);
+
 	/*m_textures[0]->bind();
 	glColor3f(1.0f, 1.0f, 1.0f);
 	m_arms[0].get()->draw(application);
@@ -227,6 +236,11 @@ void Human::drawTorso()
 {
 	// Draw front face
 	glBegin(GL_POLYGON);
+	Normal( m_vertices[0], 
+			m_vertices[1], 
+			m_vertices[2], 
+			m_vertices[3] ).assign();
+
 	glTexCoord2f(0.4375f, 0.625f);
 	m_vertices[0].assign();
 	glTexCoord2f(0.3125f, 0.625f);
@@ -239,6 +253,11 @@ void Human::drawTorso()
 
 	// Draw back face
 	glBegin(GL_POLYGON);
+	Normal( m_vertices[4], 
+			m_vertices[5], 
+			m_vertices[6], 
+			m_vertices[7] ).assign();
+
 	glTexCoord2f(40.0f / 64.0f, 20.0f / 32.0f);
 	m_vertices[4].assign();
 	glTexCoord2f(32.0f / 64.0f, 20.0f / 32.0f);
@@ -251,6 +270,11 @@ void Human::drawTorso()
 
 	// Draw top face
 	glBegin(GL_POLYGON);
+	Normal( m_vertices[5], 
+			m_vertices[4], 
+			m_vertices[1], 
+			m_vertices[0] ).assign();
+
 	glTexCoord2f(28.0f / 64.0f, 0.5f);
 	m_vertices[5].assign();
 	glTexCoord2f(20.0f / 64.0f, 0.5f);
@@ -263,6 +287,11 @@ void Human::drawTorso()
 
 	// Draw bottom face
 	glBegin(GL_POLYGON);
+	Normal( m_vertices[3], 
+			m_vertices[2], 
+			m_vertices[7], 
+			m_vertices[6] ).assign();
+
 	glTexCoord2f(36.0f / 64.0f, 0.5f);
 	m_vertices[3].assign();
 	glTexCoord2f(28.0f / 64.0f, 0.5f);
@@ -275,6 +304,11 @@ void Human::drawTorso()
 
 	// Draw left side face
 	glBegin(GL_POLYGON);
+	Normal( m_vertices[1], 
+			m_vertices[4], 
+			m_vertices[7], 
+			m_vertices[2] ).assign();
+
 	glTexCoord2f(20.0f / 64.0f, 20.0f / 32.0f);
 	m_vertices[1].assign();
 	glTexCoord2f(0.25f, 20.0f / 32.0f);
@@ -287,6 +321,11 @@ void Human::drawTorso()
 
 	// Draw right side face
 	glBegin(GL_POLYGON);
+	Normal( m_vertices[5], 
+			m_vertices[0], 
+			m_vertices[3], 
+			m_vertices[6] ).assign();
+
 	glTexCoord2f(0.5f, 20.0f / 32.0f);
 	m_vertices[5].assign();
 	glTexCoord2f(28.0f / 64.0f, 20.0f / 32.0f);
@@ -302,6 +341,11 @@ void Human::drawHead()
 {
 	// Draw front face
 	glBegin(GL_POLYGON);
+	Normal( m_vertices[8], 
+			m_vertices[9], 
+			m_vertices[10], 
+			m_vertices[11] ).assign();
+
 	glTexCoord2f(0.25f, 0.25f);
 	m_vertices[8].assign();
 	glTexCoord2f(0.125f, 0.25f);
@@ -314,6 +358,11 @@ void Human::drawHead()
 
 	// Draw back face
 	glBegin(GL_POLYGON);
+	Normal( m_vertices[12], 
+			m_vertices[13], 
+			m_vertices[14], 
+			m_vertices[15] ).assign();
+
 	glTexCoord2f(0.5f, 0.25f);
 	m_vertices[12].assign();
 	glTexCoord2f(0.375f, 0.25f);
@@ -326,6 +375,11 @@ void Human::drawHead()
 
 	// Draw left side face
 	glBegin(GL_POLYGON);
+	Normal( m_vertices[9], 
+			m_vertices[12], 
+			m_vertices[15], 
+			m_vertices[10] ).assign();
+
 	glTexCoord2f(0.125f, 0.25f);
 	m_vertices[9].assign();
 	glTexCoord2f(0.0f, 0.25f);
@@ -338,6 +392,11 @@ void Human::drawHead()
 
 	// Draw right side face
 	glBegin(GL_POLYGON);
+	Normal( m_vertices[13], 
+			m_vertices[8], 
+			m_vertices[11], 
+			m_vertices[14] ).assign();
+
 	glTexCoord2f(0.375f, 0.25f);
 	m_vertices[13].assign();
 	glTexCoord2f(0.25f, 0.25f);
@@ -350,6 +409,11 @@ void Human::drawHead()
 
 	// Draw bottom face
 	glBegin(GL_POLYGON);
+	Normal( m_vertices[11], 
+			m_vertices[10], 
+			m_vertices[15], 
+			m_vertices[14] ).assign();
+
 	glTexCoord2f(0.375f, 0.0f);
 	m_vertices[11].assign();
 	glTexCoord2f(0.25f, 0.0f);
@@ -362,6 +426,11 @@ void Human::drawHead()
 
 	// Draw top face
 	glBegin(GL_POLYGON);
+	Normal( m_vertices[13], 
+			m_vertices[12], 
+			m_vertices[9], 
+			m_vertices[8] ).assign();
+
 	glTexCoord2f(0.25f, 0.0f);
 	m_vertices[13].assign();
 	glTexCoord2f(0.125f, 0.0f);
@@ -376,36 +445,44 @@ void Human::drawHead()
 void Human::setupArmUVs()
 {
 	std::vector<Vector2> uvs;
-	uvs.push_back(Vector2(44.0f / 64.0f, 20.0f / 32.0f)); // Left arm
+
+	// Left arm
+	uvs.push_back(Vector2(44.0f / 64.0f, 20.0f / 32.0f)); 
 	uvs.push_back(Vector2(40.0f / 64.0f, 20.0f / 32.0f));
 	uvs.push_back(Vector2(40.0f / 64.0f, 1.0f));
 	uvs.push_back(Vector2(44.0f / 64.0f, 1.0f));
 
-	uvs.push_back(Vector2(48.0f / 64.0f, 20.0f / 32.0f)); // Front arm
+	// Front arm
+	uvs.push_back(Vector2(48.0f / 64.0f, 20.0f / 32.0f)); 
 	uvs.push_back(Vector2(44.0f / 64.0f, 20.0f / 32.0f));
 	uvs.push_back(Vector2(44.0f / 64.0f, 1.0f));
 	uvs.push_back(Vector2(48.0f / 64.0f, 1.0f));
 
-	uvs.push_back(Vector2(52.0f / 64.0f, 20.0f / 32.0f)); // Right arm
+	// Right arm
+	uvs.push_back(Vector2(52.0f / 64.0f, 20.0f / 32.0f)); 
 	uvs.push_back(Vector2(48.0f / 64.0f, 20.0f / 32.0f));
 	uvs.push_back(Vector2(48.0f / 64.0f, 1.0f));
 	uvs.push_back(Vector2(52.0f / 64.0f, 1.0f));
 
-	uvs.push_back(Vector2(56.0f / 64.0f, 20.0f / 32.0f)); // Back arm
+	// Back arm
+	uvs.push_back(Vector2(56.0f / 64.0f, 20.0f / 32.0f)); 
 	uvs.push_back(Vector2(52.0f / 64.0f, 20.0f / 32.0f));
 	uvs.push_back(Vector2(52.0f / 64.0f, 1.0f));
 	uvs.push_back(Vector2(56.0f / 64.0f, 1.0f));
 
-	uvs.push_back(Vector2(48.0f / 64.0f, 0.5f)); // Top arm
+	// Top arm
+	uvs.push_back(Vector2(48.0f / 64.0f, 0.5f)); 
 	uvs.push_back(Vector2(44.0f / 64.0f, 0.5f));
 	uvs.push_back(Vector2(44.0f / 64.0f, 20.0f / 32.0f));
 	uvs.push_back(Vector2(48.0f / 64.0f, 20.0f / 32.0f));
 
-	uvs.push_back(Vector2(52.0f / 64.0f, 0.5f)); // Bottom arm
+	// Bottom arm
+	uvs.push_back(Vector2(52.0f / 64.0f, 0.5f)); 
 	uvs.push_back(Vector2(48.0f / 64.0f, 0.5f));
 	uvs.push_back(Vector2(48.0f / 64.0f, 20.0f / 32.0f));
 	uvs.push_back(Vector2(52.0f / 64.0f, 20.0f / 32.0f));
 
+	// Pass UVs
 	m_arms[0].get()->setUVS(uvs);
 	m_arms[1].get()->setUVS(uvs);
 }
@@ -413,36 +490,44 @@ void Human::setupArmUVs()
 void Human::setupLegUVs()
 {
 	std::vector<Vector2> uvs;
-	uvs.push_back(Vector2(4.0f / 64.0f, 20.0f / 32.0f)); // Left leg
+
+	// Left leg
+	uvs.push_back(Vector2(4.0f / 64.0f, 20.0f / 32.0f)); 
 	uvs.push_back(Vector2(0.0f, 20.0f / 32.0f));
 	uvs.push_back(Vector2(0.0f, 1.0f));
 	uvs.push_back(Vector2(4.0f / 64.0f, 1.0f));
 
-	uvs.push_back(Vector2(8.0f / 64.0f, 20.0f / 32.0f)); // Front leg
+	// Front leg
+	uvs.push_back(Vector2(8.0f / 64.0f, 20.0f / 32.0f)); 
 	uvs.push_back(Vector2(4.0f / 64.0f, 20.0f / 32.0f));
 	uvs.push_back(Vector2(4.0f / 64.0f, 1.0f));
 	uvs.push_back(Vector2(8.0f / 64.0f, 1.0f));
 
-	uvs.push_back(Vector2(12.0f / 64.0f, 20.0f / 32.0f)); // Right leg
+	// Right leg
+	uvs.push_back(Vector2(12.0f / 64.0f, 20.0f / 32.0f)); 
 	uvs.push_back(Vector2(8.0f / 64.0f, 20.0f / 32.0f));
 	uvs.push_back(Vector2(8.0f / 64.0f, 1.0f));
 	uvs.push_back(Vector2(12.0f / 64.0f, 1.0f));
 
-	uvs.push_back(Vector2(16.0f / 64.0f, 20.0f / 32.0f)); // Back leg
+	// Back leg
+	uvs.push_back(Vector2(16.0f / 64.0f, 20.0f / 32.0f)); 
 	uvs.push_back(Vector2(12.0f / 64.0f, 20.0f / 32.0f));
 	uvs.push_back(Vector2(12.0f / 64.0f, 1.0f));
 	uvs.push_back(Vector2(16.0f / 64.0f, 1.0f));
 
-	uvs.push_back(Vector2(8.0f / 64.0f, 0.5f)); // Top leg
+	// Top leg
+	uvs.push_back(Vector2(8.0f / 64.0f, 0.5f)); 
 	uvs.push_back(Vector2(4.0f / 64.0f, 0.5f));
 	uvs.push_back(Vector2(4.0f / 64.0f, 20.0f / 32.0f));
 	uvs.push_back(Vector2(8.0f / 64.0f, 20.0f / 32.0f));
 
-	uvs.push_back(Vector2(12.0f / 64.0f, 0.5f)); // Bottom leg
+	// Bottom leg
+	uvs.push_back(Vector2(12.0f / 64.0f, 0.5f)); 
 	uvs.push_back(Vector2(8.0f / 64.0f, 0.5f));
 	uvs.push_back(Vector2(8.0f / 64.0f, 20.0f / 32.0f));
 	uvs.push_back(Vector2(12.0f / 64.0f, 20.0f / 32.0f));
 
+	// Pass UVs
 	m_legs[0].get()->setUVS(uvs);
 	m_legs[1].get()->setUVS(uvs);
 }

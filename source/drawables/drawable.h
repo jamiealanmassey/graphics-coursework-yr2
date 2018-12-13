@@ -7,6 +7,7 @@
 #include "../maths/colour.h"
 #include "../maths/vector2.h"
 #include "../maths/vector3.h"
+#include "../maths/normal.h"
 #include "../texture.h"
 #include "../application.h"
 

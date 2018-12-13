@@ -51,6 +51,11 @@ void Bee::drawBody()
 {
 	// Body Face Left
 	glBegin(GL_POLYGON);
+	Normal( m_vertices[12], 
+			m_vertices[1], 
+			m_vertices[2], 
+			m_vertices[15] ).assign();
+
 	m_vertices[12].assign();
 	m_vertices[1].assign();
 	m_vertices[2].assign();
@@ -59,6 +64,11 @@ void Bee::drawBody()
 
 	// Body Face Top
 	glBegin(GL_POLYGON);
+	Normal( m_vertices[0], 
+			m_vertices[1], 
+			m_vertices[12], 
+			m_vertices[13] ).assign();
+
 	m_vertices[0].assign();
 	m_vertices[1].assign();
 	m_vertices[12].assign();
@@ -67,6 +77,11 @@ void Bee::drawBody()
 
 	// Body Face Right
 	glBegin(GL_POLYGON);
+	Normal( m_vertices[0], 
+			m_vertices[13], 
+			m_vertices[14], 
+			m_vertices[3] ).assign();
+
 	m_vertices[0].assign();
 	m_vertices[13].assign();
 	m_vertices[14].assign();
@@ -75,6 +90,11 @@ void Bee::drawBody()
 
 	// Body Face Bottom
 	glBegin(GL_POLYGON);
+	Normal( m_vertices[14], 
+			m_vertices[15], 
+			m_vertices[2], 
+			m_vertices[3] ).assign();
+
 	m_vertices[14].assign();
 	m_vertices[15].assign();
 	m_vertices[2].assign();
@@ -83,6 +103,11 @@ void Bee::drawBody()
 
 	// Body Back
 	glBegin(GL_POLYGON);
+	Normal( m_vertices[4], 
+			m_vertices[5], 
+			m_vertices[6], 
+			m_vertices[7] ).assign();
+
 	m_vertices[4].assign();
 	m_vertices[5].assign();
 	m_vertices[6].assign();
@@ -91,6 +116,11 @@ void Bee::drawBody()
 
 	// Body Main Left
 	glBegin(GL_POLYGON);
+	Normal( m_vertices[1], 
+			m_vertices[4], 
+			m_vertices[7], 
+			m_vertices[2] ).assign();
+
 	m_vertices[1].assign();
 	m_vertices[4].assign();
 	m_vertices[7].assign();
@@ -99,6 +129,11 @@ void Bee::drawBody()
 
 	// Body Main Top
 	glBegin(GL_POLYGON);
+	Normal( m_vertices[5],
+			m_vertices[4],
+			m_vertices[1],
+			m_vertices[0] ).assign();
+
 	m_vertices[5].assign();
 	m_vertices[4].assign();
 	m_vertices[1].assign();
@@ -107,6 +142,11 @@ void Bee::drawBody()
 
 	// Body Main Right
 	glBegin(GL_POLYGON);
+	Normal( m_vertices[5],
+			m_vertices[0],
+			m_vertices[3],
+			m_vertices[6] ).assign();
+
 	m_vertices[5].assign();
 	m_vertices[0].assign();
 	m_vertices[3].assign();
@@ -115,6 +155,11 @@ void Bee::drawBody()
 
 	// Body Main Bottom
 	glBegin(GL_POLYGON);
+	Normal( m_vertices[3],
+			m_vertices[2],
+			m_vertices[7],
+			m_vertices[6] ).assign();
+
 	m_vertices[3].assign();
 	m_vertices[2].assign();
 	m_vertices[7].assign();
@@ -126,6 +171,11 @@ void Bee::drawHead()
 {
 	// Face Front
 	glBegin(GL_POLYGON);
+	Normal( m_vertices[8],
+			m_vertices[9],
+			m_vertices[10],
+			m_vertices[11] ).assign();
+
 	m_vertices[8].assign();
 	m_vertices[9].assign();
 	m_vertices[10].assign();
@@ -134,6 +184,11 @@ void Bee::drawHead()
 
 	// Face Left
 	glBegin(GL_POLYGON);
+	Normal( m_vertices[9],
+			m_vertices[12],
+			m_vertices[15],
+			m_vertices[10] ).assign();
+
 	m_vertices[9].assign();
 	m_vertices[12].assign();
 	m_vertices[15].assign();
@@ -142,6 +197,11 @@ void Bee::drawHead()
 
 	// Face Top
 	glBegin(GL_POLYGON);
+	Normal( m_vertices[13],
+			m_vertices[12],
+			m_vertices[9],
+			m_vertices[8] ).assign();
+
 	m_vertices[13].assign();
 	m_vertices[12].assign();
 	m_vertices[9].assign();
@@ -150,6 +210,11 @@ void Bee::drawHead()
 
 	// Face Right
 	glBegin(GL_POLYGON);
+	Normal( m_vertices[13],
+			m_vertices[8],
+			m_vertices[11],
+			m_vertices[14] ).assign();
+
 	m_vertices[13].assign();
 	m_vertices[8].assign();
 	m_vertices[11].assign();
@@ -158,6 +223,11 @@ void Bee::drawHead()
 
 	// Face Bottom
 	glBegin(GL_POLYGON);
+	Normal( m_vertices[11],
+			m_vertices[10],
+			m_vertices[15],
+			m_vertices[14] ).assign();
+
 	m_vertices[11].assign();
 	m_vertices[10].assign();
 	m_vertices[15].assign();

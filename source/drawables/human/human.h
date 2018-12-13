@@ -33,6 +33,11 @@ private:
 	void setupLegUVs();
 
 private:
+	const GLfloat* m_humanAmbient;
+	const GLfloat* m_humanDiffuse;
+	const GLfloat* m_humanSpecular;
+
+private:
 	eHumanState			  m_state;		   ///< Finite state machine tracking human's state
 	eHumanState			  m_stateLast;	   ///< Finite state machine denoting the state we were last in
 	GLfloat				  m_currentRot;    ///< Current rotation of the whole human in local space

@@ -38,6 +38,11 @@ void Limb::draw()
 	
 	// Draw front face
 	glBegin(GL_POLYGON);
+	Normal( m_vertices[0], 
+			m_vertices[1], 
+			m_vertices[2], 
+			m_vertices[3] ).assign();
+
 	glTexCoord2f(m_uvs[4].getX(), m_uvs[4].getY());
 	m_vertices[0].assign();
 	glTexCoord2f(m_uvs[5].getX(), m_uvs[5].getY());
@@ -50,6 +55,11 @@ void Limb::draw()
 
 	// Draw back face
 	glBegin(GL_POLYGON);
+	Normal( m_vertices[4], 
+			m_vertices[5], 
+			m_vertices[6], 
+			m_vertices[7] ).assign();
+
 	glTexCoord2f(m_uvs[12].getX(), m_uvs[12].getY());
 	m_vertices[4].assign();
 	glTexCoord2f(m_uvs[13].getX(), m_uvs[13].getY());
@@ -62,6 +72,11 @@ void Limb::draw()
 
 	// Draw top face
 	glBegin(GL_POLYGON);
+	Normal( m_vertices[5], 
+			m_vertices[4], 
+			m_vertices[1], 
+			m_vertices[0] ).assign();
+
 	glTexCoord2f(m_uvs[16].getX(), m_uvs[16].getY());
 	m_vertices[5].assign();
 	glTexCoord2f(m_uvs[17].getX(), m_uvs[17].getY());
@@ -74,6 +89,11 @@ void Limb::draw()
 
 	// Draw bottom face
 	glBegin(GL_POLYGON);
+	Normal( m_vertices[3], 
+			m_vertices[2], 
+			m_vertices[7], 
+			m_vertices[6] ).assign();
+
 	glTexCoord2f(m_uvs[20].getX(), m_uvs[20].getY());
 	m_vertices[3].assign();
 	glTexCoord2f(m_uvs[21].getX(), m_uvs[21].getY());
@@ -86,6 +106,11 @@ void Limb::draw()
 
 	// Draw left side face
 	glBegin(GL_POLYGON);
+	Normal( m_vertices[1], 
+			m_vertices[4], 
+			m_vertices[7], 
+			m_vertices[2] ).assign();
+
 	glTexCoord2f(m_uvs[0].getX(), m_uvs[0].getY());
 	m_vertices[1].assign();
 	glTexCoord2f(m_uvs[1].getX(), m_uvs[1].getY());
@@ -98,6 +123,11 @@ void Limb::draw()
 
 	// Draw right side face
 	glBegin(GL_POLYGON);
+	Normal( m_vertices[5], 
+			m_vertices[0], 
+			m_vertices[3], 
+			m_vertices[6] ).assign();
+
 	glTexCoord2f(m_uvs[8].getX(), m_uvs[8].getY());
 	m_vertices[5].assign();
 	glTexCoord2f(m_uvs[9].getX(), m_uvs[9].getY());

@@ -256,14 +256,14 @@ void Application::updateMouse(GLint button, GLint state, GLint x, GLint y)
 
 void Application::updateScene()
 {
-	m_viewingX = m_keyStates['x'];
-	m_viewingY = m_keyStates['y'];
-	m_viewingZ = m_keyStates['z'];
+	m_viewingX = m_keyStates[GLFW_KEY_X];
+	m_viewingY = m_keyStates[GLFW_KEY_Y];
+	m_viewingZ = m_keyStates[GLFW_KEY_Z];
 	m_viewingAxis = m_viewingX || m_viewingY || m_viewingZ;
-	if (m_keyStates['w'])
+	if (m_keyStates[GLFW_KEY_LEFT])
 		m_viewingAxisDistance += 1.0f * DELTA_TIME_SECONDS;
 
-	if (m_keyStates['s'])
+	if (m_keyStates[GLFW_KEY_RIGHT])
 		m_viewingAxisDistance -= 1.0f * DELTA_TIME_SECONDS;
 
 	m_viewingAxisDistance = max(m_viewingAxisDistance, m_viewingAxisDistanceMin);
