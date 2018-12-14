@@ -300,6 +300,7 @@ void Application::updateCamera()
 
 void Application::renderFrame()
 {
+	glClearColor(0.53f, 0.807f, 0.922f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	if (m_viewingAxis)
 		drawAxisLines();

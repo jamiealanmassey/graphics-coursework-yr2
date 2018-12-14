@@ -33,9 +33,6 @@
     <ClCompile Include="..\source\scenes\basic_scene.cpp">
       <Filter>source\scenes</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\drawables\grass_block.cpp">
-      <Filter>source\drawables</Filter>
-    </ClCompile>
     <ClCompile Include="..\source\drawables\drawable.cpp">
       <Filter>source\drawables</Filter>
     </ClCompile>
@@ -43,9 +40,6 @@
       <Filter>source\scenes</Filter>
     </ClCompile>
     <ClCompile Include="..\source\drawables\water_block.cpp">
-      <Filter>source\drawables</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\drawables\dirt_block.cpp">
       <Filter>source\drawables</Filter>
     </ClCompile>
     <ClCompile Include="..\source\delta_time.cpp">
@@ -107,9 +101,6 @@
     <ClInclude Include="..\source\drawables\drawable.h">
       <Filter>source\drawables</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\drawables\grass_block.h">
-      <Filter>source\drawables</Filter>
-    </ClInclude>
     <ClInclude Include="..\source\scenes\scene_parser.h">
       <Filter>source\scenes</Filter>
     </ClInclude>
@@ -117,9 +108,6 @@
       <Filter>source\drawables</Filter>
     </ClInclude>
     <ClInclude Include="..\source\drawables\water_block.h">
-      <Filter>source\drawables</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\drawables\dirt_block.h">
       <Filter>source\drawables</Filter>
     </ClInclude>
     <ClInclude Include="..\source\delta_time.h">

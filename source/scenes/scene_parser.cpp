@@ -12,11 +12,17 @@ SceneParser::SceneParser(std::string directory, std::string file)
 	m_textures.emplace_back(std::make_shared<Texture>());
 	m_textures.emplace_back(std::make_shared<Texture>());
 	m_textures.emplace_back(std::make_shared<Texture>());
+	m_textures.emplace_back(std::make_shared<Texture>());
+	m_textures.emplace_back(std::make_shared<Texture>());
+	m_textures.emplace_back(std::make_shared<Texture>());
 
 	m_textures[0]->loadTexture("../textures/blocks/grass_side.jpg");
 	m_textures[1]->loadTexture("../textures/blocks/grass_top.jpg");
 	m_textures[2]->loadTexture("../textures/blocks/dirt.jpg");
-	m_textures[3]->loadTexture("../textures/blocks/water.jpg");
+	m_textures[3]->loadTexture("../textures/blocks/water.png");
+	m_textures[4]->loadTexture("../textures/blocks/log_spruce.png");
+	m_textures[5]->loadTexture("../textures/blocks/log_spruce_top.png");
+	m_textures[6]->loadTexture("../textures/blocks/leaves_oak_big.png");
 }
 
 SceneParser::~SceneParser()
@@ -97,13 +103,19 @@ void SceneParser::parsePlane(std::string planeFile)
 				
 				std::array<std::shared_ptr<Texture>, 3> dirt = { m_textures[2], m_textures[2], m_textures[2] };
 				std::array<std::shared_ptr<Texture>, 3> grass = { m_textures[0], m_textures[1], m_textures[2] };
+				std::array<std::shared_ptr<Texture>, 3> trunk = { m_textures[4], m_textures[5], m_textures[5] };
+				std::array<std::shared_ptr<Texture>, 3> leaf = { m_textures[6], m_textures[6], m_textures[6] };
 
 				if (type == BLOCK_DIRT)
 					drawable = std::make_shared<Block>(dirt);
 				else if (type == BLOCK_GRASS)
 					drawable = std::make_shared<Block>(grass);
 				else if (type == BLOCK_WATER)
-					drawable = std::make_shared<WaterBlock>();
+					drawable = std::make_shared<WaterBlock>(m_textures[3]);
+				else if (type == BLOCK_TREE_TRUNK)
+					drawable = std::make_shared<Block>(trunk);
+				else if (type == BLOCK_TREE_LEAF)
+					drawable = std::make_shared<Block>(leaf);
 				else if (type == BLOCK_EMPTY)
 					drawable = std::make_shared<EmptyBlock>();
 
@@ -117,11 +129,11 @@ void SceneParser::parsePlane(std::string planeFile)
 	}
 }
 
-std::vector<std::string> SceneParser::split(const std::string & string)
+std::vector<std::string> SceneParser::split(const std::string& line)
 {
 	std::string token;
 	std::vector<std::string> results;
-	std::stringstream stream(string);
+	std::stringstream stream(line);
 	while (std::getline(stream, token, ','))
 		results.push_back(token);
 

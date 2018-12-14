@@ -16,10 +16,10 @@ void BasicScene::initScene()
 	application.setCameraTarget(0.0f, 0.0f, 0.0f);
 
 	// Setup scene lighting
-	const GLfloat globalAmbient[] = { 0.7f, 0.7f, 0.7f, 1.0f };
+	const GLfloat globalAmbient[] = { 0.3f, 0.3f, 0.3f, 1.0f };
 	const GLfloat diffuse0[] = { 0.6f, 0.6f, 0.6f, 1.0f };
-	const GLfloat ambient0[] = { 0.1f, 0.1f, 0.1f, 1.0f };
-	const GLfloat position0[] = { 0.0f, 10.0f, 5.0f, 1.0f };
+	const GLfloat ambient0[] = { 0.7f, 0.7f, 0.6f, 1.0f };
+	const GLfloat position0[] = { 10.0f, 20.0f, 10.0f, 1.0f };
 
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, globalAmbient);
 	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient0);
@@ -30,6 +30,12 @@ void BasicScene::initScene()
 	glEnable(GL_LIGHT0);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_NORMALIZE);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+#ifdef _WINDOWS_
+	PlaySound("..\\data\\calm.wav", 0, SND_ASYNC | SND_FILENAME | SND_LOOP);
+#endif
 
 	// Create Human custom object
 	m_human = std::make_unique<Human>();

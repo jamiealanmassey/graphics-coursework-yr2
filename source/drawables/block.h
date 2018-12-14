@@ -4,6 +4,8 @@
 #include "drawable.h"
 #include "../maths/normal.h"
 
+#include <array>
+
 class Block : public Drawable
 {
 public:

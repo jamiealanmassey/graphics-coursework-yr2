@@ -32,7 +32,10 @@ void Block::draw()
 
 	// Draw Front Face using the "side texture"
 	m_textureSide->bind();
-	//new Normal(m_vertices)
+	Normal( m_vertices[0], 
+			m_vertices[1], 
+			m_vertices[2], 
+			m_vertices[3] ).assign();
 
 	glBegin(GL_POLYGON);
 	glTexCoord2f(0.0f, 0.0f);
@@ -47,6 +50,11 @@ void Block::draw()
 
 	// Draw the left face using the "side texture"
 	glBegin(GL_POLYGON);
+	Normal( m_vertices[1],
+			m_vertices[5],
+			m_vertices[6],
+			m_vertices[2] ).assign();
+
 	glTexCoord2f(0.0f, 0.0f);
 	m_vertices[1].assign();
 	glTexCoord2f(1.0f, 0.0f);
@@ -59,6 +67,11 @@ void Block::draw()
 
 	// Draw the right face using the "side texture"
 	glBegin(GL_POLYGON);
+	Normal( m_vertices[0],
+			m_vertices[1],
+			m_vertices[2],
+			m_vertices[3] ).assign();
+
 	glTexCoord2f(0.0f, 0.0f);
 	m_vertices[4].assign();
 	glTexCoord2f(1.0f, 0.0f);
@@ -71,6 +84,11 @@ void Block::draw()
 
 	// Draw the back face using the "side texture"
 	glBegin(GL_POLYGON);
+	Normal( m_vertices[5],
+			m_vertices[4],
+			m_vertices[7],
+			m_vertices[6] ).assign();
+
 	glTexCoord2f(0.0f, 0.0f);
 	m_vertices[5].assign();
 	glTexCoord2f(1.0f, 0.0f);
@@ -85,6 +103,11 @@ void Block::draw()
 	m_textureSide->unbind();
 	m_textureTop->bind();
 	glBegin(GL_POLYGON);
+	Normal( m_vertices[0],
+			m_vertices[4],
+			m_vertices[5],
+			m_vertices[1] ).assign();
+
 	glTexCoord2f(0.0f, 0.0f);
 	m_vertices[0].assign();
 	glTexCoord2f(1.0f, 0.0f);
@@ -99,6 +122,11 @@ void Block::draw()
 	m_textureTop->unbind();
 	m_textureBottom->bind();
 	glBegin(GL_POLYGON);
+	Normal( m_vertices[0],
+			m_vertices[1],
+			m_vertices[2],
+			m_vertices[3] ).assign();
+
 	glTexCoord2f(0.0f, 0.0f);
 	m_vertices[3].assign();
 	glTexCoord2f(1.0f, 0.0f);

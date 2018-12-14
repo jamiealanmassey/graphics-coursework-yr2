@@ -27,16 +27,15 @@ public:
 private:
 	void updateAnimation();
 	void updatePath();
-	void jump();
 	void drawTorso();
 	void drawHead();
 	void setupArmUVs();
 	void setupLegUVs();
 
 private:
-	const GLfloat* m_humanAmbient;
-	const GLfloat* m_humanDiffuse;
-	const GLfloat* m_humanSpecular;
+	const GLfloat* m_humanAmbient;  ///< Ambient lighting for human
+	const GLfloat* m_humanDiffuse;  ///< Diffuse lighting for human
+	const GLfloat* m_humanSpecular; ///< Specular lighting for human
 
 private:
 	eHumanState			  m_state;		   ///< Finite state machine tracking human's state

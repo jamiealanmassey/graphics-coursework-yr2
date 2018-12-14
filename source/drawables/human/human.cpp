@@ -11,7 +11,7 @@ Human::Human()
 	m_runningRot = 0.0f;
 	m_runningRotMax = 15.0f;
 	m_runningSpeed = 80.0f;
-	m_pathSpeed = 3.5f;
+	m_pathSpeed = 4.5f;
 	m_armSwayDir = false;
 	m_runningDir = false;
 	m_offsetDir = true;
@@ -109,12 +109,14 @@ void Human::draw()
 
 void Human::update()
 {
+	// Update state of the bee itself being attacked by the human
 	Application& application = Application::instance();
 	if (!m_bee.isAttacked() && application.getKeyStates()[GLFW_KEY_N])
 		m_bee.setAttacked(true);
 	else if (m_bee.isAttacked() && !application.getKeyStates()[GLFW_KEY_N])
 		m_bee.setAttacked(false);
 	
+	// Update state of idling human
 	if (!m_stoppedPress && application.getKeyStates()[GLFW_KEY_M])
 	{
 		m_stoppedPress = true;
@@ -126,12 +128,15 @@ void Human::update()
 	else if (m_stoppedPress && !application.getKeyStates()[GLFW_KEY_M])
 		m_stoppedPress = false;
 	
+	// Update camera + animation
 	application.setCameraTarget(getTranslation());
 	updateAnimation();
 	
+	// If we are running move to next part of path
 	if (m_state == eHumanState::RUNNING)
 		updatePath();
 
+	// Call down to Bee::update()
 	m_bee.update();
 }
 
@@ -238,19 +243,6 @@ void Human::updatePath()
 		m_rotation = 90.0f;
 	else if (m_pathNext == 3)
 		m_rotation = 180.0f;
-}
-
-void Human::jump()
-{
-	m_offsetInitial = m_translation;
-	m_offsetLimit = m_translation + Vector3(0.0f, 0.5f, 0.0f);
-	m_offset += Vector3(0.0f, 0.1f * DELTA_TIME_SECONDS, 0.0f);
-	m_arms[0]->setRotation(90.0f, Vector3(1.0f, 0.0f, 0.0f));
-	m_arms[1]->setRotation(90.0f, Vector3(1.0f, 0.0f, 0.0f));
-	m_legs[0]->setRotation(-20.0f, Vector3(1.0f, 0.0f, 0.0f));
-	m_legs[1]->setRotation( 20.0f, Vector3(1.0f, 0.0f, 0.0f));
-	setTranslation(m_offsetInitial + m_offset);
-	setState(eHumanState::JUMPING);
 }
 
 void Human::drawTorso()
