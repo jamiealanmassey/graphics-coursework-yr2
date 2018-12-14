@@ -34,26 +34,26 @@ void BasicScene::initScene()
 	// Create Human custom object
 	m_human = std::make_unique<Human>();
 	m_human->initialise();
-	m_human->setTranslation(Vector3(6.0f, 4.0f, 6.0f));
+	m_human->setTranslation(Vector3(5.0f, 3.5f, 5.0f));
 	m_human->setScale(Vector3(0.5f, 0.5f, 0.5f));
 
-	/*m_sceneParser = std::make_unique<SceneParser>("../data/", "world.chunk.dat");
+	m_sceneParser = std::make_unique<SceneParser>("../data/", "world.chunk.dat");
 	m_sceneParser.get()->parse();
 
 	for (const auto& drawable : m_sceneParser.get()->getDrawables())
-		drawable->initialise();*/
+		drawable->initialise();
 }
 
 void BasicScene::renderScene() 
 {
 	m_human.get()->draw();
-	/*for (auto drawable : m_sceneParser.get()->getDrawables())
-		drawable->draw();*/
+	for (auto drawable : m_sceneParser.get()->getDrawables())
+		drawable->draw();
 }
 
 void BasicScene::updateScene()
 {
 	m_human.get()->update();
-	/*for (auto drawable : m_sceneParser.get()->getDrawables())
-		drawable->update();*/
+	for (auto drawable : m_sceneParser.get()->getDrawables())
+		drawable->update();
 }

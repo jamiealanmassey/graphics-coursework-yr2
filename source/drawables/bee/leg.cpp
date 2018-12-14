@@ -41,9 +41,13 @@ void Leg::draw()
 			m_vertices[2], 
 			m_vertices[3] ).assign();
 
+	glTexCoord2f(m_uvs[4].getX(), m_uvs[4].getY());
 	m_vertices[0].assign();
+	glTexCoord2f(m_uvs[5].getX(), m_uvs[5].getY());
 	m_vertices[1].assign();
+	glTexCoord2f(m_uvs[6].getX(), m_uvs[6].getY());
 	m_vertices[2].assign();
+	glTexCoord2f(m_uvs[7].getX(), m_uvs[7].getY());
 	m_vertices[3].assign();
 	glEnd();
 
@@ -54,9 +58,13 @@ void Leg::draw()
 			m_vertices[5],
 			m_vertices[6] ).assign();
 
+	glTexCoord2f(m_uvs[0].getX(), m_uvs[0].getY());
 	m_vertices[2].assign();
+	glTexCoord2f(m_uvs[1].getX(), m_uvs[1].getY());
 	m_vertices[1].assign();
+	glTexCoord2f(m_uvs[2].getX(), m_uvs[2].getY());
 	m_vertices[5].assign();
+	glTexCoord2f(m_uvs[3].getX(), m_uvs[3].getY());
 	m_vertices[6].assign();
 	glEnd();
 
@@ -67,9 +75,13 @@ void Leg::draw()
 			m_vertices[4],
 			m_vertices[5] ).assign();
 
+	glTexCoord2f(m_uvs[0].getX(), m_uvs[0].getY());
 	m_vertices[1].assign();
+	glTexCoord2f(m_uvs[1].getX(), m_uvs[1].getY());
 	m_vertices[0].assign();
+	glTexCoord2f(m_uvs[2].getX(), m_uvs[2].getY());
 	m_vertices[4].assign();
+	glTexCoord2f(m_uvs[3].getX(), m_uvs[3].getY());
 	m_vertices[5].assign();
 	glEnd();
 
@@ -80,9 +92,13 @@ void Leg::draw()
 			m_vertices[7],
 			m_vertices[4] ).assign();
 
+	glTexCoord2f(m_uvs[0].getX(), m_uvs[0].getY());
 	m_vertices[0].assign();
+	glTexCoord2f(m_uvs[1].getX(), m_uvs[1].getY());
 	m_vertices[3].assign();
+	glTexCoord2f(m_uvs[2].getX(), m_uvs[2].getY());
 	m_vertices[7].assign();
+	glTexCoord2f(m_uvs[3].getX(), m_uvs[3].getY());
 	m_vertices[4].assign();
 	glEnd();
 
@@ -93,9 +109,13 @@ void Leg::draw()
 			m_vertices[6],
 			m_vertices[7] ).assign();
 
+	glTexCoord2f(m_uvs[0].getX(), m_uvs[0].getY());
 	m_vertices[3].assign();
+	glTexCoord2f(m_uvs[1].getX(), m_uvs[1].getY());
 	m_vertices[2].assign();
+	glTexCoord2f(m_uvs[2].getX(), m_uvs[2].getY());
 	m_vertices[6].assign();
+	glTexCoord2f(m_uvs[3].getX(), m_uvs[3].getY());
 	m_vertices[7].assign();
 	glEnd();
 
@@ -106,9 +126,13 @@ void Leg::draw()
 			m_vertices[10],
 			m_vertices[9] ).assign();
 
+	glTexCoord2f(m_uvs[0].getX(), m_uvs[0].getY());
 	m_vertices[6].assign();
+	glTexCoord2f(m_uvs[1].getX(), m_uvs[1].getY());
 	m_vertices[5].assign();
+	glTexCoord2f(m_uvs[2].getX(), m_uvs[2].getY());
 	m_vertices[10].assign();
+	glTexCoord2f(m_uvs[3].getX(), m_uvs[3].getY());
 	m_vertices[9].assign();
 	glEnd();
 
@@ -119,9 +143,13 @@ void Leg::draw()
 			m_vertices[11],
 			m_vertices[10] ).assign();
 
+	glTexCoord2f(m_uvs[0].getX(), m_uvs[0].getY());
 	m_vertices[5].assign();
+	glTexCoord2f(m_uvs[1].getX(), m_uvs[1].getY());
 	m_vertices[4].assign();
+	glTexCoord2f(m_uvs[2].getX(), m_uvs[2].getY());
 	m_vertices[11].assign();
+	glTexCoord2f(m_uvs[3].getX(), m_uvs[3].getY());
 	m_vertices[10].assign();
 	glEnd();
 
@@ -132,9 +160,13 @@ void Leg::draw()
 			m_vertices[8],
 			m_vertices[11] ).assign();
 
+	glTexCoord2f(m_uvs[0].getX(), m_uvs[0].getY());
 	m_vertices[4].assign();
+	glTexCoord2f(m_uvs[1].getX(), m_uvs[1].getY());
 	m_vertices[7].assign();
+	glTexCoord2f(m_uvs[2].getX(), m_uvs[2].getY());
 	m_vertices[8].assign();
+	glTexCoord2f(m_uvs[3].getX(), m_uvs[3].getY());
 	m_vertices[11].assign();
 	glEnd();
 
@@ -145,9 +177,13 @@ void Leg::draw()
 			m_vertices[9],
 			m_vertices[8] ).assign();
 
+	glTexCoord2f(m_uvs[0].getX(), m_uvs[0].getY());
 	m_vertices[7].assign();
+	glTexCoord2f(m_uvs[1].getX(), m_uvs[1].getY());
 	m_vertices[6].assign();
+	glTexCoord2f(m_uvs[2].getX(), m_uvs[2].getY());
 	m_vertices[9].assign();
+	glTexCoord2f(m_uvs[3].getX(), m_uvs[3].getY());
 	m_vertices[8].assign();
 	glEnd();
 
@@ -158,9 +194,13 @@ void Leg::draw()
 			m_vertices[10],
 			m_vertices[11] ).assign();
 
+	glTexCoord2f(m_uvs[4].getX(), m_uvs[4].getY());
 	m_vertices[8].assign();
+	glTexCoord2f(m_uvs[5].getX(), m_uvs[5].getY());
 	m_vertices[9].assign();
+	glTexCoord2f(m_uvs[6].getX(), m_uvs[6].getY());
 	m_vertices[10].assign();
+	glTexCoord2f(m_uvs[7].getX(), m_uvs[7].getY());
 	m_vertices[11].assign();
 	glEnd();
 

@@ -11,9 +11,11 @@ Human::Human()
 	m_runningRot = 0.0f;
 	m_runningRotMax = 15.0f;
 	m_runningSpeed = 80.0f;
+	m_pathSpeed = 3.5f;
 	m_armSwayDir = false;
 	m_runningDir = false;
 	m_offsetDir = true;
+	m_stoppedPress = false;
 	m_offset = Vector3();
 	m_offsetLimit = Vector3();
 }
@@ -31,12 +33,13 @@ void Human::initialise()
 	m_textures.emplace_back(std::make_unique<Texture>());
 	m_textures[0].get()->loadTexture("../textures/steve-player.png");
 
+	m_armPosition = Vector3(0.65, 0.0f, 0.0f);
 	m_arms[0] = std::make_unique<Limb>(0.4f, 1.3f, 0.4f);
 	m_arms[1] = std::make_unique<Limb>(0.4f, 1.3f, 0.4f);
 	m_arms[0].get()->initialise();
 	m_arms[1].get()->initialise();
-	m_arms[0]->setTranslation(Vector3(-0.65f, 0.0f, 0.0f));
-	m_arms[1]->setTranslation(Vector3( 0.65f, 0.0f, 0.0f));
+	m_arms[0]->setTranslation(Vector3(-m_armPosition.getX(), m_armPosition.getY(), m_armPosition.getZ()));
+	m_arms[1]->setTranslation(Vector3( m_armPosition.getY(), m_armPosition.getY(), m_armPosition.getZ()));
 
 	m_legs[0] = std::make_unique<Limb>(0.45f, 1.3f, 0.45f);
 	m_legs[1] = std::make_unique<Limb>(0.45f, 1.3f, 0.45f);
@@ -62,11 +65,22 @@ void Human::initialise()
 	m_vertices.push_back(Vertex( 0.45f,  0.45f, -0.45f)); // m_vertices[13]
 	m_vertices.push_back(Vertex( 0.45f, -0.45f, -0.45f)); // m_vertices[14]
 	m_vertices.push_back(Vertex(-0.45f, -0.45f, -0.45f)); // m_vertices[15]
+	
+	m_pathNext = 0;
+	m_path = new Vector3[4] {
+		Vector3( 5.0f, 3.5f,  5.0f),
+		Vector3( 5.0f, 3.5f, 12.0f),
+		Vector3(12.0f, 3.5f, 12.0f),
+		Vector3(12.0f, 3.5f,  5.0f)
+	};
 
 	m_bee.initialise();
+	m_bee.setScale(0.4f);
+	m_bee.setTranslation(Vector3(-1.0f, 0.8f, -1.5f));
 
 	setupArmUVs();
 	setupLegUVs();
+	setState(eHumanState::RUNNING);
 }
 
 void Human::draw()
@@ -79,7 +93,7 @@ void Human::draw()
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, m_humanDiffuse);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, m_humanSpecular);
 
-	/*m_textures[0]->bind();
+	m_textures[0]->bind();
 	glColor3f(1.0f, 1.0f, 1.0f);
 	m_arms[0].get()->draw();
 	m_arms[1].get()->draw();
@@ -88,7 +102,7 @@ void Human::draw()
 	this->drawTorso();
 	glTranslatef(0.0f, 1.1f, 0.0f);
 	this->drawHead();
-	m_textures[0]->unbind();*/
+	m_textures[0]->unbind();
 	m_bee.draw();
 	glPopMatrix();
 }
@@ -96,48 +110,17 @@ void Human::draw()
 void Human::update()
 {
 	Application& application = Application::instance();
-
-	if (application.getKeyStates()[GLFW_KEY_UP]) 
-	{
-		m_currentRot += 100.0f * DELTA_TIME_SECONDS;
-		if (m_currentRot >= 360.0f)
-			m_currentRot = 0.0f;
-	}
-	else if (application.getKeyStates()[GLFW_KEY_DOWN]) 
-	{
-		m_currentRot -= 100.0f * DELTA_TIME_SECONDS;
-		if (m_currentRot <= 0.0f)
-			m_currentRot = 360.0f;
-	}
-
-	Vector3 acceleration;
-	if (application.getKeyStates()[GLFW_KEY_D])
-		acceleration = Vector3(4.0f * DELTA_TIME_SECONDS, 0.0f, 0.0f);
-	else if (application.getKeyStates()[GLFW_KEY_A])
-		acceleration = Vector3(-4.0f * DELTA_TIME_SECONDS, 0.0f, 0.0f);
+	if (!m_bee.isAttacked() && application.getKeyStates()[GLFW_KEY_N])
+		m_bee.setAttacked(true);
+	else if (m_bee.isAttacked() && !application.getKeyStates()[GLFW_KEY_N])
+		m_bee.setAttacked(false);
 	
-	if (application.getKeyStates()[GLFW_KEY_S])
-		acceleration = Vector3(0.0f, 0.0f, 4.0f * DELTA_TIME_SECONDS);
-	else if (application.getKeyStates()[GLFW_KEY_W])
-		acceleration = Vector3(0.0f, 0.0f, -4.0f * DELTA_TIME_SECONDS);
-	
-	if (application.getKeyStates()[GLFW_KEY_O])
-		acceleration = Vector3(0.0f, 4.0f * DELTA_TIME_SECONDS, 0.0f);
-	else if (application.getKeyStates()[GLFW_KEY_L])
-		acceleration = Vector3(0.0f, -4.0f * DELTA_TIME_SECONDS, 0.0f);
-	
-	/*if (application->getKeyStates()[GLFW_KEY_SPACE] && m_state != eHumanState::JUMPING)
-		jump();*/
 
-	if (!acceleration.isZero() && m_state != eHumanState::RUNNING && m_state != eHumanState::JUMPING)
-		setState(eHumanState::RUNNING);
-	else if (acceleration.isZero() && m_state != eHumanState::IDLE && m_state != eHumanState::JUMPING)
-		setState(eHumanState::IDLE);
-
-	setTranslation(getTranslation() + acceleration);
-	setRotation(m_currentRot, Vector3(1.0f, 0.0f, 0.0f));
 	application.setCameraTarget(getTranslation());
+	updatePath();
 	updateAnimation();
+	
+	m_bee.update();
 }
 
 void Human::setState(eHumanState state)
@@ -155,14 +138,6 @@ void Human::setState(eHumanState state)
 		m_legs[0]->setRotation(0.0f, Vector3(1.0f, 0.0f, 0.0f));
 		m_legs[1]->setRotation(0.0f, Vector3(1.0f, 0.0f, 0.0f));
 	}
-	else if (m_state == eHumanState::JUMPING)
-	{
-		m_offsetDir = true;
-		m_legs[0]->setRotation(0.0f, Vector3(1.0f, 0.0f, 0.0f));
-		m_legs[1]->setRotation(0.0f, Vector3(1.0f, 0.0f, 0.0f));
-		m_arms[0]->setRotation(0.0f, Vector3(1.0f, 0.0f, 0.0f));
-		m_arms[1]->setRotation(0.0f, Vector3(1.0f, 0.0f, 0.0f));
-	}
 
 	m_stateLast = m_state;
 	m_state = state;
@@ -172,20 +147,39 @@ void Human::updateAnimation()
 {
 	GLboolean idle = m_state == eHumanState::IDLE;
 	GLboolean running = m_state == eHumanState::RUNNING;
-	GLboolean jumping = m_state == eHumanState::JUMPING;
 
 	if (idle || running)
 	{
-		if (m_armSwayDir)
-			m_armSwayRot += ((idle * m_armSwaySpeed) + (running * m_runningSpeed)) * DELTA_TIME_SECONDS;
+		if (m_bee.isAttacked())
+		{
+			if (m_armSwayDir)
+				m_armSwayRot += m_runningSpeed * DELTA_TIME_SECONDS;
+			else
+				m_armSwayRot -= m_runningSpeed * DELTA_TIME_SECONDS;
+
+			if (m_armSwayRot >= m_armSwayRotMax || m_armSwayRot <= -m_armSwayRotMax)
+				m_armSwayDir = !m_armSwayDir;
+
+			m_arms[0]->setRotation(-m_armSwayRot + 180.0f, Vector3(1.0f, 0.0f, 0.0f));
+			m_arms[1]->setRotation(m_armSwayRot + 180.0f, Vector3(1.0f, 0.0f, 0.0f));
+			m_arms[0]->setTranslation(Vector3(-m_armPosition.getX(), m_armPosition.getY() - 1.0f, m_armPosition.getZ()));
+			m_arms[1]->setTranslation(Vector3( m_armPosition.getX(), m_armPosition.getY() - 1.0f, m_armPosition.getZ()));
+		}
 		else
-			m_armSwayRot -= ((idle * m_armSwaySpeed) + (running * m_runningSpeed)) * DELTA_TIME_SECONDS;
+		{
+			if (m_armSwayDir)
+				m_armSwayRot += ((idle * m_armSwaySpeed) + (running * m_runningSpeed)) * DELTA_TIME_SECONDS;
+			else
+				m_armSwayRot -= ((idle * m_armSwaySpeed) + (running * m_runningSpeed)) * DELTA_TIME_SECONDS;
 
-		if (m_armSwayRot >= m_armSwayRotMax || m_armSwayRot <= -m_armSwayRotMax)
-			m_armSwayDir = !m_armSwayDir;
+			if (m_armSwayRot >= m_armSwayRotMax || m_armSwayRot <= -m_armSwayRotMax)
+				m_armSwayDir = !m_armSwayDir;
 
-		m_arms[0]->setRotation(-m_armSwayRot, Vector3(1.0f, 0.0f, 0.0f));
-		m_arms[1]->setRotation( m_armSwayRot, Vector3(1.0f, 0.0f, 0.0f));
+			m_arms[0]->setRotation(-m_armSwayRot, Vector3(1.0f, 0.0f, 0.0f));
+			m_arms[1]->setRotation(m_armSwayRot, Vector3(1.0f, 0.0f, 0.0f));
+			m_arms[0]->setTranslation(Vector3(-m_armPosition.getX(), m_armPosition.getY(), m_armPosition.getZ()));
+			m_arms[1]->setTranslation(Vector3(m_armPosition.getX(), m_armPosition.getY(), m_armPosition.getZ()));
+		}
 	}
 	
 	if (running)
@@ -201,22 +195,37 @@ void Human::updateAnimation()
 		m_legs[0]->setRotation(-m_runningRot, Vector3(1.0f, 0.0f, 0.0f));
 		m_legs[1]->setRotation( m_runningRot, Vector3(1.0f, 0.0f, 0.0f));
 	}
+}
 
-	if (jumping)
+void Human::updatePath()
+{
+	float distanceX = m_translation.getX() - m_path[m_pathNext].getX();
+	float distanceZ = m_translation.getZ() - m_path[m_pathNext].getZ();
+
+	if (std::fabsf(distanceX) > 0.2f)
+		m_translation -= Vector3((distanceX < 0.0f ? -m_pathSpeed : m_pathSpeed) * DELTA_TIME_SECONDS, 0.0f, 0.0f);
+
+	if (std::fabsf(distanceZ) > 0.2f)
+		m_translation -= Vector3(0.0f, 0.0f, (distanceZ < 0.0f ? -m_pathSpeed : m_pathSpeed) * DELTA_TIME_SECONDS);
+
+	distanceX = m_translation.getX() - m_path[m_pathNext].getX();
+	distanceZ = m_translation.getZ() - m_path[m_pathNext].getZ();
+
+	if (std::fabsf(distanceX) < 0.2f && std::fabsf(distanceZ) < 0.2f)
 	{
-		if (m_offsetDir)
-			m_offset += Vector3(0.0f, 0.1f * DELTA_TIME_SECONDS, 0.0f);
-		else
-			m_offset -= Vector3(0.0f, 0.1f * DELTA_TIME_SECONDS, 0.0f);
-
-		setTranslation(m_offsetInitial + m_offset);
-
-		if (m_offset.getY() >= m_offsetLimit.getY() && m_offsetDir)
-			m_offsetDir = false;
-
-		if (m_offset.getY() <= 0.0f)
-			setState(m_stateLast);
+		m_pathNext++;
+		if (m_pathNext == 4)
+			m_pathNext = 0;
 	}
+
+	if (m_pathNext == 0)
+		m_rotation = 270.0f;
+	else if (m_pathNext == 1)
+		m_rotation = 0.0f;
+	else if (m_pathNext == 2)
+		m_rotation = 90.0f;
+	else if (m_pathNext == 3)
+		m_rotation = 180.0f;
 }
 
 void Human::jump()
