@@ -87,6 +87,9 @@
     <ClCompile Include="..\source\drawables\bee\leg.cpp">
       <Filter>source\drawables\bee</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\drawables\block.cpp">
+      <Filter>source\drawables</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\application.h">
@@ -157,6 +160,9 @@
     </ClInclude>
     <ClInclude Include="..\source\drawables\bee\leg.h">
       <Filter>source\drawables\bee</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\drawables\block.h">
+      <Filter>source\drawables</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

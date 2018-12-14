@@ -8,6 +8,7 @@
 #include <sstream>
 
 #include "../drawables/drawable.h"
+#include "../drawables/block.h"
 #include "../drawables/grass_block.h"
 #include "../drawables/dirt_block.h"
 #include "../drawables/water_block.h"
@@ -52,6 +53,7 @@ private:
 	std::string							   m_directory;
 	std::string							   m_file;
 	std::vector<std::shared_ptr<Drawable>> m_drawables;
+	std::vector<std::shared_ptr<Texture>>  m_textures;
 };
 
 #endif // _SCENE_PARSER_H

@@ -115,11 +115,23 @@ void Human::update()
 	else if (m_bee.isAttacked() && !application.getKeyStates()[GLFW_KEY_N])
 		m_bee.setAttacked(false);
 	
-
+	if (!m_stoppedPress && application.getKeyStates()[GLFW_KEY_M])
+	{
+		m_stoppedPress = true;
+		if (m_state == eHumanState::RUNNING)
+			setState(eHumanState::IDLE);
+		else if (m_state == eHumanState::IDLE)
+			setState(eHumanState::RUNNING);
+	}
+	else if (m_stoppedPress && !application.getKeyStates()[GLFW_KEY_M])
+		m_stoppedPress = false;
+	
 	application.setCameraTarget(getTranslation());
-	updatePath();
 	updateAnimation();
 	
+	if (m_state == eHumanState::RUNNING)
+		updatePath();
+
 	m_bee.update();
 }
 

@@ -7,6 +7,16 @@ SceneParser::SceneParser(std::string directory, std::string file)
 	m_chunkSizeZ = 0;
 	m_directory = directory;
 	m_file = file;
+
+	m_textures.emplace_back(std::make_shared<Texture>());
+	m_textures.emplace_back(std::make_shared<Texture>());
+	m_textures.emplace_back(std::make_shared<Texture>());
+	m_textures.emplace_back(std::make_shared<Texture>());
+
+	m_textures[0]->loadTexture("../textures/blocks/grass_side.jpg");
+	m_textures[1]->loadTexture("../textures/blocks/grass_top.jpg");
+	m_textures[2]->loadTexture("../textures/blocks/dirt.jpg");
+	m_textures[3]->loadTexture("../textures/blocks/water.jpg");
 }
 
 SceneParser::~SceneParser()
@@ -85,10 +95,13 @@ void SceneParser::parsePlane(std::string planeFile)
 				auto& segment = plane.back();
 				auto type = std::stoi(block);
 				
+				std::array<std::shared_ptr<Texture>, 3> dirt = { m_textures[2], m_textures[2], m_textures[2] };
+				std::array<std::shared_ptr<Texture>, 3> grass = { m_textures[0], m_textures[1], m_textures[2] };
+
 				if (type == BLOCK_DIRT)
-					drawable = std::make_shared<DirtBlock>();
+					drawable = std::make_shared<Block>(dirt);
 				else if (type == BLOCK_GRASS)
-					drawable = std::make_shared<GrassBlock>();
+					drawable = std::make_shared<Block>(grass);
 				else if (type == BLOCK_WATER)
 					drawable = std::make_shared<WaterBlock>();
 				else if (type == BLOCK_EMPTY)
