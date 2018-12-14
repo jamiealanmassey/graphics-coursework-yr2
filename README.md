@@ -3,7 +3,7 @@ This is my project for Computer Graphics. In my solution I have made a scene tha
 
 Some main features of my coursework project include animated textures, plain text files to load levels and basic interaction.
 
-Embarking on this project I decided that an opportunity was presented for me to transition from old C++ to modern C++. Therefore, all the code written by myself in the project is in C++. There are some dependencies in the form of __libraries__ in the project, these include: OpenGL, GLFW, SOIL and winmm (if on windows). For the project to compile successfully you may need to compile and link these libraries yourself, unless using Visual Studio, in which case the project file should be sufficient.
+Embarking on this project I decided that an opportunity was presented for me to transition from old C++ to modern C++. Therefore, all the code written by myself in the project is in C++. There are some dependencies in the form of __libraries__ in the project, these include: OpenGL, GLFW, SOIL and winmm (if on Windows). For the project to compile successfully you may need to compile and link these libraries yourself, unless using Visual Studio, in which case the project file should be sufficient.
 
 NB: Just as in the Java lab this project runs with OpenGL 1.1 as the context target and utilises functions from that version specifically.
 
@@ -19,8 +19,8 @@ All classes have thorough documentation in their header files with minimal comme
 | Press Y | Switch to axis perspective along Y-Axis                    |
 | Press Z | Switch to axis perspective along Z-Axis                    |
 
-## Footnote
+### Footnote
 Please make sure to compile and run the program in 32-bit if compiling from Visual Studio project files as the project is not setup for 64-bit.
 
-## Attribution References
+### Attribution References
 Any resources found and used in the project from 3rd parties can be found in attributions_texture.txt and attributions_misc.txt
