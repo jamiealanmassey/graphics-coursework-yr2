@@ -6,6 +6,13 @@
 
 #include <array>
 
+/**
+ * \brief Defines a generic block in the world scene
+ * \details Can access textures passed from the world parser to draw a block
+ * \version 1.0
+ * \author Jamie Massey
+ * \date 14.12.2018
+ */
 class Block : public Drawable
 {
 public:

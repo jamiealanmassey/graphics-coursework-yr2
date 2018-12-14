@@ -81,7 +81,7 @@ const int SceneParser::getChunkSizeZ() const
 
 const Vector3& SceneParser::getDimensions()
 {
-	return Vector3(m_chunkSizeX, m_chunkSizeY, m_chunkSizeZ);
+	return Vector3((GLfloat)m_chunkSizeX, (GLfloat)m_chunkSizeY, (GLfloat)m_chunkSizeZ);
 }
 
 void SceneParser::parsePlane(std::string planeFile)
@@ -121,7 +121,7 @@ void SceneParser::parsePlane(std::string planeFile)
 
 				m_drawables.emplace_back(drawable);
 				segment.emplace_back(drawable);
-				drawable->setTranslation(Vector3(segment.size(), m_worldChunk.size(), plane.size()));
+				drawable->setTranslation(Vector3((GLfloat)segment.size(), (GLfloat)m_worldChunk.size(), (GLfloat)plane.size()));
 			}
 		}
 

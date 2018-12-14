@@ -33,7 +33,7 @@ void Human::initialise()
 	m_textures.emplace_back(std::make_unique<Texture>());
 	m_textures[0].get()->loadTexture("../textures/steve-player.png");
 
-	m_armPosition = Vector3(0.65, 0.0f, 0.0f);
+	m_armPosition = Vector3(0.65f, 0.0f, 0.0f);
 	m_arms[0] = std::make_unique<Limb>(0.4f, 1.3f, 0.4f);
 	m_arms[1] = std::make_unique<Limb>(0.4f, 1.3f, 0.4f);
 	m_arms[0].get()->initialise();

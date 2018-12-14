@@ -66,16 +66,7 @@
     <ClCompile Include="..\source\maths\normal.cpp">
       <Filter>source\maths</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\drawables\bee\antenna.cpp">
-      <Filter>source\drawables\bee</Filter>
-    </ClCompile>
     <ClCompile Include="..\source\drawables\bee\bee.cpp">
-      <Filter>source\drawables\bee</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\drawables\bee\stinger.cpp">
-      <Filter>source\drawables\bee</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\drawables\bee\wing.cpp">
       <Filter>source\drawables\bee</Filter>
     </ClCompile>
     <ClCompile Include="..\source\drawables\bee\leg.cpp">
@@ -134,16 +125,7 @@
     <ClInclude Include="..\source\maths\normal.h">
       <Filter>source\maths</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\drawables\bee\antenna.h">
-      <Filter>source\drawables\bee</Filter>
-    </ClInclude>
     <ClInclude Include="..\source\drawables\bee\bee.h">
-      <Filter>source\drawables\bee</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\drawables\bee\stinger.h">
-      <Filter>source\drawables\bee</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\drawables\bee\wing.h">
       <Filter>source\drawables\bee</Filter>
     </ClInclude>
     <ClInclude Include="..\source\drawables\bee\leg.h">

@@ -4,6 +4,12 @@
 #include "../drawable.h"
 #include "Leg.h"
 
+/**
+ * \brief Describes a complex bee object with animation
+ * \version 1.0
+ * \author Jamie Massey
+ * \date 13.12.2018
+ */
 class Bee : public Drawable
 {
 public:

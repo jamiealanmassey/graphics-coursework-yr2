@@ -5,31 +5,67 @@
 #include "../bee/bee.h"
 #include "limb.h"
 
+/**
+ * Defines the current state of the human (idling or running) as an
+ * enumerator expression (0 or 1)
+ */
 enum eHumanState
 {
 	IDLE	= 0,
 	RUNNING = 1,
-	JUMPING = 2,
 };
 
+/**
+ * \brief Describes a complex human object with animation
+ * \details This class allows the drawing of a human object in addition to Delta scaled animations, additonal limbs and
+ *          the bee that is flying around them
+ * \version 1.0
+ * \author Jamie Massey
+ * \date 13.12.2018
+ */
 class Human : public Drawable
 {
 public:
+	/** Human Constructor **/
 	Human();
+
+	/** Human Destructor **/
 	~Human();
 
+	/** Overrided initialisation from Drawable::initialise() **/
 	virtual void initialise() override;
+
+	/** Overrided draw from Drawable::draw() **/
 	virtual void draw() override;
+
+	/** Overrided update from Drawable::update() **/
 	virtual void update() override;
 
+	/**
+	 * Set the state of the human determining its interaction with the world and its
+	 * current animation cycle (and resetting some variables based on m_stateLast)
+	 *
+	 * \param state New state of the human
+	 **/
 	void setState(eHumanState state);
 
 private:
+	/** Helper function that updates the animation of the Human and child drawables **/
 	void updateAnimation();
+
+	/** Helper function to follow a defined path when m_state == eHumanState::RUNNING **/
 	void updatePath();
+
+	/** Helper function to draw the torso of the Human called by Human::draw() **/
 	void drawTorso();
+	
+	/** Helper function to draw the head of the Human called by Human::draw() **/
 	void drawHead();
+
+	/** Helper function that passes UV vertices for texture mapping child arms called in Human::initialise() **/
 	void setupArmUVs();
+	
+	/** Helper function that passes UV vertices for texture mapping child legs called in Human::initialise() **/
 	void setupLegUVs();
 
 private:
